@@ -5,14 +5,14 @@
 public class GestorDeMonitor
 {
     Mutex mutex;    
-    RdP rdp;
+    RedDePetri rdp;
     Colas cola;
     Politicas politicas;
     
     boolean k;
-    boolean[] vs;
-    boolean[] vc;
-    boolean[]m;
+    int[] vs;
+    int[] vc;
+    int[] m;
     int electo;
     
     public GestorDeMonitor() 
@@ -20,7 +20,7 @@ public class GestorDeMonitor
         //Se crea el semaforo.
         mutex=new Mutex();    
         //Se crea la red de petri.
-        rdp=new RdP();    
+        rdp=rdp.getRdP();
         //Se crean una cola.
         cola=new Colas();    
         //Se crea un objeto politicas.
@@ -32,14 +32,17 @@ public class GestorDeMonitor
         k = mutex.ACQUIRE(); 
         while (k==true) {
             System.out.println("La entrada al monitor fue " + k);
-            k = rdp.disparar();
+            k = rdp.disparo();
             
             if(k==true){
-                vs = rdp.sensibilizadas();
+                if(rdp.estaSensibilizada()){
+                    vs = rdp.getSensibilizadas().clone();
+                }
                 vc = cola.quienesEstan();
                 m = and(vs, vc);
                 if(algunVerdadero(m)) {
-                    electo = politicas.cual();
+                    electo = politicas.cual(m);
+                    // el electo hay que despertarlo para que corra.
                     mutex.RELEASE();
                 }
                 else{
@@ -53,25 +56,22 @@ public class GestorDeMonitor
         }     
     }
     
-    private boolean[] and(boolean[] x, boolean[] y) 
-    {
-	boolean[] res = new boolean[x.length];
-	
-	for(int i=0;i<x.length;i++) {
-	    res[i] = x[i] && y[i];
-	}
-	
-	return res;
-     }
+    private int[] and(int[] x, int[] y) {
+        int[] res = new int[x.length];
+    
+        for(int i=0;i<x.length;i++) {
+            res[i] = x[i] * y[i];
+        }   
+    
+        return res;
+    }
      
-    private boolean algunVerdadero(boolean[] z) 
-    {
-	for(int i=0;i<z.length;i++) {
-	    if(z[i]==true) {
-	        return true;
-	       }					
-	   }
-	   
-	return false;
+    private boolean algunVerdadero(int[] z){
+        for(int i=0;i<z.length;i++) {
+            if(z[i]==1) {
+                return true;
+            }                  
+        }
+     return false;
     }
 }

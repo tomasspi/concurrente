@@ -23,7 +23,7 @@ public class Politicas
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-    public int cual()
+    public int cual(int[] vector)
     {
         return 1;
     }
