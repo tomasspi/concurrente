@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=GestorDeMonitor
+comment0.text=\r\n\ Clase\ Gestor\ de\ monitor.\r\n
+comment1.params=
+comment1.target=GestorDeMonitor()
+comment2.params=
+comment2.target=void\ dispararTransicion()
+comment3.params=x\ y
+comment3.target=boolean[]\ and(boolean[],\ boolean[])
+comment4.params=z
+comment4.target=boolean\ algunVerdadero(boolean[])
+numComments=5

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Mutex
+comment1.params=
+comment1.target=Mutex()
+comment1.text=\r\n\ Constructor\ del\ semaforo,\ se\ inicializa\ en\ 1\ para\ permitir\ 1\ hilo\ a\ la\ vez,\ y\ con\ justicia\ para\ la\ espera.\r\n
+comment2.params=
+comment2.target=boolean\ ACQUIRE()
+comment3.params=
+comment3.target=void\ RELEASE()
+numComments=4

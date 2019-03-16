@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=RdP
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ RdP\ here.\r\n\ \r\n\ @author\ Sebastian\ Navarro\r\n\ @version\ 2018\r\n
+comment1.params=
+comment1.target=RdP()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ RdP\r\n
+comment2.params=
+comment2.target=boolean\ disparar()
+comment3.params=
+comment3.target=boolean[]\ sensibilizadas()
+numComments=4
