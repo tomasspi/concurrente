@@ -1,5 +1,4 @@
-package cctenavarropinero;
-
+ 
 
 /**
  * Write a description of class Politicas here.

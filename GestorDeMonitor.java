@@ -1,4 +1,4 @@
-package cctenavarropinero;
+ 
 
 /**
  * Clase Gestor de monitor.
