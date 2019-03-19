@@ -62,7 +62,7 @@ public class GestorDeMonitor
         int[] res = new int[x.length];
     
         for(int i=0;i<x.length;i++) {
-            res[i] = x[i] * y[i];
+            res[i] = x[i] & y[i];
         }   
     
         return res;
