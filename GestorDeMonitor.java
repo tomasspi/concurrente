@@ -1,5 +1,3 @@
- 
-
 /**
  * Clase Gestor de monitor.
  */

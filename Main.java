@@ -1,11 +1,9 @@
-
-
-
+import java.util.concurrent.ThreadPoolExecutor;
 /**
- * Write a description of class Main here.
+ * Realiza todas las operaciones. Creación de hilos
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Navarro, Piñero  
+ * @version 18 de marzo de 2019
  */
 public class Main
 {
@@ -15,5 +13,9 @@ public class Main
       GestorDeMonitor gestordemonitor=new GestorDeMonitor();
       System.out.println("Disparando transicion...");
       gestordemonitor.dispararTransicion();
+      
+      //Creo los hilos
+      ThreadPoolExecutor hilos;
+      
     }
 }

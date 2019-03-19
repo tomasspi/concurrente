@@ -1,8 +1,8 @@
- 
-
-
 import java.sql.Timestamp;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
@@ -11,7 +11,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 /**
  * Write a description of class RedDePetri here.
  *
- * @author Sebastian Navarro & Tomas PiÃ±ero
+ * @author Sebastian Navarro & Tomas Piñero
  * @version 2018
  */
 
@@ -20,8 +20,7 @@ public class RedDePetri {
     
     private static RedDePetri RdP;
     private int M, N;
-    private int[][] matrizIncidencia;
-    private RealMatrix matrizPrueba;
+    private RealMatrix matrizIncidencia;
     private int[][] vectorTransicionesTiempo;
     private int[] vectorDeEstado;
     private int[] vectorSensibilizadas;
@@ -30,7 +29,44 @@ public class RedDePetri {
     private boolean ventana, condicion;
     
     private RedDePetri() {
+        /*
+         * Creación de los vectores por medio de un txt.
+         */
+        try{
+            Scanner input = new Scanner(new File("matriz.txt").getAbsoluteFile());
+            ArrayList<ArrayList<Integer>> matriz = new ArrayList<ArrayList<Integer>>();
+            while(input.hasNextLine()) {
+            
+                Scanner columnas = new Scanner(input.nextLine());
+                ArrayList<Integer> columna = new ArrayList<Integer>();
+            
+            while(columnas.hasNextInt()) {
+                columna.add(columnas.nextInt());
+            }               
+            matriz.add(columna);
+            columnas.close();
+        }
+            
+        M = matriz.size();
+        N = matriz.get(0).size();
         
+        //Seteo la matriz de incidencia.
+        matrizIncidencia = new Array2DRowRealMatrix(M,N);
+        
+        System.out.println("La Matriz de incidencia es: \n");
+        
+        for(int i = 0; i < M; i++){
+            for(int j = 0; j < N; j++){
+                matrizIncidencia.setEntry(i,j, matriz.get(i).get(j));
+                System.out.print(matrizIncidencia.getEntry(i, j) + " ");
+            }
+            System.out.println();
+        }
+        
+            input.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
     
     public static RedDePetri getRdP() {
@@ -69,13 +105,13 @@ public class RedDePetri {
         return true;
     }
 
-    public void setMatrizIncidencia(ArrayList<ArrayList<Integer>> matriz) {
+    /*public void setMatrizIncidencia(ArrayList<ArrayList<Integer>> matriz) {
         
         /*
          * Aca cargo la matriz de incidencia menos las ultimas 3 columnas, que corresponden
          * a las transiciones con tiempo y al marcado inicial.
          * ~Tom
-         */
+         
         
         M = matriz.size();
         N = matriz.get(0).size();
@@ -91,25 +127,7 @@ public class RedDePetri {
             }
             System.out.println();
         }
-    }
-    
-    public void setMatrizPrueba(ArrayList<ArrayList<Integer>> matriz) {
-        
-        M = matriz.size();
-        N = matriz.get(0).size();
-        
-        matrizPrueba = new Array2DRowRealMatrix(M,N);
-        
-        System.out.println("La Matriz de Incidencia es:\n");
-        
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N-3; j++) {
-                matrizPrueba.setEntry(i, j, matriz.get(i).get(j));
-                System.out.print(matrizPrueba.getEntry(i, j) + " ");
-            }
-            System.out.println();
-        }
-    }
+    }*/
 
     public int[][] setVectorTransicionesTiempo(ArrayList<ArrayList<Integer>> matriz) {
         

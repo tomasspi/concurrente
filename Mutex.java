@@ -1,13 +1,10 @@
-
-
-
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class Mutex
 {
     /**
-  * Semaforo para controlar la exclusion mutua.
+     * Semaforo para controlar la exclusion mutua.
      */
     private final Semaphore semaphore;
     
