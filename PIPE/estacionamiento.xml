@@ -421,6 +421,46 @@
 <value>0</value>
 </capacity>
 </place>
+<place id="P28: cartelEncendido">
+<graphics>
+<position x="1373.5714285714291" y="975.0000000000002"/>
+</graphics>
+<name>
+<value>P28: cartelEncendido</value>
+<graphics>
+<offset x="71.42857142857144" y="-4.285714285714285"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="P29: cartelApagado">
+<graphics>
+<position x="1245.0000000000002" y="979.2857142857143"/>
+</graphics>
+<name>
+<value>P29: cartelApagado</value>
+<graphics>
+<offset x="64.28571428571428" y="40.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
 <place id="P3: autosEsperandoIngresar1">
 <graphics>
 <position x="353.57142857142856" y="156.42857142857144"/>
@@ -925,6 +965,58 @@
 <value>1</value>
 </priority>
 </transition>
+<transition id="T21">
+<graphics>
+<position x="1369.285714285715" y="910.714285714286"/>
+</graphics>
+<name>
+<value>T21</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>270</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="T22">
+<graphics>
+<position x="1371.4285714285725" y="1039.2857142857144"/>
+</graphics>
+<name>
+<value>T22</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>270</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>127</value>
+</priority>
+</transition>
 <transition id="T3: sacarTikect1">
 <graphics>
 <position x="488.5714285714285" y="156.42857142857144"/>
@@ -1130,7 +1222,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="647" y="572" curvePoint="false"/>
+<arcpath id="000" x="648" y="571" curvePoint="false"/>
 <arcpath id="001" x="807" y="571" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1183,7 +1275,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1434" y="204" curvePoint="false"/>
+<arcpath id="000" x="1434" y="199" curvePoint="false"/>
 <arcpath id="001" x="1504" y="201" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1254,7 +1346,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1448" y="547" curvePoint="false"/>
+<arcpath id="000" x="1449" y="545" curvePoint="false"/>
 <arcpath id="001" x="1564" y="545" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1281,8 +1373,36 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1658" y="202" curvePoint="false"/>
+<arcpath id="000" x="1659" y="199" curvePoint="false"/>
 <arcpath id="001" x="1788" y="201" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P19: lugaresDisponiblesArriba to T21" source="P19: lugaresDisponiblesArriba" target="T21">
+<graphics/>
+<inscription>
+<value/>
+<graphics/>
+</inscription>
+<tagged>
+<value/>
+</tagged>
+<arcpath id="000" x="1418" y="140" curvePoint="false"/>
+<arcpath id="001" x="1374" y="914" curvePoint="false"/>
+<type value="inhibitor"/>
+</arc>
+<arc id="P19: lugaresDisponiblesArriba to T22" source="P19: lugaresDisponiblesArriba" target="T22">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1421" y="140" curvePoint="false"/>
+<arcpath id="001" x="1559" y="959" curvePoint="false"/>
+<arcpath id="002" x="1409" y="1024" curvePoint="false"/>
+<arcpath id="003" x="1385" y="1044" curvePoint="false"/>
 <type value="normal"/>
 </arc>
 <arc id="P19 to T14" source="P22: clientePagandoAbajo" target="T16: pagarTicketAbajo">
@@ -1294,7 +1414,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1718" y="547" curvePoint="false"/>
+<arcpath id="000" x="1719" y="545" curvePoint="false"/>
 <arcpath id="001" x="1834" y="545" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1307,8 +1427,35 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="377" y="168" curvePoint="false"/>
+<arcpath id="000" x="378" y="165" curvePoint="false"/>
 <arcpath id="001" x="492" y="167" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P20: lugaresDisponiblesAbajo to T21" source="P20: lugaresDisponiblesAbajo" target="T21">
+<graphics/>
+<inscription>
+<value/>
+<graphics/>
+</inscription>
+<tagged>
+<value/>
+</tagged>
+<arcpath id="000" x="1417" y="634" curvePoint="false"/>
+<arcpath id="001" x="1384" y="915" curvePoint="false"/>
+<type value="inhibitor"/>
+</arc>
+<arc id="P20: lugaresDisponiblesAbajo to T22" source="P20: lugaresDisponiblesAbajo" target="T22">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1424" y="634" curvePoint="false"/>
+<arcpath id="001" x="1559" y="1045" curvePoint="false"/>
+<arcpath id="002" x="1395" y="1048" curvePoint="false"/>
 <type value="normal"/>
 </arc>
 <arc id="P20 to T11" source="P23: cajero" target="T13: aguardarSalidaArriba">
@@ -1320,7 +1467,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1575" y="337" curvePoint="false"/>
+<arcpath id="000" x="1577" y="337" curvePoint="false"/>
 <arcpath id="001" x="1509" y="215" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1346,7 +1493,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1944" y="204" curvePoint="false"/>
+<arcpath id="000" x="1944" y="199" curvePoint="false"/>
 <arcpath id="001" x="2014" y="201" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1359,7 +1506,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1928" y="550" curvePoint="false"/>
+<arcpath id="000" x="1929" y="545" curvePoint="false"/>
 <arcpath id="001" x="1984" y="545" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1479,6 +1626,19 @@
 <arcpath id="002" x="2155" y="439" curvePoint="false"/>
 <type value="normal"/>
 </arc>
+<arc id="P28: cartelEncendido to T22" source="P28: cartelEncendido" target="T22">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1381" y="998" curvePoint="false"/>
+<arcpath id="001" x="1375" y="1042" curvePoint="false"/>
+<type value="normal"/>
+</arc>
 <arc id="P28 to T19" source="P14: autoArriba" target="T11: buscarLugarArriba">
 <graphics/>
 <inscription>
@@ -1488,8 +1648,22 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1194" y="202" curvePoint="false"/>
+<arcpath id="000" x="1194" y="199" curvePoint="false"/>
 <arcpath id="001" x="1308" y="201" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P29: cartelApagado to T21" source="P29: cartelApagado" target="T21">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1252" y="974" curvePoint="false"/>
+<arcpath id="001" x="1251" y="901" curvePoint="false"/>
+<arcpath id="002" x="1364" y="918" curvePoint="false"/>
 <type value="normal"/>
 </arc>
 <arc id="P29 to T20" source="P15: autoAbajo" target="T12: buscarLugarAbajo">
@@ -1501,7 +1675,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1208" y="547" curvePoint="false"/>
+<arcpath id="000" x="1209" y="545" curvePoint="false"/>
 <arcpath id="001" x="1308" y="545" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1514,8 +1688,8 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="939" y="134" curvePoint="false"/>
-<arcpath id="001" x="807" y="84" curvePoint="false"/>
+<arcpath id="000" x="939" y="138" curvePoint="false"/>
+<arcpath id="001" x="807" y="127" curvePoint="false"/>
 <arcpath id="002" x="798" y="151" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1558,7 +1732,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="392" y="362" curvePoint="false"/>
+<arcpath id="000" x="392" y="359" curvePoint="false"/>
 <arcpath id="001" x="508" y="359" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1571,7 +1745,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="392" y="572" curvePoint="false"/>
+<arcpath id="000" x="392" y="571" curvePoint="false"/>
 <arcpath id="001" x="492" y="571" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1598,7 +1772,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="647" y="362" curvePoint="false"/>
+<arcpath id="000" x="648" y="361" curvePoint="false"/>
 <arcpath id="001" x="807" y="361" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1611,7 +1785,7 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="632" y="167" curvePoint="false"/>
+<arcpath id="000" x="632" y="165" curvePoint="false"/>
 <arcpath id="001" x="792" y="167" curvePoint="false"/>
 <type value="normal"/>
 </arc>
@@ -1862,8 +2036,8 @@
 <tagged>
 <value>false</value>
 </tagged>
-<arcpath id="000" x="1994" y="545" curvePoint="false"/>
-<arcpath id="001" x="2072" y="392" curvePoint="false"/>
+<arcpath id="000" x="1989" y="530" curvePoint="false"/>
+<arcpath id="001" x="2071" y="392" curvePoint="false"/>
 <type value="normal"/>
 </arc>
 <arc id="T19 to P14" source="T11: buscarLugarArriba" target="P17: autoEstacionadoArriba">
@@ -1933,6 +2107,34 @@
 </tagged>
 <arcpath id="000" x="1318" y="545" curvePoint="false"/>
 <arcpath id="001" x="1419" y="544" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T21 to P28: cartelEncendido" source="T21" target="P28: cartelEncendido">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1379" y="925" curvePoint="false"/>
+<arcpath id="001" x="1381" y="969" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T22 to P29: cartelApagado" source="T22" target="P29: cartelApagado">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1381" y="1054" curvePoint="false"/>
+<arcpath id="001" x="1377" y="1095" curvePoint="false"/>
+<arcpath id="002" x="1258" y="1088" curvePoint="false"/>
+<arcpath id="003" x="1254" y="1002" curvePoint="false"/>
 <type value="normal"/>
 </arc>
 <arc id="T2 to P5" source="T2: entrarCalle2" target="P5: autosEsperandoIngresar3">
