@@ -6,4 +6,4 @@ asociar eventos contrasniciones
 hacer estados
 anotar ID para saber si soy yo el que tiene que disparar
 verficiar los invariantes de clases (plazas y transiciones), se ve despues de disparar la transiciones
-
+IMPORTANTE: disparar y-, hacer lo que se tenga que hacer, disparar y+
