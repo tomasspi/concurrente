@@ -1,8 +1,8 @@
 import java.util.concurrent.ThreadPoolExecutor;
 /**
- * Realiza todas las operaciones. Creación de hilos
+ * Realiza todas las operaciones. CreaciÃ³n de hilos
  * 
- * @author Navarro, Piñero  
+ * @author Navarro, Piï¿½ero  
  * @version 18 de marzo de 2019
  */
 public class Main

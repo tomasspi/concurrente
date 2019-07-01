@@ -11,7 +11,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 /**
  * Write a description of class RedDePetri here.
  *
- * @author Sebastian Navarro & Tomas Piñero
+ * @author Sebastian Navarro & Tomas PiÃ±ero
  * @version 2018
  */
 
@@ -30,7 +30,7 @@ public class RedDePetri {
     
     private RedDePetri() {
         /*
-         * Creación de los vectores por medio de un txt.
+         * Creaciï¿½n de los vectores por medio de un txt.
          */
         try{
             Scanner input = new Scanner(new File("matriz.txt").getAbsoluteFile());
