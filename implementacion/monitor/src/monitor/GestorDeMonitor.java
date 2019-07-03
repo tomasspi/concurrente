@@ -6,27 +6,35 @@ package monitor;
 
 public class GestorDeMonitor
 {
-    Mutex mutex;    
-    RedDePetri rdp;
-    Colas cola;
-    Politicas politicas;
+    private static GestorDeMonitor monitor;
+    private Mutex mutex;    
+    private RedDePetri rdp;
+    private Colas cola;
+    private final Politicas politicas;
     
-    boolean k;
-    int[] vs;
-    int[] vc;
-    int[] m;
-    int electo;
+    private boolean k;
+    private int[] vs;
+    private int[] vc;
+    private int[] m;
+    private int electo;
     
-    public GestorDeMonitor() 
+    
+    //Singleton para el monitor.
+    private GestorDeMonitor() 
     {        
         //Se crea el semaforo.
         mutex=new Mutex();    
         //Se crea la red de petri.
-        rdp=rdp.getRdP();
+        rdp=RedDePetri.getRdP();
         //Se crean una cola.
         cola=new Colas();    
         //Se crea un objeto politicas.
-        politicas=new Politicas();
+        politicas=new Politicas(rdp.getTransiciones());
+    }
+    
+    public static GestorDeMonitor getMonitor() {
+        if(monitor == null) monitor = new GestorDeMonitor();
+        return monitor;
     }
    
     public void dispararTransicion() 

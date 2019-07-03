@@ -10,14 +10,13 @@ package monitor;
  */
 public class Politicas
 {
-
-
-    /**
-     * Constructor for objects of class Politicas
-     */
-    public Politicas()
+    private int cantidad;
+    int politica[];
+    
+    public Politicas(int cantidad)
     {
-        // initialise instance variables
+        this.cantidad = cantidad;
+        
     }
 
     /**

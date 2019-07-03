@@ -1,0 +1,2167 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml>
+    <net id="Net-One" type="P/T net">
+        <token id="Default" enabled="true" red="0" green="0" blue="0"/>
+        <place id="P0: limitadorClientesCalle1">
+            <graphics>
+                <position x="360.0" y="60.0"/>
+            </graphics>
+            <name>
+                <value>P0: limitadorClientesCalle1</value>
+                <graphics>
+                    <offset x="89.0" y="-9.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,3</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P1: limitadorClientesCalle2">
+            <graphics>
+                <position x="375.0" y="285.0"/>
+            </graphics>
+            <name>
+                <value>P1: limitadorClientesCalle2</value>
+                <graphics>
+                    <offset x="84.0" y="-9.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,3</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P10: barrera2">
+            <graphics>
+                <position x="630.0" y="405.0"/>
+            </graphics>
+            <name>
+                <value>P10: barrera2</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,1</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P11: barrera3">
+            <graphics>
+                <position x="630.0" y="615.0"/>
+            </graphics>
+            <name>
+                <value>P11: barrera3</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,1</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P12: limitadorDeAutos">
+            <graphics>
+                <position x="945.0" y="135.0"/>
+            </graphics>
+            <name>
+                <value>P12: limitadorDeAutos</value>
+                <graphics>
+                    <offset x="70.0" y="-10.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,3</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P13: pisoAsignado">
+            <graphics>
+                <position x="945.0" y="360.0"/>
+            </graphics>
+            <name>
+                <value>P13: pisoAsignado</value>
+                <graphics>
+                    <offset x="99.25974025974028" y="51.97402597402596"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P14: autoArriba">
+            <graphics>
+                <position x="1170.0" y="195.0"/>
+            </graphics>
+            <name>
+                <value>P14: autoArriba</value>
+                <graphics>
+                    <offset x="54.0" y="44.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P15: autoAbajo">
+            <graphics>
+                <position x="1185.0" y="540.0"/>
+            </graphics>
+            <name>
+                <value>P15: autoAbajo</value>
+                <graphics>
+                    <offset x="61.0" y="-12.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P16: rampas">
+            <graphics>
+                <position x="1215.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>P16: rampas</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,2</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P17: autoEstacionadoArriba">
+            <graphics>
+                <position x="1410.0" y="195.0"/>
+            </graphics>
+            <name>
+                <value>P17: autoEstacionadoArriba</value>
+                <graphics>
+                    <offset x="82.0" y="42.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P18: autoEstacioandoAbajo">
+            <graphics>
+                <position x="1425.0" y="540.0"/>
+            </graphics>
+            <name>
+                <value>P18: autoEstacioandoAbajo</value>
+                <graphics>
+                    <offset x="85.0" y="-13.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P19: lugaresDisponiblesArriba">
+            <graphics>
+                <position x="1410.0" y="120.0"/>
+            </graphics>
+            <name>
+                <value>P19: lugaresDisponiblesArriba</value>
+                <graphics>
+                    <offset x="91.0" y="-14.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,30</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P2: limitadorClientesCalle3">
+            <graphics>
+                <position x="375.0" y="480.0"/>
+            </graphics>
+            <name>
+                <value>P2: limitadorClientesCalle3</value>
+                <graphics>
+                    <offset x="88.0" y="-11.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,3</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P20: lugaresDisponiblesAbajo">
+            <graphics>
+                <position x="1410.0" y="615.0"/>
+            </graphics>
+            <name>
+                <value>P20: lugaresDisponiblesAbajo</value>
+                <graphics>
+                    <offset x="93.0" y="45.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,30</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P21: clientePagandoArriba">
+            <graphics>
+                <position x="1635.0" y="195.0"/>
+            </graphics>
+            <name>
+                <value>P21: clientePagandoArriba</value>
+                <graphics>
+                    <offset x="86.0" y="43.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P22: clientePagandoAbajo">
+            <graphics>
+                <position x="1695.0" y="540.0"/>
+            </graphics>
+            <name>
+                <value>P22: clientePagandoAbajo</value>
+                <graphics>
+                    <offset x="79.0" y="-9.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P23 AutoEnRampa">
+            <graphics>
+                <position x="1890.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>P23 AutoEnRampa</value>
+                <graphics>
+                    <offset x="-13.75" y="22.5"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P24 autoPorPagar">
+            <graphics>
+                <position x="2055.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>P24 autoPorPagar</value>
+                <graphics>
+                    <offset x="34.54545454545455" y="49.999999999999986"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P25">
+            <graphics>
+                <position x="2160.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>P25</value>
+                <graphics>
+                    <offset x="14.545454545454541" y="-9.09090909090909"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P26 cajero">
+            <graphics>
+                <position x="2160.0" y="255.0"/>
+            </graphics>
+            <name>
+                <value>P26 cajero</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,1</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P27 autoPorSalir">
+            <graphics>
+                <position x="2265.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>P27 autoPorSalir</value>
+                <graphics>
+                    <offset x="50.0" y="51.25"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P28: limitadorDePlaya">
+            <graphics>
+                <position x="990.0" y="750.0"/>
+            </graphics>
+            <name>
+                <value>P28: limitadorDePlaya</value>
+                <graphics>
+                    <offset x="79.0" y="46.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,60</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P3: autosEsperandoIngresar1">
+            <graphics>
+                <position x="360.0" y="150.0"/>
+            </graphics>
+            <name>
+                <value>P3: autosEsperandoIngresar1</value>
+                <graphics>
+                    <offset x="93.0" y="-14.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P4: autosEsperandoIngresar2">
+            <graphics>
+                <position x="375.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>P4: autosEsperandoIngresar2</value>
+                <graphics>
+                    <offset x="88.0" y="-18.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P5: autosEsperandoIngresar3">
+            <graphics>
+                <position x="375.0" y="555.0"/>
+            </graphics>
+            <name>
+                <value>P5: autosEsperandoIngresar3</value>
+                <graphics>
+                    <offset x="92.0" y="-11.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P6: autoPasandoBarrera1">
+            <graphics>
+                <position x="615.0" y="150.0"/>
+            </graphics>
+            <name>
+                <value>P6: autoPasandoBarrera1</value>
+                <graphics>
+                    <offset x="85.0" y="-8.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P7: autoPasandoBarrera2">
+            <graphics>
+                <position x="630.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>P7: autoPasandoBarrera2</value>
+                <graphics>
+                    <offset x="78.0" y="-9.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P8: autoPasandoBarrera3">
+            <graphics>
+                <position x="630.0" y="555.0"/>
+            </graphics>
+            <name>
+                <value>P8: autoPasandoBarrera3</value>
+                <graphics>
+                    <offset x="87.0" y="-10.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="P9: barrera1">
+            <graphics>
+                <position x="615.0" y="210.0"/>
+            </graphics>
+            <name>
+                <value>P9: barrera1</value>
+                <graphics>
+                    <offset x="1.0" y="6.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,1</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <transition id="T0: entrarCalle1">
+            <graphics>
+                <position x="255.0" y="150.0"/>
+            </graphics>
+            <name>
+                <value>T0: entrarCalle1</value>
+                <graphics>
+                    <offset x="-5.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T1: entrarCalle2">
+            <graphics>
+                <position x="270.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>T1: entrarCalle2</value>
+                <graphics>
+                    <offset x="7.0" y="20.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T10: bajarPorRampa">
+            <graphics>
+                <position x="1080.0" y="540.0"/>
+            </graphics>
+            <name>
+                <value>T10: bajarPorRampa</value>
+                <graphics>
+                    <offset x="9.285714285714285" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T11: buscarLugarArriba">
+            <graphics>
+                <position x="1305.0" y="195.0"/>
+            </graphics>
+            <name>
+                <value>T11: buscarLugarArriba</value>
+                <graphics>
+                    <offset x="73.0" y="-13.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T12: buscarLugarAbajo">
+            <graphics>
+                <position x="1305.0" y="540.0"/>
+            </graphics>
+            <name>
+                <value>T12: buscarLugarAbajo</value>
+                <graphics>
+                    <offset x="81.0" y="52.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T13: aguardarSalidaArriba">
+            <graphics>
+                <position x="1500.0" y="195.0"/>
+            </graphics>
+            <name>
+                <value>T13: aguardarSalidaArriba</value>
+                <graphics>
+                    <offset x="89.0" y="-12.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>true</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T14: aguardarSalidaAbajo">
+            <graphics>
+                <position x="1560.0" y="540.0"/>
+            </graphics>
+            <name>
+                <value>T14: aguardarSalidaAbajo</value>
+                <graphics>
+                    <offset x="76.0" y="41.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>true</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T15: bajar">
+            <graphics>
+                <position x="1800.0" y="195.0"/>
+            </graphics>
+            <name>
+                <value>T15: bajar</value>
+                <graphics>
+                    <offset x="88.50000000000006" y="-1.7045454545454541"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T16: subir">
+            <graphics>
+                <position x="1815.0" y="540.0"/>
+            </graphics>
+            <name>
+                <value>T16: subir</value>
+                <graphics>
+                    <offset x="86.25000000000004" y="37.72727272727275"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T17: esperarCaja">
+            <graphics>
+                <position x="1980.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>T17: esperarCaja</value>
+                <graphics>
+                    <offset x="56.34090909090922" y="-16.295454545454543"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T18">
+            <graphics>
+                <position x="2115.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>T18</value>
+                <graphics>
+                    <offset x="-5.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>8.0</value>
+            </rate>
+            <timed>
+                <value>true</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T19">
+            <graphics>
+                <position x="2205.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>T19</value>
+                <graphics>
+                    <offset x="27.727272727272734" y="-11.36363636363636"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T2: entrarCalle2">
+            <graphics>
+                <position x="270.0" y="555.0"/>
+            </graphics>
+            <name>
+                <value>T2: entrarCalle2</value>
+                <graphics>
+                    <offset x="6.0" y="21.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T20 salirCalle1">
+            <graphics>
+                <position x="2310.0" y="240.0"/>
+            </graphics>
+            <name>
+                <value>T20 salirCalle1</value>
+                <graphics>
+                    <offset x="-5.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T21 salirCalle2">
+            <graphics>
+                <position x="2295.0" y="450.0"/>
+            </graphics>
+            <name>
+                <value>T21 salirCalle2</value>
+                <graphics>
+                    <offset x="-5.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T3: sacarTikect1">
+            <graphics>
+                <position x="495.0" y="150.0"/>
+            </graphics>
+            <name>
+                <value>T3: sacarTikect1</value>
+                <graphics>
+                    <offset x="2.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T4: sacarTikect2">
+            <graphics>
+                <position x="510.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>T4: sacarTikect2</value>
+                <graphics>
+                    <offset x="0.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>180</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T5: sacarTikect3">
+            <graphics>
+                <position x="495.0" y="555.0"/>
+            </graphics>
+            <name>
+                <value>T5: sacarTikect3</value>
+                <graphics>
+                    <offset x="4.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T6: levantarBarrera1">
+            <graphics>
+                <position x="795.0" y="150.0"/>
+            </graphics>
+            <name>
+                <value>T6: levantarBarrera1</value>
+                <graphics>
+                    <offset x="-5.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T7: levantarBarrera2">
+            <graphics>
+                <position x="810.0" y="345.0"/>
+            </graphics>
+            <name>
+                <value>T7: levantarBarrera2</value>
+                <graphics>
+                    <offset x="-5.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T8: levantarBarrera3">
+            <graphics>
+                <position x="810.0" y="555.0"/>
+            </graphics>
+            <name>
+                <value>T8: levantarBarrera3</value>
+                <graphics>
+                    <offset x="-5.0" y="35.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="T9: subirPorRampa">
+            <graphics>
+                <position x="1080.0" y="195.0"/>
+            </graphics>
+            <name>
+                <value>T9: subirPorRampa</value>
+                <graphics>
+                    <offset x="7.857142857142854" y="10.714285714285715"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <arc id="P10 to T5" source="P11: barrera3" target="T5: sacarTikect3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="627" y="626" curvePoint="false"/>
+            <arcpath id="001" x="506" y="622" curvePoint="false"/>
+            <arcpath id="002" x="507" y="582" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P11 to T8" source="P8: autoPasandoBarrera3" target="T8: levantarBarrera3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="656" y="567" curvePoint="false"/>
+            <arcpath id="001" x="816" y="567" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P12 to T10" source="P13: pisoAsignado" target="T10: bajarPorRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="965" y="384" curvePoint="false"/>
+            <arcpath id="001" x="1086" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P12 to T9" source="P13: pisoAsignado" target="T9: subirPorRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="966" y="360" curvePoint="false"/>
+            <arcpath id="001" x="1086" y="207" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P13 to T9" source="P19: lugaresDisponiblesArriba" target="T9: subirPorRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1407" y="132" curvePoint="false"/>
+            <arcpath id="001" x="1099" y="132" curvePoint="false"/>
+            <arcpath id="002" x="1092" y="192" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P14 to T11" source="P17: autoEstacionadoArriba" target="T13: aguardarSalidaArriba">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1436" y="207" curvePoint="false"/>
+            <arcpath id="001" x="1506" y="207" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P15 to T10" source="P16: rampas" target="T10: bajarPorRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1212" y="361" curvePoint="false"/>
+            <arcpath id="001" x="1099" y="402" curvePoint="false"/>
+            <arcpath id="002" x="1092" y="537" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P15 to T9" source="P16: rampas" target="T9: subirPorRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1212" y="355" curvePoint="false"/>
+            <arcpath id="001" x="1099" y="342" curvePoint="false"/>
+            <arcpath id="002" x="1092" y="222" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P16: rampas to T15: AutoDePA-Bajar" source="P16: rampas" target="T15: bajar">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1241" y="355" curvePoint="false"/>
+            <arcpath id="001" x="1786" y="305" curvePoint="false"/>
+            <arcpath id="002" x="1812" y="222" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P16: rampas to T16: AutodePB-Subir" source="P16: rampas" target="T16: subir">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1241" y="359" curvePoint="false"/>
+            <arcpath id="001" x="1799" y="450" curvePoint="false"/>
+            <arcpath id="002" x="1827" y="537" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P16 to T12" source="P18: autoEstacioandoAbajo" target="T14: aguardarSalidaAbajo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1451" y="552" curvePoint="false"/>
+            <arcpath id="001" x="1566" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P17 to T10" source="P20: lugaresDisponiblesAbajo" target="T10: bajarPorRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1407" y="626" curvePoint="false"/>
+            <arcpath id="001" x="1099" y="626" curvePoint="false"/>
+            <arcpath id="002" x="1092" y="567" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P18 to T13" source="P21: clientePagandoArriba" target="T15: bajar">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1661" y="207" curvePoint="false"/>
+            <arcpath id="001" x="1806" y="207" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P19 to T14" source="P22: clientePagandoAbajo" target="T16: subir">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1721" y="552" curvePoint="false"/>
+            <arcpath id="001" x="1821" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P1 to T3" source="P3: autosEsperandoIngresar1" target="T3: sacarTikect1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="386" y="162" curvePoint="false"/>
+            <arcpath id="001" x="501" y="162" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P23 to T0" source="P28: limitadorDePlaya" target="T0: entrarCalle1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="987" y="759" curvePoint="false"/>
+            <arcpath id="001" x="890" y="740" curvePoint="false"/>
+            <arcpath id="002" x="145" y="736" curvePoint="false"/>
+            <arcpath id="003" x="145" y="172" curvePoint="false"/>
+            <arcpath id="004" x="261" y="162" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P23 to T1" source="P28: limitadorDePlaya" target="T1: entrarCalle2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="987" y="761" curvePoint="false"/>
+            <arcpath id="001" x="235" y="750" curvePoint="false"/>
+            <arcpath id="002" x="235" y="382" curvePoint="false"/>
+            <arcpath id="003" x="276" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P23 to T2" source="P28: limitadorDePlaya" target="T2: entrarCalle2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="989" y="753" curvePoint="false"/>
+            <arcpath id="001" x="890" y="680" curvePoint="false"/>
+            <arcpath id="002" x="265" y="676" curvePoint="false"/>
+            <arcpath id="003" x="282" y="582" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P24 to T0" source="P0: limitadorClientesCalle1" target="T0: entrarCalle1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="357" y="72" curvePoint="false"/>
+            <arcpath id="001" x="261" y="76" curvePoint="false"/>
+            <arcpath id="002" x="267" y="147" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P25 AutoEnRampa to T17: devolverRampa" source="P23 AutoEnRampa" target="T17: esperarCaja">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1916" y="357" curvePoint="false"/>
+            <arcpath id="001" x="1986" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P25 autoPorPagar to T18" source="P24 autoPorPagar" target="T18">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2081" y="357" curvePoint="false"/>
+            <arcpath id="001" x="2121" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P25 to T1" source="P1: limitadorClientesCalle2" target="T1: entrarCalle2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="372" y="298" curvePoint="false"/>
+            <arcpath id="001" x="276" y="305" curvePoint="false"/>
+            <arcpath id="002" x="282" y="342" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P26 to T19" source="P25" target="T19">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2186" y="357" curvePoint="false"/>
+            <arcpath id="001" x="2211" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P26 to T2" source="P2: limitadorClientesCalle3" target="T2: entrarCalle2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="372" y="492" curvePoint="false"/>
+            <arcpath id="001" x="269" y="496" curvePoint="false"/>
+            <arcpath id="002" x="282" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P27 cajero to T18" source="P26 cajero" target="T18">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2158" y="273" curvePoint="false"/>
+            <arcpath id="001" x="2128" y="289" curvePoint="false"/>
+            <arcpath id="002" x="2127" y="342" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P28 autoPorSalir to T20 salirCalle1" source="P27 autoPorSalir" target="T20 salirCalle1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2283" y="343" curvePoint="false"/>
+            <arcpath id="001" x="2322" y="267" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P28 autoPorSalir to T21 salirCalle2" source="P27 autoPorSalir" target="T21 salirCalle2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2281" y="371" curvePoint="false"/>
+            <arcpath id="001" x="2307" y="447" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P28 to T19" source="P14: autoArriba" target="T11: buscarLugarArriba">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1196" y="207" curvePoint="false"/>
+            <arcpath id="001" x="1311" y="207" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P29 to T20" source="P15: autoAbajo" target="T12: buscarLugarAbajo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1211" y="552" curvePoint="false"/>
+            <arcpath id="001" x="1311" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P30 to T6" source="P12: limitadorDeAutos" target="T6: levantarBarrera1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="942" y="144" curvePoint="false"/>
+            <arcpath id="001" x="806" y="126" curvePoint="false"/>
+            <arcpath id="002" x="807" y="147" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P30 to T7" source="P12: limitadorDeAutos" target="T7: levantarBarrera2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="942" y="148" curvePoint="false"/>
+            <arcpath id="001" x="872" y="156" curvePoint="false"/>
+            <arcpath id="002" x="816" y="315" curvePoint="false"/>
+            <arcpath id="003" x="822" y="342" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P30 to T8" source="P12: limitadorDeAutos" target="T8: levantarBarrera3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="942" y="151" curvePoint="false"/>
+            <arcpath id="001" x="880" y="172" curvePoint="false"/>
+            <arcpath id="002" x="816" y="505" curvePoint="false"/>
+            <arcpath id="003" x="822" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P3 to T4" source="P4: autosEsperandoIngresar2" target="T4: sacarTikect2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="401" y="356" curvePoint="false"/>
+            <arcpath id="001" x="517" y="356" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P5 to T5" source="P5: autosEsperandoIngresar3" target="T5: sacarTikect3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="401" y="567" curvePoint="false"/>
+            <arcpath id="001" x="501" y="567" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P6 to T3" source="P9: barrera1" target="T3: sacarTikect1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="612" y="221" curvePoint="false"/>
+            <arcpath id="001" x="496" y="216" curvePoint="false"/>
+            <arcpath id="002" x="507" y="177" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P7: autoPasandoBarrera2 to T7: levantarBarrera2" source="P7: autoPasandoBarrera2" target="T7: levantarBarrera2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="656" y="357" curvePoint="false"/>
+            <arcpath id="001" x="816" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P7 to T6" source="P6: autoPasandoBarrera1" target="T6: levantarBarrera1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="641" y="162" curvePoint="false"/>
+            <arcpath id="001" x="801" y="162" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="P8 to T4" source="P10: barrera2" target="T4: sacarTikect2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="627" y="416" curvePoint="false"/>
+            <arcpath id="001" x="512" y="412" curvePoint="false"/>
+            <arcpath id="002" x="521" y="371" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T0 to P1" source="T0: entrarCalle1" target="P3: autosEsperandoIngresar1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="271" y="162" curvePoint="false"/>
+            <arcpath id="001" x="357" y="162" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T10 to P29" source="T10: bajarPorRampa" target="P15: autoAbajo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1096" y="552" curvePoint="false"/>
+            <arcpath id="001" x="1182" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T10 to P30" source="T10: bajarPorRampa" target="P12: limitadorDeAutos">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1092" y="537" curvePoint="false"/>
+            <arcpath id="001" x="1076" y="356" curvePoint="false"/>
+            <arcpath id="002" x="964" y="160" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T11 to P18" source="T13: aguardarSalidaArriba" target="P21: clientePagandoArriba">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1516" y="207" curvePoint="false"/>
+            <arcpath id="001" x="1632" y="207" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T12 to P19" source="T14: aguardarSalidaAbajo" target="P22: clientePagandoAbajo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1576" y="552" curvePoint="false"/>
+            <arcpath id="001" x="1692" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T13 to P13" source="T15: bajar" target="P19: lugaresDisponiblesArriba">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1812" y="192" curvePoint="false"/>
+            <arcpath id="001" x="1786" y="131" curvePoint="false"/>
+            <arcpath id="002" x="1437" y="131" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T14 to P17" source="T16: subir" target="P20: lugaresDisponiblesAbajo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1827" y="567" curvePoint="false"/>
+            <arcpath id="001" x="1802" y="626" curvePoint="false"/>
+            <arcpath id="002" x="1437" y="626" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T15: AutoDePA-Bajar to P25 AutoEnRampa" source="T15: bajar" target="P23 AutoEnRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1816" y="207" curvePoint="false"/>
+            <arcpath id="001" x="1894" y="343" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T16: AutodePB-Subir to P25 AutoEnRampa" source="T16: subir" target="P23 AutoEnRampa">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1827" y="537" curvePoint="false"/>
+            <arcpath id="001" x="1896" y="370" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T17: devolverRampa to P16: rampas" source="T17: esperarCaja" target="P16: rampas">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1992" y="372" curvePoint="false"/>
+            <arcpath id="001" x="1929" y="472" curvePoint="false"/>
+            <arcpath id="002" x="1388" y="466" curvePoint="false"/>
+            <arcpath id="003" x="1239" y="365" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T17: devolverRampa to P25 autoPorPagar" source="T17: esperarCaja" target="P24 autoPorPagar">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1996" y="357" curvePoint="false"/>
+            <arcpath id="001" x="2052" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T18 to P26" source="T18" target="P25">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2131" y="357" curvePoint="false"/>
+            <arcpath id="001" x="2157" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T19 to P14" source="T11: buscarLugarArriba" target="P17: autoEstacionadoArriba">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1321" y="207" curvePoint="false"/>
+            <arcpath id="001" x="1407" y="207" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T19 to P15" source="T11: buscarLugarArriba" target="P16: rampas">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1317" y="222" curvePoint="false"/>
+            <arcpath id="001" x="1306" y="246" curvePoint="false"/>
+            <arcpath id="002" x="1232" y="256" curvePoint="false"/>
+            <arcpath id="003" x="1227" y="342" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T19 to P27 cajero" source="T19" target="P26 cajero">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2217" y="342" curvePoint="false"/>
+            <arcpath id="001" x="2218" y="276" curvePoint="false"/>
+            <arcpath id="002" x="2186" y="269" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T19 to P28 autoPorSalir" source="T19" target="P27 autoPorSalir">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2221" y="357" curvePoint="false"/>
+            <arcpath id="001" x="2262" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T1 to P3" source="T1: entrarCalle2" target="P4: autosEsperandoIngresar2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="286" y="357" curvePoint="false"/>
+            <arcpath id="001" x="372" y="357" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T20 salirCalle1 to P27: limitadorDePlaya" source="T20 salirCalle1" target="P28: limitadorDePlaya">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2326" y="252" curvePoint="false"/>
+            <arcpath id="001" x="2362" y="252" curvePoint="false"/>
+            <arcpath id="002" x="2359" y="769" curvePoint="false"/>
+            <arcpath id="003" x="1262" y="772" curvePoint="false"/>
+            <arcpath id="004" x="1016" y="762" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T20 to P15" source="T12: buscarLugarAbajo" target="P16: rampas">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1317" y="537" curvePoint="false"/>
+            <arcpath id="001" x="1312" y="505" curvePoint="false"/>
+            <arcpath id="002" x="1230" y="476" curvePoint="false"/>
+            <arcpath id="003" x="1227" y="371" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T20 to P16" source="T12: buscarLugarAbajo" target="P18: autoEstacioandoAbajo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1321" y="552" curvePoint="false"/>
+            <arcpath id="001" x="1422" y="552" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T21 salirCalle2 to P27: limitadorDePlaya" source="T21 salirCalle2" target="P28: limitadorDePlaya">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="2311" y="462" curvePoint="false"/>
+            <arcpath id="001" x="2325" y="456" curvePoint="false"/>
+            <arcpath id="002" x="2316" y="715" curvePoint="false"/>
+            <arcpath id="003" x="1026" y="726" curvePoint="false"/>
+            <arcpath id="004" x="1010" y="749" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T2 to P5" source="T2: entrarCalle2" target="P5: autosEsperandoIngresar3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="286" y="567" curvePoint="false"/>
+            <arcpath id="001" x="372" y="567" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T3 to P24" source="T3: sacarTikect1" target="P0: limitadorClientesCalle1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="507" y="147" curvePoint="false"/>
+            <arcpath id="001" x="495" y="76" curvePoint="false"/>
+            <arcpath id="002" x="386" y="72" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T3 to P7" source="T3: sacarTikect1" target="P6: autoPasandoBarrera1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="511" y="162" curvePoint="false"/>
+            <arcpath id="001" x="612" y="162" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T4 to P25" source="T4: sacarTikect2" target="P1: limitadorClientesCalle2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="521" y="341" curvePoint="false"/>
+            <arcpath id="001" x="510" y="305" curvePoint="false"/>
+            <arcpath id="002" x="401" y="297" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T4 to P9" source="T4: sacarTikect2" target="P7: autoPasandoBarrera2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="527" y="356" curvePoint="false"/>
+            <arcpath id="001" x="627" y="356" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T5 to P11" source="T5: sacarTikect3" target="P8: autoPasandoBarrera3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="511" y="567" curvePoint="false"/>
+            <arcpath id="001" x="627" y="567" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T5 to P26" source="T5: sacarTikect3" target="P2: limitadorClientesCalle3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="507" y="552" curvePoint="false"/>
+            <arcpath id="001" x="500" y="496" curvePoint="false"/>
+            <arcpath id="002" x="401" y="492" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T6 to P12" source="T6: levantarBarrera1" target="P13: pisoAsignado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="811" y="162" curvePoint="false"/>
+            <arcpath id="001" x="948" y="359" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T6 to P6" source="T6: levantarBarrera1" target="P9: barrera1">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="807" y="177" curvePoint="false"/>
+            <arcpath id="001" x="796" y="215" curvePoint="false"/>
+            <arcpath id="002" x="641" y="221" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T7 to P12" source="T7: levantarBarrera2" target="P13: pisoAsignado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="826" y="357" curvePoint="false"/>
+            <arcpath id="001" x="942" y="370" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T7 to P8" source="T7: levantarBarrera2" target="P10: barrera2">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="822" y="372" curvePoint="false"/>
+            <arcpath id="001" x="810" y="406" curvePoint="false"/>
+            <arcpath id="002" x="656" y="416" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T8 to P10" source="T8: levantarBarrera3" target="P11: barrera3">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="822" y="582" curvePoint="false"/>
+            <arcpath id="001" x="805" y="626" curvePoint="false"/>
+            <arcpath id="002" x="656" y="626" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T8 to P12" source="T8: levantarBarrera3" target="P13: pisoAsignado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="826" y="567" curvePoint="false"/>
+            <arcpath id="001" x="948" y="384" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T9 to P28" source="T9: subirPorRampa" target="P14: autoArriba">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1096" y="207" curvePoint="false"/>
+            <arcpath id="001" x="1167" y="207" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="T9 to P30" source="T9: subirPorRampa" target="P12: limitadorDeAutos">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1092" y="192" curvePoint="false"/>
+            <arcpath id="001" x="1061" y="135" curvePoint="false"/>
+            <arcpath id="002" x="971" y="145" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+    </net>
+</pnml>
