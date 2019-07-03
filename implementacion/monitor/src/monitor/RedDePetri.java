@@ -23,14 +23,16 @@ public class RedDePetri {
     private static RedDePetri RdP;
     private int M, N;
     private RealMatrix matrizIncidencia;
-    private int[][] vectorTransicionesTiempo;
-    private int[] vectorDeEstado;
+    private int[][] TransicionesTiempo;
+    private int[] estadoInicial;
+    private int[] estadoActual;
     private int[] vectorSensibilizadas;
     private int[] vectorSensibilizadasConTiempo;
     private int[] columna;
     private boolean ventana, condicion;
     
-    private RedDePetri() {
+    private RedDePetri() 
+    {
         /*
          * Creaci�n de los vectores por medio de un txt.
          */
@@ -71,7 +73,8 @@ public class RedDePetri {
         }
     }
     
-    public static RedDePetri getRdP() {
+    public static RedDePetri getRdP() 
+    {
         if(RdP == null) RdP = new RedDePetri();
         return RdP;
     }
@@ -80,25 +83,29 @@ public class RedDePetri {
         return false;
     }
     
-    public void calculoDeVectorEstado() {
-        double[][] matrixData2 = { {1,2,3}, {2,5,6}, {1,5, 7}};
-        RealMatrix n = new Array2DRowRealMatrix(matrixData2);
+    public void calculoDeVectorEstado() 
+    {
+        // estado siguiente = estado actual + incidencia * (vector disparo -> (sensibilizadas) & Ex
     }
     
-    public void setEsperando() {
+    public void setEsperando() 
+    {
         
     }
     
-    public void resetEsperando() {
+    public void resetEsperando() 
+    {
         
     }
     
-    public boolean estaSensibilizada(){
+    public boolean estaSensibilizada()
+    {
         if(condicion) return true;
         else return false;
     }
     
-    public boolean testVentanaTiempo() {
+    public boolean testVentanaTiempo() 
+    {
         //No hay seguridad de que esto este correcto, probablemente haya que usar otro timestamp. ~Tom
         Timestamp tiempo = new Timestamp(5000);
         Timestamp alfa = new Timestamp(0);
@@ -107,31 +114,7 @@ public class RedDePetri {
         return true;
     }
 
-    /*public void setMatrizIncidencia(ArrayList<ArrayList<Integer>> matriz) {
-        
-        /*
-         * Aca cargo la matriz de incidencia menos las ultimas 3 columnas, que corresponden
-         * a las transiciones con tiempo y al marcado inicial.
-         * ~Tom
-         
-        
-        M = matriz.size();
-        N = matriz.get(0).size();
-        
-        matrizIncidencia = new int[M][N];
-        
-        System.out.println("La Matriz de Incidencia es:\n");
-        
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N-3; j++) {
-                matrizIncidencia[i][j] = matriz.get(i).get(j);
-                System.out.print(matrizIncidencia[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }*/
-
-    public int[][] setVectorTransicionesTiempo(ArrayList<ArrayList<Integer>> matriz) {
+    public int[][] setTransicionesTiempo(ArrayList<ArrayList<Integer>> matriz) {
         
         /*
          * La matriz de las transiciones que tienen tiempo es de Mx2. Como es la que sigue a la matriz de incidencia,
@@ -141,33 +124,33 @@ public class RedDePetri {
         
         System.out.println("\nLa matriz temporal es:\n");
         
-        vectorTransicionesTiempo = new int[M][2];
+        TransicionesTiempo = new int[M][2];
         
         for(int i = 0; i < M; i++) {
             for(int j = 0; j < 2; j++) {
-                vectorTransicionesTiempo[i][j] = matriz.get(i).get(N-3+j);
-                System.out.print(vectorTransicionesTiempo[i][j] + " ");
+                TransicionesTiempo[i][j] = matriz.get(i).get(N-3+j);
+                System.out.print(TransicionesTiempo[i][j] + " ");
             }
             System.out.println();
         }       
-        return vectorTransicionesTiempo;
+        return TransicionesTiempo;
     }
 
-    public int[] setVectorDeEstado(ArrayList<ArrayList<Integer>> matriz) {
+    private int[] setVectorDeEstado(ArrayList<ArrayList<Integer>> matriz) {
         
         /*
-         * El vector de marcado inicial es la �ltima columna de la matriz extendida, por lo tanto cargo esa columna al vector.
+         * El vector de marcado inicial es la última columna de la matriz extendida, por lo tanto cargo esa columna al vector.
          * ~Tom
          */
         System.out.println("\nEl marcado inicial es:\n");
         
-        vectorDeEstado = new int[M];
+        estadoInicial = new int[M];
         
         for(int i = 0; i < M; i++) {
-            vectorDeEstado[i] = matriz.get(i).get(N-1);
-            System.out.println(vectorDeEstado[i]);
+            estadoInicial[i] = matriz.get(i).get(N-1);
+            System.out.println(estadoInicial[i]);
         }
-        return vectorDeEstado;
+        return estadoInicial;
     }
 
     public void setVectorSensibilizadas(int[] vectorSensibilizadas) {
