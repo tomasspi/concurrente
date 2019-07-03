@@ -1,31 +1,26 @@
 package monitor;
 
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 public class Mutex
 {
-    /**
-     * Semaforo para controlar la exclusion mutua.
-     */
-    private final Semaphore semaphore;
+    //Semaforo binario para controlar la exclusion mutua.
+    private final Semaphore semaforo;
     
-    /**
-     * Constructor del semaforo, se inicializa en 1 para permitir 1 hilo a la vez, y con justicia para la espera.
-     */
+    //Constructor del semaforo, se inicializa en 1 para permitir 1 hilo a la vez, y con justicia para la espera (FIFO)
     public Mutex(){
-        semaphore=new Semaphore(1, true);
+        semaforo = new Semaphore(1, true);
     }
     
     synchronized public boolean ACQUIRE(){
         //try{
-          return  semaphore.tryAcquire();
+          return  semaforo.tryAcquire();
         //} catch (InterruptedException e){
         //    e.printStackTrace();
         //} 
     }
     
     synchronized public void RELEASE(){
-        semaphore.release();
+        semaforo.release();
     }
 }
