@@ -40,13 +40,14 @@ public class GestorDeMonitor
     public void dispararTransicion() 
     {
         k = mutex.ACQUIRE(); 
-        while (k==true) {
+        while (k==true) 
+        {
             System.out.println("La entrada al monitor fue " + k);
             k = rdp.disparo();
             
             if(k==true){
-                if(rdp.estaSensibilizada()){
-                    vs = rdp.getSensibilizadas().clone();
+               // if(rdp.estaSensibilizada()){
+                    //vs = rdp.getSensibilizadas().clone();
                 }
                 vc = cola.quienesEstan();
                 m = and(vs, vc);
@@ -60,13 +61,11 @@ public class GestorDeMonitor
                 }
                 
             }
-            else {
-                mutex.RELEASE();
-            }
-        }     
-    }
+            mutex.RELEASE();
+    }    
     
-    private int[] and(int[] x, int[] y) {
+    private int[] and(int[] x, int[] y) 
+    {
         int[] res = new int[x.length];
     
         for(int i=0;i<x.length;i++) {
@@ -76,7 +75,8 @@ public class GestorDeMonitor
         return res;
     }
      
-    private boolean algunVerdadero(int[] z){
+    private boolean algunVerdadero(int[] z)
+    {
         for(int i=0;i<z.length;i++) {
             if(z[i]==1) {
                 return true;
