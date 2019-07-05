@@ -8,6 +8,8 @@
 *.vrb
 *.toc
 *.class
+*.lck
+*.bak
 /implementacion/monitor/target/
 /implementacion/monitor/nbproject/private/
 /implementacion/monitor/build/
