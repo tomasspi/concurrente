@@ -6,7 +6,7 @@ package monitor;
 
 public class GestorDeMonitor
 {
-    private static GestorDeMonitor monitor;
+    private static GestorDeMonitor monitor = null;
     private Mutex mutex;    
     private RedDePetri rdp;
     private Colas cola;
@@ -25,7 +25,7 @@ public class GestorDeMonitor
         //Se crea el semaforo.
         mutex=new Mutex();    
         //Se crea la red de petri.
-        rdp=RedDePetri.getRdP();
+        rdp= RedDePetri.getRdP();
         //Se crean una cola.
         cola=new Colas();    
         //Se crea un objeto politicas.
