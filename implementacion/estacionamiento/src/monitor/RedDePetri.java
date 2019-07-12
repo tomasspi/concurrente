@@ -1,5 +1,6 @@
 package monitor;
 
+import archivos.archivosEnum;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ import org.apache.commons.math3.linear.RealVector;
 public class RedDePetri 
 {    
     private static RedDePetri RdP = null;
-    ArrayList<ArrayList<Integer>> matriz;
+    ArrayList<ArrayList<Integer>> matriz, intervalos;
+    ArrayList<Integer> marcado;
     
     private final RealMatrix incidencia_menos, incidencia_mas, m_intervalos;
     private RealVector v_sensibilizadas, v_disparo, v_marcado; 
@@ -37,6 +39,8 @@ public class RedDePetri
     private RedDePetri() // Constructor
     {
         matriz = new ArrayList<>();
+        marcado = new ArrayList<>();
+        intervalos = new ArrayList<>();
         
         cargarArchivo();
         
@@ -54,20 +58,22 @@ public class RedDePetri
                 else if (matriz.get(i).get(j) >= 0) incidencia_mas.setEntry(i,j, matriz.get(i).get(j));
             }
             
-            //La matriz de intervalos se encuentra luego de la ultima transicion
-            for(int k = transiciones; k < transiciones + 2; k++)
-            {
-                int l = 0;
-                m_intervalos.setEntry(i,l, matriz.get(i).get(k));
-                l++;
-            }
-            
-            //El vector de marcado inicial es la última columna de la matriz extendida, por lo tanto cargo esa columna al vector.
-            v_marcado.setEntry(i,matriz.get(i).get(transiciones+3));
+//            //La matriz de intervalos se encuentra luego de la ultima transicion
+//            for(int k = transiciones; k < transiciones + 2; k++)
+//            {
+//                int l = 0;
+//                m_intervalos.setEntry(i,l, matriz.get(i).get(k));
+//                l++;
+//            }
+//            
+//            //El vector de marcado inicial es la última columna de la matriz extendida, por lo tanto cargo esa columna al vector.
+//            v_marcado.setEntry(i,matriz.get(i).get(transiciones+3));
         }   
         
-        printMatriz(incidencia_menos,"Incidencia");
-        printVector(v_marcado,"Marcado");
+        printMatriz(incidencia_menos,"Incidencia (menos)");
+        printMatriz(incidencia_mas,"Incidencia (mas)");
+        printM();
+        //printVector(v_marcado,"Marcado");
     }
     
     private void printMatriz(RealMatrix m, String nombre)
@@ -97,35 +103,51 @@ public class RedDePetri
     private void cargarArchivo()
     {
         // Carga la matriz desde un archivo de texto plano.
-        try
-        {
-            Scanner input = new Scanner(new File("./src/archivos/prueba.txt").getAbsoluteFile());
-            while(input.hasNextLine()) 
-            {            
-                Scanner columnas = new Scanner(input.nextLine());
-                ArrayList<Integer> columna = new ArrayList<Integer>();
-                
-                while(columnas.hasNextInt())
-                {
-                    columna.add(columnas.nextInt());
-                }               
-            matriz.add(columna);
-            columnas.close();
+        for(archivosEnum e : archivosEnum.values()){
+            try
+            {
+                Scanner input = new Scanner(new File(e.getNombre()).getAbsoluteFile());
+                while(input.hasNextLine()) 
+                {            
+                    Scanner columnas = new Scanner(input.nextLine());
+                    ArrayList<Integer> columna = new ArrayList<Integer>();
+
+                    while(columnas.hasNextInt())
+                    {
+                        columna.add(columnas.nextInt());
+                    }               
+                matriz.add(columna);
+                columnas.close();
+                }
+
+                if(e.getNombre().contains("incidencia")){
+                    plazas = matriz.size();
+                    transiciones = matriz.get(0).size();
+                }
+
+                input.close();
+            } catch (FileNotFoundException ex)
+            {
+                ex.printStackTrace();
             }
-            
-            plazas = matriz.size();
-            transiciones = matriz.get(0).size() - 4;
-            
-            input.close();
-        } catch (FileNotFoundException e)
+        }
+    }
+    
+    private void printM()
+    {
+        System.out.println("\nMatriz de incidencia: ");
+        for(int i = 0; i < matriz.size(); i++)
         {
-            e.printStackTrace();
+            for(int j = 0; j < matriz.get(0).size(); j++)
+            {
+                System.out.print(matriz.get(i).get(j) + " ");
+            }
+            System.out.println();
         }
     }
     
     public boolean disparo() // Proximo estado = Estado Actual + I * (sigma and Ex)
     {
-        
         return false;
     }
     
