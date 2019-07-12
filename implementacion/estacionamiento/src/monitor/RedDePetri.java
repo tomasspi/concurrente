@@ -66,7 +66,7 @@ public class RedDePetri
             v_marcado.setEntry(i,matriz.get(i).get(transiciones+3));
         }   
         
-        printMatriz(incidencia_mas,"Incidencia");
+        printMatriz(incidencia_menos,"Incidencia");
         printVector(v_marcado,"Marcado");
     }
     
@@ -97,14 +97,13 @@ public class RedDePetri
     private void cargarArchivo()
     {
         // Carga la matriz desde un archivo de texto plano.
-        ArrayList<Integer> columna = new ArrayList<Integer>();
         try
         {
-            Scanner input = new Scanner(new File("./matriz.txt").getAbsoluteFile());
+            Scanner input = new Scanner(new File("./src/archivos/prueba.txt").getAbsoluteFile());
             while(input.hasNextLine()) 
             {            
                 Scanner columnas = new Scanner(input.nextLine());
-                
+                ArrayList<Integer> columna = new ArrayList<Integer>();
                 
                 while(columnas.hasNextInt())
                 {

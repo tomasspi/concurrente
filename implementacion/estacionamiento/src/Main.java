@@ -1,5 +1,8 @@
+
+import java.util.ArrayList;
 import java.util.concurrent.ThreadPoolExecutor;
 import monitor.GestorDeMonitor;
+import monitor.Hilo;
 /**
  * Realiza todas las operaciones. Creación de hilos
  * 
@@ -15,8 +18,25 @@ public class Main
       System.out.println("Disparando transicion...");
       //monitor.dispararTransicion();
       
-      //Creo los hilos
-      ThreadPoolExecutor hilos;
+      ArrayList<Integer> entrada1 = new ArrayList<>();
+      entrada1.add(0);
+      entrada1.add(3);
+      entrada1.add(4);
+      entrada1.add(5);
       
+      ArrayList<Integer> entrada2 = new ArrayList<>();
+      ArrayList<Integer> entrada3 = new ArrayList<>();
+      ArrayList<Integer> planta_baja = new ArrayList<>();
+      ArrayList<Integer> planta_alta = new ArrayList<>();
+      ArrayList<Integer> caja = new ArrayList<>();
+      ArrayList<Integer> salida1 = new ArrayList<>();
+      ArrayList<Integer> salida2 = new ArrayList<>();
+      
+      
+      
+      //Creo los hilos
+      //ThreadPoolExecutor hilos;
+      Hilo entrada = new Hilo("entrada1");
+      entrada.run();
     }
 }
