@@ -36,7 +36,7 @@ public class Main
       
       //Creo los hilos
       //ThreadPoolExecutor hilos;
-      Hilo entrada = new Hilo("entrada1");
+      Hilo entrada = new Hilo(entrada1);
       entrada.run();
     }
 }
