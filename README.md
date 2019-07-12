@@ -21,8 +21,8 @@ barreras, etc.
 Debe realizar:
 
 	1. La red de Petri que modela el sistema.
-	2. Agregar las restricciones necesarias para evitar interbloqueos ni accesos cuando no hay lugar, mostrarlo con la 		herramienta elegida y justificarlo.
-	3. Simular la solución en un proyecto desarrollado con la herramienta adecuada (explique porque eligió la herramienta 		usada).
+	2. Agregar las restricciones necesarias para evitar interbloqueos ni accesos cuando no hay lugar,\n mostrarlo con la 	herramienta elegida y justificarlo.
+	3. Simular la solución en un proyecto desarrollado con la herramienta adecuada (explique porque eligió la herramienta 	usada).
 	4. Colocar tiempo en las estación de pago caja (en la/s transición/es correspondiente/s).
 	5. Hacer la tabla de eventos.
 	6. Hacer la tabla de estados o actividades.
