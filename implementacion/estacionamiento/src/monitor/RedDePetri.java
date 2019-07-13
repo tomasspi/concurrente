@@ -1,9 +1,13 @@
 package monitor;
 
 import archivos.archivosEnum;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -24,6 +28,15 @@ public class RedDePetri
     private int v_sensibilizadas[], v_marcado[]; 
     private int vs_temporales[], vs_extendido[];
     private int columna[];
+    /*************/
+    private int[][] mIncidencia;
+    private int[][] mIntervalos;
+    private int[][] vMarcado;
+    /*************/
+    
+    private final RealMatrix incidencia_menos, incidencia_mas, m_intervalos;
+    private RealVector v_sensibilizadas, v_disparo, v_marcado; 
+    private RealVector vs_temporales, vs_inhibidores, vs_extendido;
     private int plazas, transiciones;
     
     public static RedDePetri getRdP() //Singleton
@@ -38,7 +51,8 @@ public class RedDePetri
         marcado = new ArrayList<>();
         intervalos = new ArrayList<>();
         
-        cargarArchivos();
+        System.out.println("Cargando archivos...");
+        cargarArchivo2();
         
         incidencia_menos = new int[plazas][transiciones];
         incidencia_mas = new int[plazas][transiciones];
@@ -126,6 +140,116 @@ public class RedDePetri
             } catch (FileNotFoundException ex)
             {
                 ex.printStackTrace();
+            }
+        }
+    }
+    
+    /**
+     * Alternativa de carga de archivos usando matrices primitivas.
+     */
+    private void cargarArchivo2(){
+        for(archivosEnum e : archivosEnum.values()){
+            
+            // Path del archivo a abrir.
+            String fileName = e.getPath();
+
+            // Variable que almacena una fila entera.
+            String fila;
+            
+            // Variable que almacenará el txt.
+            String txt = "";
+            
+            // Variable que almacena la cantidad de columnas en cada archivo.
+            int cantColumnas = 0;
+            int cantFilas = 0;
+            
+            try {
+                /* Se abre el archivo desde el path. */
+                FileReader fileReader = new FileReader(fileName);
+                //System.out.println("Se abrió el archivo "+e.getNombre());
+
+                /* Wrap al archivo usando BufferedReader. */
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                
+                /* Se leen los archivos. */
+                while((fila = bufferedReader.readLine()) != null) {
+                    cantFilas++;
+                    /* Quita los espacios entre los numeros (si los hay). */
+                    fila = fila.replaceAll("\\s","");
+                    //System.out.println("Fila: "+fila);
+                    /* Copia el txt a un String. */
+                    txt = txt.concat(fila);
+                    cantColumnas = fila.length();
+                    //System.out.println("La fila tiene "+cantColumnas+" columnas"+"\n");
+                }
+                
+                /* Inicializa las variables globales de cada matriz. */
+                if(e.getVariable().equals("mIncidencia")) mIncidencia = new int[cantFilas][cantColumnas];
+                if(e.getVariable().equals("mIntervalos")) mIntervalos = new int[cantFilas][cantColumnas];
+                if(e.getVariable().equals("vMarcado")) vMarcado = new int[cantFilas][cantColumnas];
+                
+                /* Construye las matrices. */
+                builder(e, cantColumnas, cantFilas, txt);
+                
+                /* Se cierra el archivo. */
+                bufferedReader.close();      
+                //System.out.println("Se cerró "+e.getNombre()+"\n");
+            }
+            catch(FileNotFoundException ex) {
+                System.out.println(
+                    "Unable to open file '" + 
+                    fileName + "'");                
+            }
+            catch(IOException ex) {
+                System.out.println(
+                    "Error reading file '" 
+                    + fileName + "'");                  
+                // Or we could just do this: 
+                // ex.printStackTrace();
+            }
+        }
+        
+        System.out.println("La matrices cargadas son:");
+        System.out.println(Arrays.deepToString(mIncidencia));  
+        System.out.println(Arrays.deepToString(mIntervalos));  
+        System.out.println(Arrays.deepToString(vMarcado));  
+    }
+    
+    /**
+     * Arma las matrices luego de haber leido los archivos.
+     * @param e - El Enum con la informacion del archivo abierto.
+     * @param cantColumnas - Cantidad de columnas del archivo abierto.
+     * @param cantFilas - Cantidad de filas del archivo abierto
+     * @param txt - String con la copia del contenido del archivo.
+     */
+    private void builder(archivosEnum e, int cantColumnas, int cantFilas, String txt){
+        /* Variable auxilar para armar cada matriz. */
+        int counter;
+        
+        /* Se arma la matriz */
+        counter = 0;
+        //System.out.println("Es una matriz de "+cantColumnas+" columnas y "+cantFilas+" filas");
+        //System.out.println("Se armará una matriz con: "+txt);
+        for(int i=0;i<cantFilas;i++){
+            for(int j=0;j<cantColumnas;j++){
+                //System.out.println("Armando matriz...");
+                
+                /* De char a int */
+                int ij = Character.getNumericValue(txt.charAt(counter));
+                //System.out.println("Elemento: "+ij);
+                //System.out.println("En posicion: "+i+j);
+                switch(e.getCaso()){
+                    case 1: /* Matriz de incidencia */
+                            mIncidencia[i][j] = ij;
+                            break;
+                    case 2: /* Matriz de intervalos */
+                            mIntervalos[i][j] = ij;
+                            break;
+                    case 3: /* Vector de marcado */ 
+                            vMarcado[i][j] = ij;
+                            break;
+                }
+                counter++;
             }
         }
     }
