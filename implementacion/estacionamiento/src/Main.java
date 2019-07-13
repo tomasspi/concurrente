@@ -11,12 +11,12 @@ import monitor.Hilo;
  */
 public class Main
 {
-  public static void main (String args[]){
+  public static void main (String args[])
+  {
       //Crea el gestor de monitor.
       System.out.println("Creando Gestor de Monitor");
       GestorDeMonitor monitor = GestorDeMonitor.getMonitor();
       System.out.println("Disparando transicion...");
-      //monitor.dispararTransicion();
       
       ArrayList<Integer> entrada1 = new ArrayList<>();
       entrada1.add(0);
@@ -36,7 +36,7 @@ public class Main
       
       //Creo los hilos
       //ThreadPoolExecutor hilos;
-      Hilo entrada = new Hilo(entrada1);
+      Hilo entrada = new Hilo(monitor,entrada1);
       entrada.run();
     }
 }

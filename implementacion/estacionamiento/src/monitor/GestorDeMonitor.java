@@ -37,18 +37,19 @@ public class GestorDeMonitor
         return monitor;
     }
    
-    public void dispararTransicion() 
+    public void dispararTransicion(int t) 
     {
         k = mutex.ACQUIRE(); 
         while (k==true) 
         {
             System.out.println("La entrada al monitor fue " + k);
-            k = rdp.disparo();
+            k = rdp.isSensibilizada(t);
             
-            if(k==true){
+            if(k==true)
+            {
                // if(rdp.estaSensibilizada()){
                     //vs = rdp.getSensibilizadas().clone();
-                }
+            }
                 vc = cola.quienesEstan();
                 m = and(vs, vc);
                 if(algunVerdadero(m)) {
