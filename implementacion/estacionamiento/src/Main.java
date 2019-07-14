@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadPoolExecutor;
 import monitor.GestorDeMonitor;
 import monitor.Hilo;
 /**
@@ -32,11 +31,9 @@ public class Main
       ArrayList<Integer> salida1 = new ArrayList<>();
       ArrayList<Integer> salida2 = new ArrayList<>();
       
+
       
-      
-      //Creo los hilos
-      //ThreadPoolExecutor hilos;
-      Hilo entrada = new Hilo(monitor,entrada1);
+      Hilo entrada = new Hilo(monitor,"entrada1",entrada1);
       entrada.run();
     }
 }
