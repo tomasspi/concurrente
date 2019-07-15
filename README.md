@@ -1,5 +1,7 @@
-# Trabajo Práctico Integrador Programación Concurrente 2018
-## Enunciado
+# Universidad Nacional de Córdoba (UNC)
+## Facultad de Ciencias Exactas, Físicas y Naturales (FCEFyN)
+### Trabajo Práctico Integrador Programación Concurrente 2018
+#### Enunciado
 
 En este práctico se debe resolver el control de acceso a una playa de estacionamiento con 3 entradas
 (calles) diferentes. En esta playa hay 2 pisos, y en cada piso pueden estacionar 30 autos. La playa

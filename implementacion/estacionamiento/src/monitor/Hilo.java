@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class Hilo extends Thread 
 {
-    GestorDeMonitor m = GestorDeMonitor.getMonitor();
+    Monitor m = Monitor.getMonitor();
     ArrayList<Integer> transiciones;
     String nombre;
     
-    public Hilo(GestorDeMonitor m, String nombre, ArrayList<Integer> lista) 
+    public Hilo(Monitor m, String nombre, ArrayList<Integer> lista) 
     {
         this.m = m;
         this.nombre = nombre;

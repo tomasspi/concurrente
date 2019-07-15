@@ -1,7 +1,5 @@
 package monitor;
 
- 
-
 /**
  * Write a description of class Politicas here.
  * 
@@ -10,23 +8,43 @@ package monitor;
  */
 public class Politicas
 {
-    private int cantidad;
-    int politica[];
+    private RedDePetri rdp;
+    private int politica;
+    private int politicas[], transiciones[];
     
-    public Politicas(int cantidad)
+    public Politicas(RedDePetri rdp, int cual)
     {
-        this.cantidad = cantidad;
-        
+        this.rdp = rdp;
+        politica = cual;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int cual(int[] vector)
+    public int decidir()
     {
-        return 1;
+        transiciones = rdp.getSensibilizadas();
+        politicas = new int[rdp.getTransiciones()];
+        
+        switch (politica)
+        {
+            case 1: 
+                    System.out.println("Politica 1");
+                    politicas[3] = 1;
+                    politicas[10] = 1;
+                    return transiciones[1];
+                
+            case 2: 
+                    System.out.println("Politica 2");
+                    politicas[4] = 1;
+                    politicas[15] = 1;
+                    
+                    return transiciones[2];
+                    
+            default:
+                    System.out.println("Politica default");
+                    if(Math.random() > 0.5)
+                    {
+                        ;//hacer algo
+                    }
+                    return transiciones[3];
+        }
     }
 }

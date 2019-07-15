@@ -1,8 +1,5 @@
 package monitor;
 
-
-
-
 /**
  * Write a description of class Colas here.
  * 
@@ -12,22 +9,16 @@ package monitor;
 public class Colas
 {
     // instance variables - replace the example below with your own
-    private int x;
+    private RedDePetri rdp;
+    private int t;
 
-    /**
-     * Constructor for objects of class Colas
-     */
+
     public Colas()
     {
-        // initialise instance variables
+        //this.rdp = rdp;
+        t = rdp.getTransiciones();
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
     public int[] quienesEstan()
     {
         return null;

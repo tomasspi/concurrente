@@ -1,6 +1,6 @@
 
 import java.util.ArrayList;
-import monitor.GestorDeMonitor;
+import monitor.Monitor;
 import monitor.Hilo;
 /**
  * Realiza todas las operaciones. Creación de hilos
@@ -14,7 +14,7 @@ public class Main
   {
       //Crea el gestor de monitor.
       System.out.println("Creando Gestor de Monitor");
-      GestorDeMonitor monitor = GestorDeMonitor.getMonitor();
+      Monitor monitor = Monitor.getMonitor();
       System.out.println("Disparando transicion...");
       
       ArrayList<Integer> entrada1 = new ArrayList<>();
@@ -34,6 +34,7 @@ public class Main
 
       
       Hilo entrada = new Hilo(monitor,"entrada1",entrada1);
-      entrada.run();
+      //entrada.setPriority(10);
+      entrada.start();
     }
 }

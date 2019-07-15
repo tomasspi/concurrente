@@ -59,16 +59,12 @@ public class RedDePetri
                 else if (matriz.get(i).get(j) >= 0) incidencia_mas[i][j] = matriz.get(i).get(j);
             }
             
-//            //La matriz de intervalos se encuentra luego de la ultima transicion
-//            for(int k = transiciones; k < transiciones + 2; k++)
-//            {
-//                int l = 0;
-//                m_intervalos.setEntry(i,l, matriz.get(i).get(k));
-//                l++;
-//            }
-//            
-//            //El vector de marcado inicial es la última columna de la matriz extendida, por lo tanto cargo esa columna al vector.
-//            v_marcado.setEntry(i,matriz.get(i).get(transiciones+3));
+            for(int k = 0; k < 2; k++)
+            {
+                m_intervalos[i][k] = intervalos.get(i).get(k);
+            }
+            
+            v_marcado[i] = marcado.get(i);
         }   
         
         printMatriz(incidencia_menos,"Incidencia (menos)");
@@ -152,10 +148,10 @@ public class RedDePetri
         if(isSensibilizada(t))
         {
             /*
-                Como se dispara una sola transicion, se agarra directamente
-                la columna de la matriz de incidencia correspondiente
-                para sacar o poner tokens.
-            */
+             *   Como se dispara una sola transicion, se agarra directamente
+             *   la columna de la matriz de incidencia correspondiente
+             *   para sacar o poner tokens.
+             */
             getColumna(incidencia_menos,t);
             v_marcado = sumar(v_marcado,columna);
             getColumna(incidencia_mas,t);
@@ -163,9 +159,10 @@ public class RedDePetri
             
             actualizar();
         }
+        else System.out.println("La transición 'T" + t + "' no está sensibilizada.");
     }
 
-    public boolean isSensibilizada(int t) // Preguntar si la transicion esta sensibilizada
+    public boolean isSensibilizada(int t) // Pregunta si la transicion esta sensibilizada
     {
         return (vs_extendido[t] != 0);
     }
@@ -177,7 +174,7 @@ public class RedDePetri
     
     public void actualizar()
     {
-        System.out.println("Aca actualizamos los vectores Ex.");
+        System.out.println("Actualizando vector de sensibilizadas.");
         
         //Actualiza E (sensibilizadas comunes)
         for(int i = 0; i < plazas; i++)
@@ -189,10 +186,22 @@ public class RedDePetri
             }
         }
         
-        //Actualiza 
+        System.out.println("Actualizando vector de sensibilizadas con tiempo.");
+        //Actualiza temporales
+        
+        System.out.println("Vector de sensibilizadas extendido actualizado.");
     }
     
-    private void getColumna(int[][] m, int t) //Obitene la columna a sumar al marcado actual.
+    /*
+     *  Obtiene la columna a sumar al marcado actual. Esto es el resutlado 
+     *  de la multiplicación "I * (sigma and Ex)", al ser sigma un vector
+     *  con 1 en la posición de la transición que se desea disparar y 0 en 
+     *  las demás posiciones, la multiplicación siempre devolverá una 
+     *  columna de la matriz.
+     *  @param m - Matriz de la cual se desea extraer la columna.
+     *  @param t - Transición que se desea disparar.
+     */
+    private void getColumna(int[][] m, int t) 
     {
         for(int i = 0; i < plazas; i++)
         {
@@ -200,6 +209,9 @@ public class RedDePetri
         }
     }
     
+    /*
+     *  @return Suma de los dos vectores.
+     */
     private int[] sumar(int[] a, int[] b)
     {
         int sigma[] = new int[plazas];
@@ -209,6 +221,11 @@ public class RedDePetri
             sigma[i] = a[i] + b[i];
         }   
         return sigma;
+    }
+    
+    public int[] getSensibilizadas()
+    {
+        return vs_extendido;
     }
     
     public int getPlazas()
