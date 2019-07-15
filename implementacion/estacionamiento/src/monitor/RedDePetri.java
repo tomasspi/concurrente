@@ -24,16 +24,29 @@ public class RedDePetri
     ArrayList<ArrayList<Integer>> matriz, intervalos;
     ArrayList<Integer> marcado;
     
+<<<<<<< HEAD
     private final int incidencia_menos[][], incidencia_mas[][], m_intervalos[][];
     private int v_sensibilizadas[], v_marcado[]; 
     private int vs_temporales[], vs_extendido[];
     private int columna[];
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> Tomas
     /*************/
     private int[][] mIncidencia;
     private int[][] mIntervalos;
     private int[][] vMarcado;
     /*************/
+<<<<<<< HEAD
 
+=======
+    
+    private final RealMatrix incidencia_menos, incidencia_mas, m_intervalos;
+    private RealVector v_sensibilizadas, v_disparo, v_marcado; 
+    private RealVector vs_temporales, vs_inhibidores, vs_extendido;
+>>>>>>> Sebastian
+>>>>>>> Tomas
     private int plazas, transiciones;
     
     public static RedDePetri getRdP() //Singleton
@@ -48,12 +61,21 @@ public class RedDePetri
         marcado = new ArrayList<>();
         intervalos = new ArrayList<>();
         
+<<<<<<< HEAD
         System.out.println("Cargando archivos...");
         cargarArchivo2();
+=======
+<<<<<<< HEAD
+        cargarArchivos();
+>>>>>>> Tomas
         
         incidencia_menos = new int[plazas][transiciones];
         incidencia_mas = new int[plazas][transiciones];
         m_intervalos = new int[plazas][2];
+=======
+        System.out.println("Cargando archivos...");
+        cargarArchivo2();
+>>>>>>> Sebastian
         
         v_marcado = new int[plazas];
         columna = new int[plazas];
@@ -181,6 +203,7 @@ public class RedDePetri
                 }
                 
                 /* Inicializa las variables globales de cada matriz. */
+<<<<<<< HEAD
                 if(e.getVariable().equals("mIncidencia")){
                     mIncidencia = new int[cantFilas][cantColumnas];
                     /* Aprovecha el parse de la matriz de incidencia para 
@@ -188,6 +211,9 @@ public class RedDePetri
                     setPlazas(cantColumnas);
                     setTransiciones(cantFilas);
                 }
+=======
+                if(e.getVariable().equals("mIncidencia")) mIncidencia = new int[cantFilas][cantColumnas];
+>>>>>>> Tomas
                 if(e.getVariable().equals("mIntervalos")) mIntervalos = new int[cantFilas][cantColumnas];
                 if(e.getVariable().equals("vMarcado")) vMarcado = new int[cantFilas][cantColumnas];
                 
@@ -213,7 +239,13 @@ public class RedDePetri
         }
         
         System.out.println("La matrices cargadas son:");
+<<<<<<< HEAD
         printMatrices();  
+=======
+        System.out.println(Arrays.deepToString(mIncidencia));  
+        System.out.println(Arrays.deepToString(mIntervalos));  
+        System.out.println(Arrays.deepToString(vMarcado));  
+>>>>>>> Tomas
     }
     
     /**
@@ -225,9 +257,16 @@ public class RedDePetri
      */
     private void builder(archivosEnum e, int cantColumnas, int cantFilas, String txt){
         /* Variable auxilar para armar cada matriz. */
+<<<<<<< HEAD
         int counter = 0;
         
         /* Se arma la matriz */
+=======
+        int counter;
+        
+        /* Se arma la matriz */
+        counter = 0;
+>>>>>>> Tomas
         //System.out.println("Es una matriz de "+cantColumnas+" columnas y "+cantFilas+" filas");
         //System.out.println("Se armará una matriz con: "+txt);
         for(int i=0;i<cantFilas;i++){
@@ -250,6 +289,21 @@ public class RedDePetri
                             break;
                 }
                 counter++;
+<<<<<<< HEAD
+=======
+            }
+        }
+    }
+    
+    private void printM()
+    {
+        System.out.println("\nMatriz de incidencia: ");
+        for(int i = 0; i < matriz.size(); i++)
+        {
+            for(int j = 0; j < matriz.get(0).size(); j++)
+            {
+                System.out.print(matriz.get(i).get(j) + " ");
+>>>>>>> Tomas
             }
         }
     }
