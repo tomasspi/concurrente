@@ -33,10 +33,7 @@ public class RedDePetri
     private int[][] mIntervalos;
     private int[][] vMarcado;
     /*************/
-    
-    private final RealMatrix incidencia_menos, incidencia_mas, m_intervalos;
-    private RealVector v_sensibilizadas, v_disparo, v_marcado; 
-    private RealVector vs_temporales, vs_inhibidores, vs_extendido;
+
     private int plazas, transiciones;
     
     public static RedDePetri getRdP() //Singleton
