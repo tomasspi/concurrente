@@ -83,7 +83,7 @@ public class RedDePetri
         
         printMatriz(incidencia_menos,"Incidencia (menos)");
         printMatriz(incidencia_mas,"Incidencia (mas)");
-        printM();
+        printMatrices();
         //printVector(v_marcado,"Marcado");
     }
     
@@ -184,7 +184,13 @@ public class RedDePetri
                 }
                 
                 /* Inicializa las variables globales de cada matriz. */
-                if(e.getVariable().equals("mIncidencia")) mIncidencia = new int[cantFilas][cantColumnas];
+                if(e.getVariable().equals("mIncidencia")){
+                    mIncidencia = new int[cantFilas][cantColumnas];
+                    /* Aprovecha el parse de la matriz de incidencia para 
+                    setear la cantidad de plazas y transiciones. */
+                    setPlazas(cantColumnas);
+                    setTransiciones(cantFilas);
+                }
                 if(e.getVariable().equals("mIntervalos")) mIntervalos = new int[cantFilas][cantColumnas];
                 if(e.getVariable().equals("vMarcado")) vMarcado = new int[cantFilas][cantColumnas];
                 
@@ -210,9 +216,7 @@ public class RedDePetri
         }
         
         System.out.println("La matrices cargadas son:");
-        System.out.println(Arrays.deepToString(mIncidencia));  
-        System.out.println(Arrays.deepToString(mIntervalos));  
-        System.out.println(Arrays.deepToString(vMarcado));  
+        printMatrices();  
     }
     
     /**
@@ -224,10 +228,9 @@ public class RedDePetri
      */
     private void builder(archivosEnum e, int cantColumnas, int cantFilas, String txt){
         /* Variable auxilar para armar cada matriz. */
-        int counter;
+        int counter = 0;
         
         /* Se arma la matriz */
-        counter = 0;
         //System.out.println("Es una matriz de "+cantColumnas+" columnas y "+cantFilas+" filas");
         //System.out.println("Se armará una matriz con: "+txt);
         for(int i=0;i<cantFilas;i++){
@@ -254,17 +257,20 @@ public class RedDePetri
         }
     }
     
-    private void printM()
+    private void printMatrices()
     {
-        System.out.println("\nMatriz de incidencia: ");
-        for(int i = 0; i < matriz.size(); i++)
-        {
-            for(int j = 0; j < matriz.get(0).size(); j++)
-            {
-                System.out.print(matriz.get(i).get(j) + " ");
-            }
-            System.out.println();
-        }
+        System.out.println("Matriz de incidencia: "+Arrays.deepToString(mIncidencia));  
+        System.out.println("Matriz de intervalos: "+Arrays.deepToString(mIntervalos));  
+        System.out.println("Vector de marcadO: "+Arrays.deepToString(vMarcado)); 
+    }
+    
+    public void testPrint(){
+        System.out.println("###################Impresion de RdP###################");
+        System.out.println("Matriz de incidencia: "+Arrays.deepToString(mIncidencia));  
+        System.out.println("Matriz de intervalos: "+Arrays.deepToString(mIntervalos));  
+        System.out.println("Vector de marcadO: "+Arrays.deepToString(vMarcado)); 
+        System.out.println("Plazas: "+plazas+"\nTransiciones: "+transiciones);
+        System.out.println("#####################################################");
     }
     
     public void disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
@@ -360,5 +366,22 @@ public class RedDePetri
     public int getTransiciones()
     {
         return transiciones;
+    }
+
+    
+    /**
+     * Setea la cantidad de plazas en la variable global 'plazas'.
+     * @param plazas - Cantidad de plazas.
+     */
+    private void setPlazas(int plazas) {
+        this.plazas = plazas;
+    }
+
+    /**
+     * Setea la cantidad de transiciones en la variable global 'transiciones'.
+     * @param transiciones - Cantidad de transiciones.
+     */
+    private void setTransiciones(int transiciones) {
+        this.transiciones = transiciones;
     }
 }
