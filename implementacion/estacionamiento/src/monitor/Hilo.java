@@ -25,7 +25,8 @@ public class Hilo extends Thread
     }
     
     @Override
-    public void run() {
+    public void run() 
+    {
         while(true)
         {
             for(int i = 0; i < transiciones.size(); i++)

@@ -29,7 +29,7 @@ public class Monitor
         //Se crea la red de petri.
         rdp= RedDePetri.getRdP();
         //Se crean una cola.
-        cola=new Colas();    
+        //cola=new Colas();    
         //Se crea un objeto politicas.
         politicas=new Politicas(rdp,1);
     }

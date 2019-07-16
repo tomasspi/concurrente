@@ -16,12 +16,12 @@ public class Politicas
     {
         this.rdp = rdp;
         politica = cual;
+        politicas = new int[rdp.getTransiciones()];
     }
 
     public int decidir()
     {
-        transiciones = rdp.getSensibilizadas();
-        politicas = new int[rdp.getTransiciones()];
+        transiciones = rdp.getSensibilizadas();        
         
         switch (politica)
         {

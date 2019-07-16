@@ -16,7 +16,7 @@ public class Main
       System.out.println("Creando Gestor de Monitor");
       Monitor monitor = Monitor.getMonitor();
       System.out.println("Disparando transicion...");
-      
+      /*
       ArrayList<Integer> entrada1 = new ArrayList<>();
       entrada1.add(0);
       entrada1.add(3);
@@ -35,6 +35,6 @@ public class Main
       
       Hilo entrada = new Hilo(monitor,"entrada1",entrada1);
       //entrada.setPriority(10);
-      entrada.start();
+      entrada.start();*/
     }
 }
