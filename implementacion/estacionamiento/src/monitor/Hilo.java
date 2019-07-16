@@ -10,18 +10,12 @@ import java.util.ArrayList;
 public class Hilo extends Thread 
 {
     Monitor m = Monitor.getMonitor();
-    ArrayList<Integer> transiciones;
     String nombre;
     
-    public Hilo(Monitor m, String nombre, ArrayList<Integer> lista) 
+    public Hilo(Monitor m, String nombre) 
     {
         this.m = m;
         this.nombre = nombre;
-        
-        for(int i = 0; i < lista.size(); i++)
-        {
-            transiciones.add(lista.get(i));
-        }
     }
     
     @Override
@@ -29,10 +23,7 @@ public class Hilo extends Thread
     {
         while(true)
         {
-            for(int i = 0; i < transiciones.size(); i++)
-            {
-                m.dispararTransicion(transiciones.get(i));
-            }
+             m.dispararTransicion(0);
         }
     }
    

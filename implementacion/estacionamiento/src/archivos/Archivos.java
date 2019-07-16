@@ -13,8 +13,9 @@ import java.util.Scanner;
 public class Archivos
 {
     int filas, columnas;
-    ArrayList<ArrayList<Integer>> matriz, intervalos;
+    ArrayList<ArrayList<Integer>> matriz, intervalos, hilos;
     ArrayList<Integer> marcado;
+    
     
     public void leer()
     {
@@ -87,6 +88,44 @@ public class Archivos
             } catch (FileNotFoundException ex){
                 System.out.println("Error al cargar archivo.");
                 ex.getMessage();
+            }
+        }
+    }
+    
+    public void asignarHilos()
+    {
+        hilos = new ArrayList<>();
+        try
+        {
+            Scanner input = new Scanner(new File("./src/archivos/hilos.txt"));
+            while(input.hasNextLine())
+            {
+                Scanner fila = new Scanner(input.nextLine());
+                ArrayList<Integer> columna = new ArrayList<>();
+                
+                while(fila.hasNextInt()) 
+                {
+                    columna.add(fila.nextInt());
+                }               
+                //hilos.add(columna);
+                
+                fila.close();
+                
+            }
+            
+            input.close();
+            
+        } catch (FileNotFoundException e)
+        {
+            System.out.println("Error al cargar archivo.");
+            e.getMessage();
+        }
+        
+        for(int i = 0; i < hilos.size(); i++)
+        {
+            for(int j = 0; j < hilos.get(0).size(); j++)
+            {
+                System.out.println(hilos.get(i).get(j));
             }
         }
     }
