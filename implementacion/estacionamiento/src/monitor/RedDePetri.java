@@ -1,19 +1,12 @@
 package monitor;
 
-import archivos.archivosEnum;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import archivos.Archivos;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * Lógica del sistema.
  *
- * @author Sebastian Navarro & Tomas Piñero
+ * @author N.P.
  * @version 2018
  */
 
@@ -21,14 +14,13 @@ import java.util.Scanner;
 public class RedDePetri 
 {    
     private static RedDePetri RdP = null;
-    ArrayList<ArrayList<Integer>> matriz, intervalos;
-    ArrayList<Integer> marcado;
     
-<<<<<<< HEAD
-    private final int incidencia_menos[][], incidencia_mas[][], m_intervalos[][];
-    private int v_sensibilizadas[], v_marcado[]; 
-    private int vs_temporales[], vs_extendido[];
+    private int incidencia_menos[][], incidencia_mas[][];
+    private int intervalos[][], isTemporal[];
+    private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
+    private int vs_extendido[];
     private int columna[];
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -47,6 +39,10 @@ public class RedDePetri
     private RealVector vs_temporales, vs_inhibidores, vs_extendido;
 >>>>>>> Sebastian
 >>>>>>> Tomas
+=======
+    ArrayList<Tiempos> transicion;
+
+>>>>>>> Tomas
     private int plazas, transiciones;
     
     public static RedDePetri getRdP() //Singleton
@@ -57,10 +53,12 @@ public class RedDePetri
     
     private RedDePetri() // Constructor
     {
-        matriz = new ArrayList<>();
-        marcado = new ArrayList<>();
-        intervalos = new ArrayList<>();
+        System.out.println("Cargando archivos...");
+        Archivos arch = new Archivos();
         
+        arch.leer();
+        
+<<<<<<< HEAD
 <<<<<<< HEAD
         System.out.println("Cargando archivos...");
         cargarArchivo2();
@@ -68,42 +66,45 @@ public class RedDePetri
 <<<<<<< HEAD
         cargarArchivos();
 >>>>>>> Tomas
+=======
+        plazas = arch.getFilas();
+        transiciones = arch.getColumnas();
+>>>>>>> Tomas
         
         incidencia_menos = new int[plazas][transiciones];
         incidencia_mas = new int[plazas][transiciones];
-        m_intervalos = new int[plazas][2];
-=======
-        System.out.println("Cargando archivos...");
-        cargarArchivo2();
->>>>>>> Sebastian
+        intervalos = new int[transiciones][2];
         
-        v_marcado = new int[plazas];
+        marcadoInicial = new int[plazas];
+        marcado = new int[plazas];
         columna = new int[plazas];
         
+        isTemporal = new int[transiciones];        
         v_sensibilizadas = new int[transiciones];
-        vs_temporales = new int[transiciones];
         vs_extendido = new int[transiciones];
         
-        for(int i = 0; i < plazas; i++)
-        {
-            for(int j = 0; j < transiciones; j++)
-            {
-                if(matriz.get(i).get(j) <= 0) incidencia_menos[i][j] = matriz.get(i).get(j);
-                else if (matriz.get(i).get(j) >= 0) incidencia_mas[i][j] = matriz.get(i).get(j);
-            }
-            
-            for(int k = 0; k < 2; k++)
-            {
-                m_intervalos[i][k] = intervalos.get(i).get(k);
-            }
-            
-            v_marcado[i] = marcado.get(i);
-        }   
+        separarIncidencia(arch);
         
-        printMatriz(incidencia_menos,"Incidencia (menos)");
+        cargarTiempos(arch);
+        
+        transicion = new ArrayList<>(transiciones);
+        
+        for(int i = 0; i < transiciones; i++)
+        {
+            transicion.add(i,null);
+            if(isTemporal[i] == 1) transicion.set(i,new Tiempos(i,intervalos[i][0],intervalos[i][1]));
+        }
+        marcado = marcadoInicial;
+        /*printMatriz(incidencia_menos,"Incidencia (menos)");
         printMatriz(incidencia_mas,"Incidencia (mas)");
+<<<<<<< HEAD
         printMatrices();
         //printVector(v_marcado,"Marcado");
+=======
+        printMatriz(intervalos,"Intervalos temporales");
+        printVector(marcado,"marcado inicial");
+        printVector(isTemporal, "transiciones con tiempo");*/
+>>>>>>> Tomas
     }
     
     private void printMatriz(int m[][], String nombre)
@@ -128,33 +129,8 @@ public class RedDePetri
         }        
         System.out.println("\n");
     }
-    
-    private void cargarArchivos()
-    {
-        // Carga la matriz desde un archivo de texto plano.
-        for(archivosEnum e : archivosEnum.values())
-        {
-            try
-            {
-                Scanner input = new Scanner(new File(e.getNombre()).getAbsoluteFile());
-                while(input.hasNextLine()) 
-                {            
-                    Scanner columnas = new Scanner(input.nextLine());
-                    ArrayList<Integer> columna = new ArrayList<Integer>();
 
-                    while(columnas.hasNextInt())
-                    {
-                        columna.add(columnas.nextInt());
-                    }               
-                matriz.add(columna);
-                columnas.close();
-                }
-
-                if(e.getNombre().contains("incidencia")){
-                    plazas = matriz.size();
-                    transiciones = matriz.get(0).size();
-                }
-
+<<<<<<< HEAD
                 input.close();
             } catch (FileNotFoundException ex)
             {
@@ -324,21 +300,24 @@ public class RedDePetri
         System.out.println("#####################################################");
     }
     
+=======
+>>>>>>> Tomas
     public void disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
     {
         if(isSensibilizada(t))
         {
-            /*
+            /**
              *   Como se dispara una sola transicion, se agarra directamente
              *   la columna de la matriz de incidencia correspondiente
              *   para sacar o poner tokens.
              */
             getColumna(incidencia_menos,t);
-            v_marcado = sumar(v_marcado,columna);
+            marcado = sumar(marcado,columna); //Quita los tokens de la plaza
             getColumna(incidencia_mas,t);
-            v_marcado = sumar(v_marcado,columna);
+            marcado = sumar(marcado,columna); //Pone los tokens en la otra plaza
             
-            actualizar();
+            actualizarSensibilizadas();
+            actualizarExtendida();
         }
         else System.out.println("La transición 'T" + t + "' no está sensibilizada.");
     }
@@ -347,33 +326,45 @@ public class RedDePetri
     {
         return (vs_extendido[t] != 0);
     }
-    
-    private void armarExtendido()
-    {
-        
-    }
-    
-    public void actualizar()
+
+    public void actualizarSensibilizadas()
     {
         System.out.println("Actualizando vector de sensibilizadas.");
         
-        //Actualiza E (sensibilizadas comunes)
-        for(int i = 0; i < plazas; i++)
+        for(int i = 0; i < transiciones; i++)
         {
-            for(int j = 0; j < transiciones; j++)
+            for(int j = 0; j < plazas; j++)
             {
-                if(incidencia_menos[i][j] != 0 && v_marcado[i] != 0) v_sensibilizadas[i] = 1;
+                if(incidencia_menos[j][i] != 0 && marcadoInicial[j] != 0) v_sensibilizadas[i] = 1;
                 else v_sensibilizadas[i] = 0;
+                
+                //Inicia cronometro de la sensibilizada por tiempo
+                if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1) transicion.get(i).setTS();                
             }
         }
-        
-        System.out.println("Actualizando vector de sensibilizadas con tiempo.");
-        //Actualiza temporales
-        
+        //printVector(v_sensibilizadas, "sensibilizadas");        
+        System.out.println("Vector de sensibilizadas actualizado.");
+    }
+    
+    public void actualizarExtendida()
+    {
+        for(int i = 0; i < transiciones; i++)
+        {
+            for(int j = 0; j < plazas; j++)
+            {                
+                vs_extendido[i] = v_sensibilizadas[i];
+                
+                if(vs_extendido[i] == 1 && isTemporal[i] == 1) 
+                {
+                    if(!transicion.get(i).checkVentana()) vs_extendido[i] = 0;
+                }
+            }
+        }         
+        //printVector(vs_extendido,"extendido");
         System.out.println("Vector de sensibilizadas extendido actualizado.");
     }
     
-    /*
+    /**
      *  Obtiene la columna a sumar al marcado actual. Esto es el resutlado 
      *  de la multiplicación "I * (sigma and Ex)", al ser sigma un vector
      *  con 1 en la posición de la transición que se desea disparar y 0 en 
@@ -395,7 +386,7 @@ public class RedDePetri
      */
     private int[] sumar(int[] a, int[] b)
     {
-        int sigma[] = new int[plazas];
+        int sigma[]= new int[plazas];
         
         for(int i = 0; i < plazas; i++)
         {
@@ -418,6 +409,7 @@ public class RedDePetri
     {
         return transiciones;
     }
+<<<<<<< HEAD
 
     
     /**
@@ -436,3 +428,41 @@ public class RedDePetri
         this.transiciones = transiciones;
     }
 }
+=======
+    
+    /**
+     * Separa la matriz de incidencia en dos (menos y mas)
+     * y a su vez carga el marcado inicial.
+     * @param arch - txt a leer.
+     */
+    private void separarIncidencia(Archivos arch) 
+    {     
+        for(int i = 0; i < plazas; i++)
+        {
+            for(int j = 0; j < transiciones; j++)
+            {
+                if(arch.getIncidencia().get(i).get(j) <= 0) incidencia_menos[i][j] = arch.getIncidencia().get(i).get(j);
+                else if (arch.getIncidencia().get(i).get(j) >= 0) incidencia_mas[i][j] = arch.getIncidencia().get(i).get(j);
+            }
+            marcadoInicial[i] = arch.getMarcado().get(i);
+        }  
+    }
+
+    /**
+     * Carga los intervalos de tiempo desde un archivo txt
+     * @param arch - txt a leer
+     */
+    private void cargarTiempos(Archivos arch) 
+    {
+        for(int i = 0; i < transiciones; i++)
+        {
+            for(int j = 0; j < 2; j++)
+            {
+                intervalos[i][j] = arch.getIntervalos().get(i).get(j);
+                if(intervalos[i][0] != 0 || intervalos[i][1] != 0) isTemporal[i] = 1;
+                else isTemporal[i] = 0;
+            }
+        } 
+    }
+}
+>>>>>>> Tomas

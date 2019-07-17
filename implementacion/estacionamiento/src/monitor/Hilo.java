@@ -10,33 +10,38 @@ import java.util.ArrayList;
 public class Hilo extends Thread 
 {
     Monitor m = Monitor.getMonitor();
+    int id;
     ArrayList<Integer> transiciones;
-    String nombre;
     
-    public Hilo(Monitor m, String nombre, ArrayList<Integer> lista) 
+    public Hilo(int id,ArrayList<ArrayList<Integer>> hilos) 
     {
-        this.m = m;
-        this.nombre = nombre;
-        
-        for(int i = 0; i < lista.size(); i++)
+        this.id = id;
+        transiciones = new ArrayList<>();
+        for(int i = 0; i < hilos.get(0).size(); i++)
         {
-            transiciones.add(lista.get(i));
+            if(hilos.get(id).get(i) != null) transiciones.add(hilos.get(id).get(i));
         }
     }
     
+    public void print()
+    {
+        System.out.print("Soy el hilo " + (id+1) + " con transiciones ");
+        for(int i = 0; i < transiciones.size(); i++)
+        {
+            System.out.print( transiciones.get(i) + " ");
+        }
+        System.out.println("a cargo.");
+    }
+    
     @Override
-    public void run() {
+    public void run() 
+    {
         while(true)
         {
             for(int i = 0; i < transiciones.size(); i++)
             {
-                m.dispararTransicion(transiciones.get(i));
+                m.dispararTransicion(i);
             }
         }
-    }
-   
-    public String getNombre()
-    {
-        return nombre;
     }
 }

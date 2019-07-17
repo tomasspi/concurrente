@@ -1,4 +1,5 @@
 
+import archivos.Archivos;
 import java.util.ArrayList;
 import monitor.Monitor;
 import monitor.Hilo;
@@ -17,24 +18,16 @@ public class Main
       Monitor monitor = Monitor.getMonitor();
       System.out.println("Disparando transicion...");
       
-      ArrayList<Integer> entrada1 = new ArrayList<>();
-      entrada1.add(0);
-      entrada1.add(3);
-      entrada1.add(4);
-      entrada1.add(5);
+      Archivos cargarHilos = new Archivos();
+      cargarHilos.leerHilos();
+      int cantidadHilos = cargarHilos.getHilos().size();
+      Hilo hilos[] = new Hilo[cantidadHilos];
       
-      ArrayList<Integer> entrada2 = new ArrayList<>();
-      ArrayList<Integer> entrada3 = new ArrayList<>();
-      ArrayList<Integer> planta_baja = new ArrayList<>();
-      ArrayList<Integer> planta_alta = new ArrayList<>();
-      ArrayList<Integer> caja = new ArrayList<>();
-      ArrayList<Integer> salida1 = new ArrayList<>();
-      ArrayList<Integer> salida2 = new ArrayList<>();
+      for(int i = 0; i < cantidadHilos; i++)
+      {
+          hilos[i] = new Hilo(i,cargarHilos.getHilos());
+          hilos[i].print();
+      }
       
-
-      
-      Hilo entrada = new Hilo(monitor,"entrada1",entrada1);
-      //entrada.setPriority(10);
-      entrada.start();
     }
 }
