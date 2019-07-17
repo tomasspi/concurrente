@@ -22,6 +22,7 @@ public class RedDePetri
     private int columna[];
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> Tomas
@@ -40,6 +41,9 @@ public class RedDePetri
 >>>>>>> Sebastian
 >>>>>>> Tomas
 =======
+=======
+    boolean cartel;
+>>>>>>> Tomas
     ArrayList<Tiempos> transicion;
 
 >>>>>>> Tomas
@@ -130,6 +134,7 @@ public class RedDePetri
         System.out.println("\n");
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                 input.close();
             } catch (FileNotFoundException ex)
@@ -303,6 +308,9 @@ public class RedDePetri
 =======
 >>>>>>> Tomas
     public void disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
+=======
+    public boolean disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
+>>>>>>> Tomas
     {
         if(isSensibilizada(t))
         {
@@ -318,8 +326,13 @@ public class RedDePetri
             
             actualizarSensibilizadas();
             actualizarExtendida();
+            manejarCartel();
+            return true;
         }
-        else System.out.println("La transición 'T" + t + "' no está sensibilizada.");
+        else {
+            System.out.println("La transición 'T" + t + "' no está sensibilizada.");
+            return false;
+        }
     }
 
     public boolean isSensibilizada(int t) // Pregunta si la transicion esta sensibilizada
@@ -463,6 +476,19 @@ public class RedDePetri
                 else isTemporal[i] = 0;
             }
         } 
+    }
+<<<<<<< HEAD
+}
+>>>>>>> Tomas
+=======
+    private void manejarCartel()
+    {
+        cartel = marcado[19] == 0 && marcado[20] == 0;
+        if(cartel) System.out.println("NO HAY MAS LUGAR EN LA PLAYA. LEDs.encender()");
+    }
+    private void reset()
+    {
+        marcado = marcadoInicial;
     }
 }
 >>>>>>> Tomas

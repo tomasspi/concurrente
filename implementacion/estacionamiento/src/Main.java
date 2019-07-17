@@ -27,6 +27,7 @@ public class Main
       {
           hilos[i] = new Hilo(i,cargarHilos.getHilos());
           hilos[i].print();
+          //hilos[i].start();
       }
       
     }

@@ -10,13 +10,14 @@ public class Politicas
 {
     private RedDePetri rdp;
     private int politica;
-    private int politicas[], transiciones[];
+    private int transiciones[];
+    private double politicas[];
     
     public Politicas(RedDePetri rdp, int cual)
     {
         this.rdp = rdp;
         politica = cual;
-        politicas = new int[rdp.getTransiciones()];
+        politicas = new double[rdp.getTransiciones()];
     }
 
     public int decidir()
@@ -27,9 +28,9 @@ public class Politicas
         {
             case 1: 
                     System.out.println("Politica 1: Priorizar PB, salida indistinta.");
-                    politicas[9] = 1;
-                    politicas[10] = 1;
-                    return transiciones[1];
+                    politicas[10] = 0.7;
+                    if(Math.random() > 0.7) return transiciones[9];
+                    return transiciones[10];
                 
             case 2: 
                     System.out.println("Politica 2: Llenado indistinto, priorizar salida 2.");
