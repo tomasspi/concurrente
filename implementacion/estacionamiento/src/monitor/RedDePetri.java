@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Lógica del sistema.
  *
- * @author Sebastian Navarro & Tomas Piñero
+ * @author N.P.
  * @version 2018
  */
 
@@ -156,7 +156,7 @@ public class RedDePetri
         System.out.println("Vector de sensibilizadas extendido actualizado.");
     }
     
-    /*
+    /**
      *  Obtiene la columna a sumar al marcado actual. Esto es el resutlado 
      *  de la multiplicación "I * (sigma and Ex)", al ser sigma un vector
      *  con 1 en la posición de la transición que se desea disparar y 0 en 

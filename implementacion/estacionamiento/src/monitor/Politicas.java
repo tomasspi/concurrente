@@ -26,25 +26,25 @@ public class Politicas
         switch (politica)
         {
             case 1: 
-                    System.out.println("Politica 1");
-                    politicas[3] = 1;
+                    System.out.println("Politica 1: Priorizar PB, salida indistinta.");
+                    politicas[9] = 1;
                     politicas[10] = 1;
                     return transiciones[1];
                 
             case 2: 
-                    System.out.println("Politica 2");
-                    politicas[4] = 1;
-                    politicas[15] = 1;
+                    System.out.println("Politica 2: Llenado indistinto, priorizar salida 2.");
+                    politicas[20] = 1;
+                    politicas[21] = 1;
                     
                     return transiciones[2];
                     
             default:
-                    System.out.println("Politica default");
+                    System.out.println("Politica default: aleatoriamente.");
                     if(Math.random() > 0.5)
                     {
-                        ;//hacer algo
+                        return transiciones[2];
                     }
-                    return transiciones[3];
+                    else return transiciones[3];
         }
     }
 }

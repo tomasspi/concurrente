@@ -92,9 +92,10 @@ public class Archivos
         }
     }
     
-    public void asignarHilos()
+    public void leerHilos()
     {
         hilos = new ArrayList<>();
+        int columnaAnterior = 0;
         try
         {
             Scanner input = new Scanner(new File("./src/archivos/hilos.txt"));
@@ -105,12 +106,12 @@ public class Archivos
                 
                 while(fila.hasNextInt()) 
                 {
-                    columna.add(fila.nextInt());
+                    columna.add(fila.nextInt());                    
                 }               
-                //hilos.add(columna);
-                
-                fila.close();
-                
+                if(columna.size() < columnaAnterior) columna.add(null);
+                hilos.add(columna);
+                columnaAnterior = columna.size();
+                fila.close();                
             }
             
             input.close();
@@ -119,14 +120,6 @@ public class Archivos
         {
             System.out.println("Error al cargar archivo.");
             e.getMessage();
-        }
-        
-        for(int i = 0; i < hilos.size(); i++)
-        {
-            for(int j = 0; j < hilos.get(0).size(); j++)
-            {
-                System.out.println(hilos.get(i).get(j));
-            }
         }
     }
     
@@ -148,6 +141,11 @@ public class Archivos
     public ArrayList<ArrayList<Integer>> getIntervalos()
     {
         return intervalos;
+    }
+    
+    public ArrayList<ArrayList<Integer>> getHilos()
+    {
+        return hilos;
     }
     
     public ArrayList<Integer> getMarcado()

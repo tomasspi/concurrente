@@ -17,16 +17,17 @@ public class Main
       System.out.println("Creando Gestor de Monitor");
       Monitor monitor = Monitor.getMonitor();
       System.out.println("Disparando transicion...");
-      Archivos test = new Archivos();
       
-      test.asignarHilos();
-      /*
-      Hilo[] test;
-      test = new Hilo[8];
+      Archivos cargarHilos = new Archivos();
+      cargarHilos.leerHilos();
+      int cantidadHilos = cargarHilos.getHilos().size();
+      Hilo hilos[] = new Hilo[cantidadHilos];
       
-      for(int i = 0; i < 8; i++)
+      for(int i = 0; i < cantidadHilos; i++)
       {
-          test[i].start();
-      }*/
+          hilos[i] = new Hilo(i,cargarHilos.getHilos());
+          hilos[i].print();
+      }
+      
     }
 }
