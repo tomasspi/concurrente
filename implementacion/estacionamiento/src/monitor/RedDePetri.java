@@ -20,6 +20,7 @@ public class RedDePetri
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
     private int vs_extendido[];
     private int columna[];
+    boolean cartel;
     ArrayList<Tiempos> transicion;
 
     private int plazas, transiciones;
@@ -94,7 +95,7 @@ public class RedDePetri
         System.out.println("\n");
     }
 
-    public void disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
+    public boolean disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
     {
         if(isSensibilizada(t))
         {
@@ -110,8 +111,13 @@ public class RedDePetri
             
             actualizarSensibilizadas();
             actualizarExtendida();
+            manejarCartel();
+            return true;
         }
-        else System.out.println("La transición 'T" + t + "' no está sensibilizada.");
+        else {
+            System.out.println("La transición 'T" + t + "' no está sensibilizada.");
+            return false;
+        }
     }
 
     public boolean isSensibilizada(int t) // Pregunta si la transicion esta sensibilizada
@@ -235,5 +241,14 @@ public class RedDePetri
                 else isTemporal[i] = 0;
             }
         } 
+    }
+    private void manejarCartel()
+    {
+        cartel = marcado[19] == 0 && marcado[20] == 0;
+        if(cartel) System.out.println("NO HAY MAS LUGAR EN LA PLAYA. LEDs.encender()");
+    }
+    private void reset()
+    {
+        marcado = marcadoInicial;
     }
 }

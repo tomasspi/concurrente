@@ -16,7 +16,7 @@ public class Monitor
     private Colas cola;
     private final Politicas politicas;
     
-    private boolean k;
+    private boolean k,l;
     private int[] vs;
     private int[] vc;
     private int[] m;
@@ -48,28 +48,32 @@ public class Monitor
             Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        while (k==true) 
+        while (k) 
         {
-            System.out.println("La entrada al monitor fue " + k);
-            k = rdp.isSensibilizada(t);
+            System.out.println("El hilo " + Thread.currentThread().getId() + " accedió al mutex.");
             
-            if(k==true)
+            l = rdp.disparar(t);
+            
+            if(l)
             {
-               // if(rdp.estaSensibilizada()){
-                    //vs = rdp.getSensibilizadas().clone();
+               vs = rdp.getSensibilizadas();
+               
+               //vc = cola.();
+               
+               m = and(vs, vc);
+               
+               for(int i = 0; i < rdp.getTransiciones(); i++)
+               {
+                   if(m[i] != 0)
+                   {
+                       
+                       electo = politicas.decidir();
+                       // el electo hay que despertarlo para que corra.
+                       mutex.release();
+                   } else k=false;
+               }                
             }
-                vc = cola.quienesEstan();
-                m = and(vs, vc);
-                if(algunVerdadero(m)) {
-                    electo = politicas.decidir();
-                    // el electo hay que despertarlo para que corra.
-                    mutex.release();
-                }
-                else{
-                    k=false;
-                }
-                
-            }
+        }
             mutex.release();
     }    
     
@@ -77,7 +81,8 @@ public class Monitor
     {
         int[] res = new int[x.length];
     
-        for(int i=0;i<x.length;i++) {
+        for(int i=0;i<x.length;i++)
+        {
             res[i] = x[i] & y[i];
         }   
     

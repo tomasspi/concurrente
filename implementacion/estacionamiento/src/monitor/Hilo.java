@@ -40,7 +40,7 @@ public class Hilo extends Thread
         {
             for(int i = 0; i < transiciones.size(); i++)
             {
-                m.dispararTransicion(i);
+                m.dispararTransicion(transiciones.get(i));
             }
         }
     }
