@@ -65,6 +65,10 @@ public class RedDePetri
             if(isTemporal[i] == 1) transicion.set(i,new Tiempos(i,intervalos[i][0],intervalos[i][1]));
         }
         marcado = marcadoInicial;
+        
+        actualizarSensibilizadas();
+        actualizarExtendida();
+        printVector(marcado,"Marcado actual");
         /*printMatriz(incidencia_menos,"Incidencia (menos)");
         printMatriz(incidencia_mas,"Incidencia (mas)");
         printMatriz(intervalos,"Intervalos temporales");
@@ -115,7 +119,7 @@ public class RedDePetri
             return true;
         }
         else {
-            System.out.println("La transición 'T" + t + "' no está sensibilizada.");
+            System.out.println("No se realizó el disparo de 'T" + t + ".");
             return false;
         }
     }
@@ -129,15 +133,28 @@ public class RedDePetri
     {
         System.out.println("Actualizando vector de sensibilizadas.");
         
+        int index[] = new int[plazas];
+        
         for(int i = 0; i < transiciones; i++)
         {
+            int elemento = 0;
+            
             for(int j = 0; j < plazas; j++)
             {
-                if(incidencia_menos[j][i] != 0 && marcadoInicial[j] != 0) v_sensibilizadas[i] = 1;
+                if(incidencia_menos[j][i] != 0)
+                {
+                    index[elemento] = j;
+                    elemento++;
+                }
+                
+                int k = 0;
+                
+                while(k < elemento && marcado[index[k]] > 0) k++;
+                
+                if(k == elemento) v_sensibilizadas[i] = 1;
                 else v_sensibilizadas[i] = 0;
                 
-                //Inicia cronometro de la sensibilizada por tiempo
-                if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1) transicion.get(i).setTS();                
+                if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1) transicion.get(i).setTS();
             }
         }
         //printVector(v_sensibilizadas, "sensibilizadas");        
@@ -193,21 +210,6 @@ public class RedDePetri
         return sigma;
     }
     
-    public int[] getSensibilizadas()
-    {
-        return vs_extendido;
-    }
-    
-    public int getPlazas()
-    {
-        return plazas;
-    }
-    
-    public int getTransiciones()
-    {
-        return transiciones;
-    }
-    
     /**
      * Separa la matriz de incidencia en dos (menos y mas)
      * y a su vez carga el marcado inicial.
@@ -245,10 +247,36 @@ public class RedDePetri
     private void manejarCartel()
     {
         cartel = marcado[19] == 0 && marcado[20] == 0;
-        if(cartel) System.out.println("NO HAY MAS LUGAR EN LA PLAYA. LEDs.encender()");
+        if(cartel) System.out.println("NO HAY LUGAR.");
     }
+    
     private void reset()
     {
         marcado = marcadoInicial;
+    }    
+        
+    public int[] getSensibilizadas()
+    {
+        return vs_extendido;
+    }
+    
+    public int getPlazas()
+    {
+        return plazas;
+    }
+    
+    public int getTransiciones()
+    {
+        return transiciones;
+    }
+    
+    public Tiempos getTiempo(int t)
+    {
+        return transicion.get(t);
+    }
+    
+    public boolean isTemporal(int t)
+    {
+        return isTemporal[t] == 1;
     }
 }

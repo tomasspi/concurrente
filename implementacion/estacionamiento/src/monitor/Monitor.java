@@ -1,8 +1,7 @@
 package monitor;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Clase Gestor de monitor.
@@ -11,91 +10,78 @@ import java.util.logging.Logger;
 public class Monitor
 {
     private static Monitor monitor = null;
-    private Semaphore mutex = new Semaphore(1);
+    private Semaphore mutex = new Semaphore(1,true);
     private RedDePetri rdp;
-    private Colas cola;
-    private final Politicas politicas;
-    
-    private boolean k,l;
-    private int[] vs;
-    private int[] vc;
-    private int[] m;
-    private int electo;
-    
+    private Colas condiciones[];
+    private final Politicas politica;    
     
     //Singleton para el monitor.
     private Monitor() 
     {        
         //Se crea la red de petri.
         rdp= RedDePetri.getRdP();
-        //Se crean una cola.
-        //cola=new Colas();    
-        //Se crea un objeto politicas.
-        politicas=new Politicas(rdp,1);
+        //Se crea una condición por transición.
+        condiciones = new Colas[rdp.getTransiciones()];
+        
+        for(int i = 0; i < condiciones.length; i++) condiciones[i] = new Colas(mutex);
+        
+        //Se elije la politica.
+        politica = new Politicas(1);
+        //politica = new Politica(2);
+        
     }
     
-    public static Monitor getMonitor() {
+    public static Monitor getMonitor() 
+    {
         if(monitor == null) monitor = new Monitor();
         return monitor;
     }
    
     public void dispararTransicion(int t) 
     {
-        try 
-        { 
-            mutex.acquire();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        try { mutex.acquire(); } 
+        catch (InterruptedException ex) { ex.getMessage(); }
         
-        while (k) 
+        System.out.println("El hilo " + Thread.currentThread().getName() + " accedió al mutex.");
+        
+        if(!rdp.isSensibilizada(t)) condiciones[t].DELAY();
+                    
+        if(rdp.isTemporal(t))
         {
-            System.out.println("El hilo " + Thread.currentThread().getId() + " accedió al mutex.");
-            
-            l = rdp.disparar(t);
-            
-            if(l)
+            if(rdp.getTiempo(t).checkVentana()) rdp.disparar(t);
+            else if(rdp.getTiempo(t).estaAntes()) 
             {
-               vs = rdp.getSensibilizadas();
-               
-               //vc = cola.();
-               
-               m = and(vs, vc);
-               
-               for(int i = 0; i < rdp.getTransiciones(); i++)
-               {
-                   if(m[i] != 0)
-                   {
-                       
-                       electo = politicas.decidir();
-                       // el electo hay que despertarlo para que corra.
-                       mutex.release();
-                   } else k=false;
-               }                
-            }
-        }
+                UNLOCK();
+                try { Thread.sleep(rdp.getTiempo(t).cuantoDormir()); }
+                catch (InterruptedException ex) { ex.printStackTrace(); }
+                rdp.disparar(t);
+            } else System.out.println("El tiempo superó el beta.");
+            } else rdp.disparar(t);
+            
+            UNLOCK();
+            
             mutex.release();
     }    
     
-    private int[] and(int[] x, int[] y) 
+    private void UNLOCK()
     {
-        int[] res = new int[x.length];
-    
-        for(int i=0;i<x.length;i++)
-        {
-            res[i] = x[i] & y[i];
-        }   
-    
-        return res;
+        ArrayList<Integer> disponibles = AND();
+        if(!disponibles.isEmpty()) condiciones[disponibles.get(0)].RESUME();
     }
-     
-    private boolean algunVerdadero(int[] z)
+    
+    private ArrayList<Integer> AND() 
     {
-        for(int i=0;i<z.length;i++) {
-            if(z[i]==1) {
-                return true;
-            }                  
+        ArrayList<Integer> disponibles = new ArrayList<>();
+        for(int i = 0; i < rdp.getTransiciones(); i++)
+        {
+            if(!(condiciones[i].EMPTY()) && rdp.isSensibilizada(i))
+            disponibles.add(i);
         }
-     return false;
+        return disponibles;
+    }
+
+    public Politicas getPolitica()
+    {
+        return politica;
     }
 }

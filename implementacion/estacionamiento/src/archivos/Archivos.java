@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/**
- *
+/** Esta clase es la encargada de leer toda la información
+ *  necesaria para la creación de la Red de Petri:
+ *   - Matriz de incidencia.
+ *   - Intervalos temporales.
+ *   - Cantidad de hilos a utilizar.
+ * 
  * @author N.P.
  */
 public class Archivos
@@ -15,7 +19,6 @@ public class Archivos
     int filas, columnas;
     ArrayList<ArrayList<Integer>> matriz, intervalos, hilos;
     ArrayList<Integer> marcado;
-    
     
     public void leer()
     {
@@ -46,8 +49,9 @@ public class Archivos
                         filas = matriz.size();
                         columnas = matriz.get(0).size();
                         
-                        System.out.println(Arrays.deepToString(matriz.toArray()));
-                        System.out.println("Plazas: "+ matriz.size() + " Transiciones: " + matriz.get(0).size());
+                        //System.out.println(Arrays.deepToString(matriz.toArray()));
+                        System.out.println("Matriz de incidencia cargada exitosamente.");
+                        System.out.println("Plazas: "+ matriz.size() + "\nTransiciones: " + matriz.get(0).size());
                         break;
                         
                     case "Intervalos":
@@ -66,23 +70,22 @@ public class Archivos
                             filas.close();
                         }
                         input.close();
-                        
-                        
-                        System.out.println(Arrays.deepToString(intervalos.toArray()));
-                        System.out.println("Alfa: "+ intervalos.size() + " Beta: " + intervalos.get(0).size());
+                                                
+                        //System.out.println(Arrays.deepToString(intervalos.toArray()));
+                        System.out.println("Intervalos temporales cargados exitosamente.");
+                        //System.out.println("Alfa: "+ intervalos.size() + " Beta: " + intervalos.get(0).size());
                         break;
                         
                     case "Marcado":
                         marcado = new ArrayList<>();
-                        while(input.hasNextLine()) 
+                        while(input.hasNextInt()) 
                         {
                             marcado.add(input.nextInt());
                         }
                         input.close();
                         
+                        System.out.println("El marcado inicial es:");
                         System.out.println(Arrays.deepToString(marcado.toArray()));
-                        System.out.println("Tamaño: "+ marcado.size());
-                        
                         break;                        
                 }                
             } catch (FileNotFoundException ex){
@@ -108,7 +111,7 @@ public class Archivos
                 {
                     columna.add(fila.nextInt());                    
                 }               
-                if(columna.size() < columnaAnterior) columna.add(null);
+                
                 hilos.add(columna);
                 columnaAnterior = columna.size();
                 fila.close();                
@@ -121,6 +124,8 @@ public class Archivos
             System.out.println("Error al cargar archivo.");
             e.getMessage();
         }
+        
+        System.out.println("Hilos cargados existosamente.");
     }
     
     public int getFilas()

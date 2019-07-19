@@ -2,8 +2,9 @@ package monitor;
 
 import java.util.ArrayList;
 
-/**
- *
+/** 
+ *  A cada hilo se le asigana las transiciones a disparar.
+ * 
  * @author Mr. Green
  */
 
@@ -12,35 +13,31 @@ public class Hilo extends Thread
     Monitor m = Monitor.getMonitor();
     int id;
     ArrayList<Integer> transiciones;
+    int disparos;
     
-    public Hilo(int id,ArrayList<ArrayList<Integer>> hilos) 
+    public Hilo(int id,ArrayList<Integer> transiciones, int disparos) 
     {
         this.id = id;
-        transiciones = new ArrayList<>();
-        for(int i = 0; i < hilos.get(0).size(); i++)
-        {
-            if(hilos.get(id).get(i) != null) transiciones.add(hilos.get(id).get(i));
-        }
+        this.transiciones = transiciones;
+        this.disparos = disparos;
     }
     
     public void print()
     {
-        System.out.print("Soy el hilo " + (id+1) + " con transiciones ");
-        for(int i = 0; i < transiciones.size(); i++)
-        {
-            System.out.print( transiciones.get(i) + " ");
-        }
-        System.out.println("a cargo.");
+        System.out.print("Hilo " + id + " con transiciones ");
+        System.out.print( transiciones.toString() + "\n");
     }
     
     @Override
     public void run() 
     {
-        while(true)
+        while(disparos != 0)
         {
             for(int i = 0; i < transiciones.size(); i++)
             {
+                if(id == 3 || id == 7) m.dispararTransicion(m.getPolitica().decidir(transiciones));
                 m.dispararTransicion(transiciones.get(i));
+                disparos--;
             }
         }
     }
