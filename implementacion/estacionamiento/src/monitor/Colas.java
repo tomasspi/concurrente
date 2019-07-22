@@ -1,6 +1,5 @@
 package monitor;
 
-import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -13,14 +12,12 @@ public class Colas
 {
     Semaphore mutex, condicion;
     int dormidos;
-    ArrayList<Long> enCola;
     
     public Colas(Semaphore mutex)
     {
         this.mutex = mutex;
-        condicion = new Semaphore(0, true);
+        condicion = new Semaphore(0,true);
         dormidos = 0;
-        enCola = new ArrayList<>();
     }
     
     /*devuelve el mutex, y trata de adquirir la condicion (en 0), entonces el 
@@ -28,6 +25,7 @@ public class Colas
     condicion, el hilo continuará su ejecución y adquirira nuevamente el mutex*/
     public void DELAY() //bloquea a un hilo y devuelve el mutex
     {    
+        //System.out.println("A DORMIR: " + Thread.currentThread().getName());
         dormidos++;
         mutex.release();
         
@@ -36,12 +34,8 @@ public class Colas
         {
             System.out.println("Interrupcion en condición del hilo " + Thread.currentThread().getId() + e.getMessage());
         }
-        
-        try { mutex.acquire(); } 
-        catch (InterruptedException e) 
-        {
-            System.out.println("Interrupcion en mutex del hilo " + Thread.currentThread().getId() + e.getMessage());
-        }
+
+        //System.out.println("DESPERTÉ: " + Thread.currentThread().getName());
     }
 
     public void RESUME() //desbloquea un hilo, si no hay bloqueados no hace nada
@@ -56,5 +50,10 @@ public class Colas
     public boolean EMPTY()
     { 
         return dormidos == 0;
+    }
+
+    public int getQueue() 
+    {
+        return condicion.getQueueLength();
     }
 }

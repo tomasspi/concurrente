@@ -72,7 +72,7 @@ public class Archivos
                         input.close();
                                                 
                         //System.out.println(Arrays.deepToString(intervalos.toArray()));
-                        System.out.println("Intervalos temporales cargados exitosamente.");
+                        //System.out.println("Intervalos temporales cargados exitosamente.");
                         //System.out.println("Alfa: "+ intervalos.size() + " Beta: " + intervalos.get(0).size());
                         break;
                         
@@ -84,8 +84,8 @@ public class Archivos
                         }
                         input.close();
                         
-                        System.out.println("El marcado inicial es:");
-                        System.out.println(Arrays.deepToString(marcado.toArray()));
+                        //System.out.println("El marcado inicial es:");
+                        //System.out.println(Arrays.deepToString(marcado.toArray()));
                         break;                        
                 }                
             } catch (FileNotFoundException ex){
@@ -125,7 +125,7 @@ public class Archivos
             e.getMessage();
         }
         
-        System.out.println("Hilos cargados existosamente.");
+        //System.out.println("Hilos cargados exitosamente.");
     }
     
     public int getFilas()

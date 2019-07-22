@@ -5,10 +5,6 @@
  */
 package monitor;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,130 +14,48 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class RedDePetriTest {
     
-    public RedDePetriTest() {
-    }
+    RedDePetri rdp = RedDePetri.getRdP();
     
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+    int Invariantes[] = { 3, 3, 3, 3, 1, 1, 1, 1, 2, 30, 30, 60 };
+    int plazas[][] = 
+    {   {0, 3}, 
+        {1, 4}, 
+        {1, 5}, 
+        {12, 13}, 
+        {6, 9}, 
+        {7, 10}, 
+        {8, 11}, 
+        {25, 26}, 
+        {14, 15, 16, 23}, 
+        {14, 17, 19, 21}, 
+        {15, 18, 20, 22}, 
+        {13, 14, 15, 17, 18, 21, 22, 23, 24, 25, 27, 28, 3, 4, 5, 6, 7, 8},
+    };
 
     /**
-     * Test of getRdP method, of class RedDePetri.
+     * Verifica los invariantes de plazas de la red.
      */
     @Test
-    public void testGetRdP() {
-        System.out.println("getRdP");
-        RedDePetri expResult = null;
-        RedDePetri result = RedDePetri.getRdP();
-        assertEquals(expResult, result);
+    public void pInvariantes() 
+    {
+        System.out.println("--- TEST DE INVARIANTES DE PLAZAS ---");
+
+        int marcado[] = rdp.getMarcado();
+        int result[] = new int[13];
+        
+        for(int i = 0; i < Invariantes.length; i++)
+        {
+            for(int j = 0; j < plazas.length; j++)
+            {
+                for(int k = 0; j < plazas[0].length; k++)
+                {
+                    result[i] += marcado[plazas[j][k]];
+                }
+            }
+        }
+        
+        assertEquals(Invariantes, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of disparar method, of class RedDePetri.
-     */
-    @Test
-    public void testDisparar() {
-        System.out.println("disparar");
-        int t = 0;
-        RedDePetri instance = null;
-        instance.disparar(t);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isSensibilizada method, of class RedDePetri.
-     */
-    @Test
-    public void testIsSensibilizada() {
-        System.out.println("isSensibilizada");
-        int t = 0;
-        RedDePetri instance = null;
-        boolean expResult = false;
-        boolean result = instance.isSensibilizada(t);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of actualizarSensibilizadas method, of class RedDePetri.
-     */
-    @Test
-    public void testActualizarSensibilizadas() {
-        System.out.println("actualizarSensibilizadas");
-        RedDePetri instance = null;
-        instance.actualizarSensibilizadas();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of actualizarExtendida method, of class RedDePetri.
-     */
-    @Test
-    public void testActualizarExtendida() {
-        System.out.println("actualizarExtendida");
-        RedDePetri instance = null;
-        instance.actualizarExtendida();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getSensibilizadas method, of class RedDePetri.
-     */
-    @Test
-    public void testGetSensibilizadas() {
-        System.out.println("getSensibilizadas");
-        RedDePetri instance = null;
-        int[] expResult = null;
-        int[] result = instance.getSensibilizadas();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPlazas method, of class RedDePetri.
-     */
-    @Test
-    public void testGetPlazas() {
-        System.out.println("getPlazas");
-        RedDePetri instance = null;
-        int expResult = 0;
-        int result = instance.getPlazas();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getTransiciones method, of class RedDePetri.
-     */
-    @Test
-    public void testGetTransiciones() {
-        System.out.println("getTransiciones");
-        RedDePetri instance = null;
-        int expResult = 0;
-        int result = instance.getTransiciones();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
