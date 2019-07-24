@@ -1,8 +1,6 @@
-
 import archivos.Archivos;
-import java.util.ArrayList;
-import monitor.Monitor;
-import monitor.Hilo;
+import monitor.*;
+
 /**
  * Realiza todas las operaciones. Creación de hilos
  * 
@@ -11,24 +9,30 @@ import monitor.Hilo;
  */
 public class Main
 {
-  public static void main (String args[])
+  //private RedDePetri rdp; 
+  public static void main (String args[]) throws InterruptedException
   {
       //Crea el gestor de monitor.
       System.out.println("Creando Gestor de Monitor");
-      Monitor monitor = Monitor.getMonitor();
-      System.out.println("Disparando transicion...");
+      Monitor monitor = Monitor.getMonitor();      
       
       Archivos cargarHilos = new Archivos();
       cargarHilos.leerHilos();
       int cantidadHilos = cargarHilos.getHilos().size();
       Hilo hilos[] = new Hilo[cantidadHilos];
       
-      for(int i = 0; i < cantidadHilos; i++)
+      
+      for(int i = 0; i < cantidadHilos; i++) 
       {
-          hilos[i] = new Hilo(i,cargarHilos.getHilos());
-          hilos[i].print();
-          //hilos[i].start();
+    	  hilos[i] = new Hilo(i,cargarHilos.getHilos().get(i));
       }
       
-    }
+      System.out.println("Disparos a realizar: " + hilos[0].getDisparos() + "\n");
+      
+      for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
+      
+      Thread.sleep(5000);
+      RedDePetri.getRdP().printSecuenciaDisparos();
+      cargarHilos.printToFile();
+  }
 }

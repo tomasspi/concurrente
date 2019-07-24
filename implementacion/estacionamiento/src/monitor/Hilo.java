@@ -2,46 +2,49 @@ package monitor;
 
 import java.util.ArrayList;
 
-/**
- *
+/** 
+ *  A cada hilo se le asigana las transiciones a disparar.
+ * 
  * @author Mr. Green
  */
 
 public class Hilo extends Thread 
 {
+    static final int DISPAROS = 200;
     Monitor m = Monitor.getMonitor();
     int id;
     ArrayList<Integer> transiciones;
     
-    public Hilo(int id,ArrayList<ArrayList<Integer>> hilos) 
+    public Hilo(int id,ArrayList<Integer> transiciones) 
     {
         this.id = id;
-        transiciones = new ArrayList<>();
-        for(int i = 0; i < hilos.get(0).size(); i++)
-        {
-            if(hilos.get(id).get(i) != null) transiciones.add(hilos.get(id).get(i));
-        }
+        this.transiciones = transiciones;
     }
     
     public void print()
     {
-        System.out.print("Soy el hilo " + (id+1) + " con transiciones ");
-        for(int i = 0; i < transiciones.size(); i++)
-        {
-            System.out.print( transiciones.get(i) + " ");
-        }
-        System.out.println("a cargo.");
+        System.out.print("Hilo " + id + " con transiciones ");
+        System.out.print( transiciones.toString() + "\n");
     }
     
     @Override
     public void run() 
     {
-        while(true)
+        while(m.getCantDisparos() < DISPAROS)
         {
-            for(int i = 0; i < transiciones.size(); i++)
-            {
-                m.dispararTransicion(transiciones.get(i));
-            }
+            m.dispararTransicion(transiciones);
         }
+        
+        System.out.println(Thread.currentThread().getName()+": FINALIZACION DE DISPAROS.");
+    }
+    
+    @Override
+    public long getId(){
+        return id;
+    }
+    
+    public int getDisparos()
+    {
+    	return DISPAROS;
     }
 }
