@@ -20,13 +20,26 @@ import Monitor.RedDePetri;
  * 
  * @author N.P.
  */
+
+
+
 public class Archivos
 {
+    
+    private static Archivos archivos = null;
     int filas, columnas;
-    ArrayList<ArrayList<Integer>> matriz, intervalos, hilos;
+    ArrayList<ArrayList<Integer>> intervalos, hilos, matriz_imas, matriz_imenos;
     ArrayList<Integer> marcado;
     
-    public void leer()
+    /* singleton */
+    public static Archivos getArchivos() //Singleton
+    {
+        if(archivos == null) archivos = new Archivos();
+        return archivos;
+    }
+    
+    /* constructor */
+    private Archivos() 
     {
         for(archivosEnum e : archivosEnum.values())
         {
@@ -35,9 +48,9 @@ public class Archivos
                 Scanner input = new Scanner(new File(e.getPath()).getAbsoluteFile());
                 
                 switch(e.getNombre())
-                {
-                    case "Incidencia":
-                        matriz = new ArrayList<ArrayList<Integer>>();
+                {   
+                    case "IncidenciaMas":
+                        matriz_imas = new ArrayList<ArrayList<Integer>>();
                         while(input.hasNextLine()) 
                         {            
                             Scanner fila = new Scanner(input.nextLine());
@@ -47,16 +60,41 @@ public class Archivos
                             {
                                 columna.add(fila.nextInt());
                             }               
-                            matriz.add(columna);
+                            matriz_imas.add(columna);
                             fila.close();
                         }
                         input.close();
                         
-                        filas = matriz.size();
-                        columnas = matriz.get(0).size();
+                        filas = matriz_imas.size();
+                        columnas = matriz_imas.get(0).size();
                         
-                        System.out.println("Matriz de incidencia cargada exitosamente.");
-                        System.out.println("Plazas: "+ matriz.size() + "\nTransiciones: " + matriz.get(0).size());
+                        System.out.println("Matriz de incidencia mas cargada exitosamente.");
+                        System.out.println("Plazas: "+ matriz_imas.size() + "\nTransiciones: " + matriz_imas.get(0).size());
+                        break;
+                        
+                        
+                        
+                    case "IncidenciaMenos":
+                        matriz_imenos = new ArrayList<ArrayList<Integer>>();
+                        while(input.hasNextLine()) 
+                        {            
+                            Scanner fila = new Scanner(input.nextLine());
+                            ArrayList<Integer> columna = new ArrayList<>();
+
+                            while(fila.hasNextInt()) 
+                            {
+                                columna.add(fila.nextInt());
+                            }               
+                            matriz_imenos.add(columna);
+                            fila.close();
+                        }
+                        input.close();
+                        
+                        filas = matriz_imenos.size();
+                        columnas = matriz_imenos.get(0).size();
+                        
+                        System.out.println("Matriz de incidencia menos cargada exitosamente.");
+                        System.out.println("Plazas: "+ matriz_imenos.size() + "\nTransiciones: " + matriz_imenos.get(0).size());
                         break;
                         
                     case "Intervalos":
@@ -84,7 +122,27 @@ public class Archivos
                             marcado.add(input.nextInt());
                         }
                         input.close();
-                        break;                        
+                        break;  
+                        
+                    case "Hilos":
+                        hilos = new ArrayList<>();
+                        int columnaAnterior = 0;
+                        while(input.hasNextLine())
+                        {
+                            Scanner fila = new Scanner(input.nextLine());
+                            ArrayList<Integer> columna = new ArrayList<>();
+
+                            while(fila.hasNextInt()) 
+                            {
+                                columna.add(fila.nextInt());                    
+                            }               
+
+                            hilos.add(columna);
+                            columnaAnterior = columna.size();
+                            fila.close();                
+                        }
+
+                        input.close();
                 }                
             } catch (FileNotFoundException ex){
                 System.out.println("Error al cargar archivo.");
@@ -92,50 +150,20 @@ public class Archivos
             }
         }
     }
-    
-    public void leerHilos()
-    {
-        hilos = new ArrayList<>();
-        int columnaAnterior = 0;
-        try
-        {
-            Scanner input = new Scanner(new File("./src/archivos/hilos.txt"));
-            while(input.hasNextLine())
-            {
-                Scanner fila = new Scanner(input.nextLine());
-                ArrayList<Integer> columna = new ArrayList<>();
-                
-                while(fila.hasNextInt()) 
-                {
-                    columna.add(fila.nextInt());                    
-                }               
-                
-                hilos.add(columna);
-                columnaAnterior = columna.size();
-                fila.close();                
-            }
-            
-            input.close();
-            
-        } catch (FileNotFoundException e)
-        {
-            System.out.println("Error al cargar archivo.");
-            e.getMessage();
-        }
-    }
-    
+  
     public void printToFile()
     {
         String disparos = RedDePetri.getRdP().getSecuenciaDisparos().toString(); 
         FileWriter fileWriter;
         try {
-            fileWriter = new FileWriter("./src/archivos/output.txt");
+            fileWriter = new FileWriter("./src/main/java/Archivos/output.txt");
             fileWriter.write(disparos);
             fileWriter.close();
         } catch (IOException ex) {
             Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     public int getFilas()
     {
         return filas;
@@ -146,9 +174,14 @@ public class Archivos
         return columnas;
     }
     
-    public ArrayList<ArrayList<Integer>> getIncidencia()
+    public ArrayList<ArrayList<Integer>> getIncidenciaMenos()
     {
-        return matriz;
+        return matriz_imenos;
+    }
+    
+    public ArrayList<ArrayList<Integer>> getIncidenciaMas()
+    {
+        return matriz_imas;
     }
     
     public ArrayList<ArrayList<Integer>> getIntervalos()

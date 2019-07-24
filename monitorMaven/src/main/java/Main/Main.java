@@ -17,24 +17,25 @@ public class Main
       //Crea el gestor de monitor.
       System.out.println("Creando Gestor de Monitor");
       Monitor monitor = Monitor.getMonitor();      
+      Archivos archivos = Archivos.getArchivos();
       
-      Archivos cargarHilos = new Archivos();
-      cargarHilos.leerHilos();
-      int cantidadHilos = cargarHilos.getHilos().size();
+      //Archivos cargarHilos = new Archivos();
+      //cargarHilos.leerHilos();
+      int cantidadHilos = archivos.getHilos().size();
       Hilo hilos[] = new Hilo[cantidadHilos];
-      
+      RedDePetri.getRdP().print4testings();
       
       for(int i = 0; i < cantidadHilos; i++) 
       {
-    	  hilos[i] = new Hilo(i,cargarHilos.getHilos().get(i));
+    	  hilos[i] = new Hilo(i,archivos.getHilos().get(i));
       }
       
       System.out.println("Disparos a realizar: " + hilos[0].getDisparos() + "\n");
       
-      for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
+      //for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
       
       Thread.sleep(5000);
       RedDePetri.getRdP().printSecuenciaDisparos();
-      cargarHilos.printToFile();
+      archivos.printToFile();
   }
 }

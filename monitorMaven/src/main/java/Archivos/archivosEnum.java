@@ -10,20 +10,19 @@ package Archivos;
  * @author sebastian
  */
 public enum archivosEnum {
-    INCIDENCIA("Incidencia", "./src/archivos/incidencia.txt", 1, "mIncidencia"),
-    INTERVALOS("Intervalos","./src/archivos/intervalos.txt", 2, "mIntervalos"),
-    MARCADO("Marcado","./src/archivos/marcado.txt", 3, "vMarcado");
+    INCIDENCIA("Incidencia", "./src/main/java/Archivos/incidencia.txt"),
+    INCIDENCIA_MAS("IncidenciaMas", "./src/main/java/Archivos/incidencia_mas.txt"),
+    INCIDENCIA_MENOS("IncidenciaMenos", "./src/main/java/Archivos/incidencia_menos.txt"),
+    INTERVALOS("Intervalos","./src/main/java/Archivos/intervalos.txt"),
+    MARCADO("Marcado","./src/main/java/Archivos/marcado.txt"),
+    HILOS("Hilos","./src/main/java/Archivos/hilos.txt");
     
     private String path;
     private String nombreArchivo;
-    private int caso;
-    private String nombreVariable;
     
-    archivosEnum(String nombreArchivo, String path, int caso, String nombreVariable){
+    archivosEnum(String nombreArchivo, String path){
         this.path = path;
         this.nombreArchivo = nombreArchivo;
-        this.caso = caso;
-        this.nombreVariable = nombreVariable;
     }
     
     public String getPath(){
@@ -32,14 +31,6 @@ public enum archivosEnum {
     
     public String getNombre(){
         return nombreArchivo;
-    }
-    
-    public int getCaso(){
-        return caso;
-    }
-    
-    public String getVariable(){
-        return nombreVariable;
     }
             
 }

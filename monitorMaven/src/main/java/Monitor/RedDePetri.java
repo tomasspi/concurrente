@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class RedDePetri 
 {    
     private static RedDePetri RdP = null;
-    
+    private Archivos archivos;
     private int incidencia_menos[][], incidencia_mas[][], inhibicion[][]; //¡¡¡¡AL CAMBIAR MATRIZ POR INHIBICION, HAY QUE CAMBIAR LA CARGA DE ARVHICOS!!!!!!!
     private int intervalos[][], isTemporal[], isInhibida[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
@@ -38,12 +38,10 @@ public class RedDePetri
     private RedDePetri() // Constructor
     {
         System.out.println("Cargando archivos...");
-        Archivos arch = new Archivos();
+        archivos = Archivos.getArchivos();
         
-        arch.leer();
-        
-        plazas = arch.getFilas();
-        transiciones = arch.getColumnas();
+        plazas = archivos.getFilas();
+        transiciones = archivos.getColumnas();
         
         inhibicion = new int[plazas][transiciones];
         incidencia_menos = new int[plazas][transiciones];
@@ -60,10 +58,8 @@ public class RedDePetri
         vs_extendido = new int[transiciones];
         secuenciaDisparos = new ArrayList<>();
         
-        separarIncidencia(arch);
-        armarIncidenciaCombi(arch);
-        
-        cargarTiempos(arch);
+        cargarIncidencias(archivos);
+        cargarTiempos(archivos);
         
         transicion = new ArrayList<>(transiciones);
         
@@ -240,18 +236,18 @@ public class RedDePetri
     }
     
     /**
-     * Separa la matriz de incidencia en dos (menos y mas)
+     * Carga las incidencias
      * y a su vez carga el marcado inicial.
      * @param arch - txt a leer.
-     */
-    private void separarIncidencia(Archivos arch) 
-    {     
+     */ 
+    private void cargarIncidencias(Archivos arch)
+    {
         for(int i = 0; i < plazas; i++)
         {
             for(int j = 0; j < transiciones; j++)
             {
-                if(arch.getIncidencia().get(i).get(j) <= 0) incidencia_menos[i][j] = arch.getIncidencia().get(i).get(j);
-                else if (arch.getIncidencia().get(i).get(j) >= 0) incidencia_mas[i][j] = arch.getIncidencia().get(i).get(j);
+                incidencia_menos[i][j] = arch.getIncidenciaMenos().get(i).get(j);
+                incidencia_mas[i][j] = arch.getIncidenciaMas().get(i).get(j);
             }
             marcadoInicial[i] = arch.getMarcado().get(i);
         }  
@@ -319,16 +315,7 @@ public class RedDePetri
     public int[] getMarcado(){
         return marcado;
     }
-
-    private void armarIncidenciaCombi(Archivos arch){
-        for(int i = 0; i < plazas; i++){
-            for(int j = 0; j < transiciones; j++){
-                inhibicion[i][j] = arch.getIncidencia().get(i).get(j);
-            }
-        }
-        //printMatriz(incidencia_combi,"Incidencia combinada");
-    }
-    
+   
     public void pInvariante(){
         int[][] pInv = {{0,3,3},
                         {1,4,3},
@@ -366,9 +353,8 @@ public class RedDePetri
     
     public void print4testings(){
         System.out.println("#######################################################################");
-        //printMatriz(incidencia_combi,"Incidencia combinada");
-        //printMatriz(incidencia_menos,"Incidencia (menos)");
-        //printMatriz(incidencia_mas,"Incidencia (mas)");
+        printMatriz(incidencia_menos,"Incidencia (menos)");
+        printMatriz(incidencia_mas,"Incidencia (mas)");
         printMatriz(intervalos,"Intervalos temporales");
         printVector(marcado,"marcado actual");
         printVector(isTemporal, "transiciones con tiempo");
