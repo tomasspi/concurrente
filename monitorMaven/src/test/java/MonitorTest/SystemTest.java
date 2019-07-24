@@ -1,9 +1,12 @@
-package monitor;
+package MonitorTest;
 
+import Monitor.RedDePetri;
+import Monitor.Hilo;
+import Monitor.Monitor;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import archivos.Archivos;
+import Archivos.Archivos;
 
 class SystemTest 
 {

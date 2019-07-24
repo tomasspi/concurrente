@@ -1,6 +1,6 @@
-package monitor;
+package Monitor;
 
-import archivos.Archivos;
+import Archivos.Archivos;
 import java.util.ArrayList;
 
 /**

@@ -1,4 +1,4 @@
-package archivos;
+package Archivos;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import monitor.RedDePetri;
+import Monitor.RedDePetri;
 
 /** Esta clase es la encargada de leer toda la información
  *  necesaria para la creación de la Red de Petri:

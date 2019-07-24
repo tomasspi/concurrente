@@ -1,4 +1,4 @@
-package monitor;
+package Monitor;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;

@@ -1,5 +1,7 @@
-import archivos.Archivos;
-import monitor.*;
+package Main;
+
+import Archivos.Archivos;
+import Monitor.*;
 
 /**
  * Realiza todas las operaciones. Creación de hilos

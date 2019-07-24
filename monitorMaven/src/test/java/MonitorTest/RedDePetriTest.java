@@ -1,5 +1,6 @@
-package monitor;
+package MonitorTest;
 
+import Monitor.RedDePetri;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
