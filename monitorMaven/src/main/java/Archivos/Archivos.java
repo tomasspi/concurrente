@@ -28,7 +28,7 @@ public class Archivos
     
     private static Archivos archivos = null;
     int filas, columnas;
-    ArrayList<ArrayList<Integer>> intervalos, hilos, matriz_imas, matriz_imenos;
+    ArrayList<ArrayList<Integer>> intervalos, hilos, matriz_imas, matriz_imenos, inhibidas;
     ArrayList<Integer> marcado;
     
     /* singleton */
@@ -143,6 +143,26 @@ public class Archivos
                         }
 
                         input.close();
+                        break;
+                        
+                    case "Inhibidas":
+                        inhibidas = new ArrayList<ArrayList<Integer>>();
+                        while(input.hasNextLine()) 
+                        {            
+                            Scanner fila = new Scanner(input.nextLine());
+                            ArrayList<Integer> columna = new ArrayList<>();
+
+                            while(fila.hasNextInt()) 
+                            {
+                                columna.add(fila.nextInt());
+                            }               
+                            inhibidas.add(columna);
+                            fila.close();
+                        }
+                        input.close();
+                        
+                        System.out.println("Matriz de inhibidas cargada exitosamente.");
+                        break;
                 }                
             } catch (FileNotFoundException ex){
                 System.out.println("Error al cargar archivo.");
@@ -197,5 +217,10 @@ public class Archivos
     public ArrayList<Integer> getMarcado()
     {
         return marcado;
+    }
+    
+    public ArrayList<ArrayList<Integer>> getInhibidas()
+    {
+        return inhibidas;
     }
 }

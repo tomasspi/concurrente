@@ -18,9 +18,7 @@ public class Main
       System.out.println("Creando Gestor de Monitor");
       Monitor monitor = Monitor.getMonitor();      
       Archivos archivos = Archivos.getArchivos();
-      
-      //Archivos cargarHilos = new Archivos();
-      //cargarHilos.leerHilos();
+
       int cantidadHilos = archivos.getHilos().size();
       Hilo hilos[] = new Hilo[cantidadHilos];
       RedDePetri.getRdP().print4testings();

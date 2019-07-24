@@ -20,6 +20,7 @@ public class RedDePetri
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
     private int vs_extendido[];
     private int columna[];
+    private int[] vs_inhibidas;
     boolean cartel;
     ArrayList<Tiempos> transicion;
     ArrayList<Integer> secuenciaDisparos;
@@ -33,6 +34,7 @@ public class RedDePetri
         if(RdP == null) RdP = new RedDePetri();
         return RdP;
     }
+    
     
     /* public es private */
     private RedDePetri() // Constructor
@@ -57,8 +59,9 @@ public class RedDePetri
         v_sensibilizadas = new int[transiciones];
         vs_extendido = new int[transiciones];
         secuenciaDisparos = new ArrayList<>();
+        vs_inhibidas = new int[transiciones];
         
-        cargarIncidencias(archivos);
+        cargarMatrices(archivos);
         cargarTiempos(archivos);
         
         transicion = new ArrayList<>(transiciones);
@@ -166,10 +169,6 @@ public class RedDePetri
                     index[elemento] = j;
                     /* se lleva un conteo de cuantos elementos son distintos de cero */
                     elemento++;
-                    
-                    /* --- PRIMER CAMBIO --- si el elemento es inhibidor, se lo identifica */ 
-                    if(inhibicion[j][i] != 0) isInhibida[i] = 1;
-                    else isInhibida[i] = 0;
                 }
                 
                 int k = 0;
@@ -181,10 +180,40 @@ public class RedDePetri
                 if(k == elemento) v_sensibilizadas[i] = 1;
                 else v_sensibilizadas[i] = 0;
                 
-                /* --- SEGUNDO CAMBIO --- si no esta sensibilizada y es inhibidor, SÍ está sensibilizada */
-                if(v_sensibilizadas[i] == 0 && isInhibida[i] == 1) v_sensibilizadas[i] = 1;
                 /* si es temporal se le da inicio al contador */
                 if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1) transicion.get(i).setTS();
+            }
+        }
+    }
+    
+    public void actualizarInhibidas()
+    {
+        int index[] = new int[plazas];
+        
+        for(int i = 0; i < transiciones; i++)
+        {
+            int elemento = 0;
+            
+            for(int j = 0; j < plazas; j++)
+            {
+                /* toma cada fila distinta de cero en la columna 'i' de la incidencia menos */
+                if(incidencia_menos[j][i] != 0 && inhibicion[j][i] != 0)
+                {
+                    System.out.println("Fila encontrada: "+j);
+                    /* almacena que elemento 'j' es distinto de cero en esa columna */
+                    index[elemento] = j;
+                    /* se lleva un conteo de cuantos elementos son distintos de cero */
+                    elemento++;
+                }
+                
+                int k = 0;
+                /* si los elementos tomados son tambien elementos distintos de cero en 'marcado' */
+                /* aumenta el contador */
+                while(k < elemento && marcado[index[k]] == 0) k++;
+                /* si hay la misma cantidad de elementos en ambos vectores entonces esta */
+                /* sensibilizada */
+                if(k == elemento) vs_inhibidas[i] = 1;
+                else vs_inhibidas[i] = 0;
             }
         }
     }
@@ -192,8 +221,9 @@ public class RedDePetri
     public void actualizarExtendida()
     {
         actualizarSensibilizadas();
+        actualizarInhibidas();
         for(int i=0;i<transiciones;i++){
-            vs_extendido[i] = v_sensibilizadas[i];
+            vs_extendido[i] = v_sensibilizadas[i] * vs_inhibidas[i];
         }
         
         for(int i = 0; i < transiciones; i++)
@@ -240,7 +270,7 @@ public class RedDePetri
      * y a su vez carga el marcado inicial.
      * @param arch - txt a leer.
      */ 
-    private void cargarIncidencias(Archivos arch)
+    private void cargarMatrices(Archivos arch)
     {
         for(int i = 0; i < plazas; i++)
         {
@@ -248,6 +278,7 @@ public class RedDePetri
             {
                 incidencia_menos[i][j] = arch.getIncidenciaMenos().get(i).get(j);
                 incidencia_mas[i][j] = arch.getIncidenciaMas().get(i).get(j);
+                inhibicion[i][j] = arch.getInhibidas().get(i).get(j);
             }
             marcadoInicial[i] = arch.getMarcado().get(i);
         }  
@@ -355,10 +386,12 @@ public class RedDePetri
         System.out.println("#######################################################################");
         printMatriz(incidencia_menos,"Incidencia (menos)");
         printMatriz(incidencia_mas,"Incidencia (mas)");
+        printMatriz(inhibicion, "inhibicion");
         printMatriz(intervalos,"Intervalos temporales");
         printVector(marcado,"marcado actual");
         printVector(isTemporal, "transiciones con tiempo");
         printVector(v_sensibilizadas, "sensibilizadas");
+        printVector(vs_inhibidas, "inhibicion");
         printVector(vs_extendido,"extendido");
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     }
