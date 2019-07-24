@@ -5,10 +5,11 @@
         <group>
             <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/monitor/Hilo.java</file>
             <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/Main.java</file>
-            <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/monitor/Colas.java</file>
+            <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/archivos/Archivos.java</file>
             <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/monitor/Politicas.java</file>
-            <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/monitor/Monitor.java</file>
             <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/monitor/RedDePetri.java</file>
+            <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/monitor/Monitor.java</file>
+            <file>file:/T:/Repositorios/concurrente/implementacion/estacionamiento/src/monitor/Tiempos.java</file>
         </group>
     </open-files>
 </project-private>

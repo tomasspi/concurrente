@@ -9,7 +9,8 @@ public class Tiempos
 {
     private int ID;
     private int alpha, beta;
-    private long timeStamp, now, cronometro;
+    private long timeStamp;
+    private boolean cronometrando = false;
     
     public Tiempos(int ID, int alpha, int beta)
     {
@@ -20,34 +21,52 @@ public class Tiempos
     
     public boolean checkVentana()
     {
-        now = System.currentTimeMillis();
-        
-        cronometro = now - timeStamp;
-        
-        return alpha <= cronometro && cronometro < beta;
+        long now = System.currentTimeMillis();
+
+        long cronometro = now - timeStamp;
+        /* si esta dentro de la ventana */
+        if(cronometro >= alpha && cronometro <= beta){
+            /* deja de cronometrar porque se va a disparar */
+            cronometrando = false;
+            return true;
+        }
+        /* si supero el beta */
+        else if (cronometro > beta){
+            /* deja de cronometrar porque debe reiniciarse el cronometro*/
+            cronometrando = false;
+            return false;
+        }
+        /* no llego al alpha */
+        return false;
     }
     
+    /**
+     * Si no se inicio el cronometro de la transicion, lo inicia.
+     */
     public void setTS()
     {
-        timeStamp = System.currentTimeMillis();
+        /* inicia el cronometro */
+        if(!cronometrando) {
+            timeStamp = System.currentTimeMillis();
+            cronometrando = true;
+        }
     }
     
     public boolean estaAntes()
     {
-        if(checkVentana() == false)
-        {
-            if(cronometro < alpha) return true;
-        }
-        return false;
+        long cronometro = System.currentTimeMillis() - timeStamp;
+        if(cronometro < alpha) return true;
+        else return false;
     }
-    
-    public int getID()
-    {
-        return ID;
+   
+    public boolean isCronometrando(){
+        return cronometrando;
     }
     
     public long cuantoDormir()
     {
-        return alpha - cronometro;
+        long now = System.currentTimeMillis() - timeStamp;
+        //return alpha - cronometro;
+        return alpha - now;
     }
 }

@@ -10,16 +10,15 @@ import java.util.ArrayList;
 
 public class Hilo extends Thread 
 {
+    static final int DISPAROS = 200;
     Monitor m = Monitor.getMonitor();
     int id;
-    ArrayList<Integer> transiciones, conflictos;
-    //boolean disparar = true;
+    ArrayList<Integer> transiciones;
     
     public Hilo(int id,ArrayList<Integer> transiciones) 
     {
         this.id = id;
         this.transiciones = transiciones;
-        setConflicto();
     }
     
     public void print()
@@ -28,37 +27,24 @@ public class Hilo extends Thread
         System.out.print( transiciones.toString() + "\n");
     }
     
-    private void setConflicto()
-    {
-        conflictos = new ArrayList<>();
-        if(id == 3) 
-        {
-            conflictos.add(transiciones.get(transiciones.size()-2));
-            conflictos.add(transiciones.get(transiciones.size()-1));
-            transiciones.remove(transiciones.size()-1);
-            transiciones.remove(transiciones.size()-1);
-            System.out.println(transiciones.toString());
-            System.out.println(conflictos.toString());
-        }
-    }
-    
     @Override
     public void run() 
     {
-        int k = 1000;
-        while(k>0)
+        while(m.getCantDisparos() < DISPAROS)
         {
             m.dispararTransicion(transiciones);
-            if (id == 3) m.dispararTransicion(conflictos);
-            //disparos++;
-            //System.out.println("DISPAROS HECHOS: " + disparos);
-            k--;
         }
-        System.out.println(Thread.currentThread().getName()+": TEMINÉ MIS EJECUCIONES.");
+        
+        System.out.println(Thread.currentThread().getName()+": FINALIZACION DE DISPAROS.");
     }
     
-    public ArrayList<Integer> getTransiciones()
+    @Override
+    public long getId(){
+        return id;
+    }
+    
+    public int getDisparos()
     {
-        return transiciones;
+    	return DISPAROS;
     }
 }

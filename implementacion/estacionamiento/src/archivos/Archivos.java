@@ -1,10 +1,16 @@
 package archivos;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import monitor.RedDePetri;
 
 /** Esta clase es la encargada de leer toda la información
  *  necesaria para la creación de la Red de Petri:
@@ -49,7 +55,6 @@ public class Archivos
                         filas = matriz.size();
                         columnas = matriz.get(0).size();
                         
-                        //System.out.println(Arrays.deepToString(matriz.toArray()));
                         System.out.println("Matriz de incidencia cargada exitosamente.");
                         System.out.println("Plazas: "+ matriz.size() + "\nTransiciones: " + matriz.get(0).size());
                         break;
@@ -70,10 +75,6 @@ public class Archivos
                             filas.close();
                         }
                         input.close();
-                                                
-                        //System.out.println(Arrays.deepToString(intervalos.toArray()));
-                        //System.out.println("Intervalos temporales cargados exitosamente.");
-                        //System.out.println("Alfa: "+ intervalos.size() + " Beta: " + intervalos.get(0).size());
                         break;
                         
                     case "Marcado":
@@ -83,9 +84,6 @@ public class Archivos
                             marcado.add(input.nextInt());
                         }
                         input.close();
-                        
-                        //System.out.println("El marcado inicial es:");
-                        //System.out.println(Arrays.deepToString(marcado.toArray()));
                         break;                        
                 }                
             } catch (FileNotFoundException ex){
@@ -124,10 +122,18 @@ public class Archivos
             System.out.println("Error al cargar archivo.");
             e.getMessage();
         }
-        
-        //System.out.println("Hilos cargados exitosamente.");
     }
     
+    public void printToFile()
+    {
+        String disparos = RedDePetri.getRdP().getSecuenciaDisparos().toString(); 
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter("./src/archivos/output.txt");
+            fileWriter.write(disparos);
+            fileWriter.close();
+        } catch (IOException ex) { ex.getMessage(); }
+    }
     public int getFilas()
     {
         return filas;

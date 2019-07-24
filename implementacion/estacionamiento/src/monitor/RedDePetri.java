@@ -15,16 +15,18 @@ public class RedDePetri
 {    
     private static RedDePetri RdP = null;
     
-    private int incidencia_menos[][], incidencia_mas[][];
-    private int intervalos[][];
-    private boolean isTemporal[];
+    private int incidencia_menos[][], incidencia_mas[][], inhibicion[][]; //¡¡¡¡AL CAMBIAR MATRIZ POR INHIBICION, HAY QUE CAMBIAR LA CARGA DE ARVHICOS!!!!!!!
+    private int intervalos[][], isTemporal[], isInhibida[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
     private int vs_extendido[];
     private int columna[];
     boolean cartel;
-    ArrayList<Tiempos> temporales;
+    ArrayList<Tiempos> transicion;
+    ArrayList<Integer> secuenciaDisparos;
 
     private int plazas, transiciones;
+
+	private boolean pinvariante = true;
     
     public static RedDePetri getRdP() //Singleton
     {
@@ -32,6 +34,7 @@ public class RedDePetri
         return RdP;
     }
     
+    /* public es private */
     private RedDePetri() // Constructor
     {
         System.out.println("Cargando archivos...");
@@ -42,6 +45,7 @@ public class RedDePetri
         plazas = arch.getFilas();
         transiciones = arch.getColumnas();
         
+        inhibicion = new int[plazas][transiciones];
         incidencia_menos = new int[plazas][transiciones];
         incidencia_mas = new int[plazas][transiciones];
         intervalos = new int[transiciones][2];
@@ -50,30 +54,29 @@ public class RedDePetri
         marcado = new int[plazas];
         columna = new int[plazas];
         
-        isTemporal = new boolean[transiciones];        
+        isTemporal = new int[transiciones];        
+        isInhibida = new int[transiciones]; 
         v_sensibilizadas = new int[transiciones];
         vs_extendido = new int[transiciones];
+        secuenciaDisparos = new ArrayList<>();
         
         separarIncidencia(arch);
+        armarIncidenciaCombi(arch);
         
         cargarTiempos(arch);
         
-        temporales = new ArrayList<>(transiciones);
+        transicion = new ArrayList<>(transiciones);
         
         for(int i = 0; i < transiciones; i++)
         {
-            temporales.add(i,null);
-            if(isTemporal[i]) temporales.set(i,new Tiempos(i,intervalos[i][0],intervalos[i][1]));
+            transicion.add(i,null);
+            if(isTemporal[i] == 1) transicion.set(i,new Tiempos(i,intervalos[i][0],intervalos[i][1]));
         }
         marcado = marcadoInicial;
-        
-        actualizarSensibilizadas();
-        //actualizarExtendida();
-        /*printMatriz(incidencia_menos,"Incidencia (menos)");
-        printMatriz(incidencia_mas,"Incidencia (mas)");
-        printMatriz(intervalos,"Intervalos temporales");
-        printVector(marcado,"marcado inicial");
-        printVector(isTemporal, "transiciones con tiempo");*/
+
+        actualizarExtendida();
+        System.out.println();
+        System.out.println();
     }
     
     private void printMatriz(int m[][], String nombre)
@@ -89,18 +92,19 @@ public class RedDePetri
         }
     }
     
-    public void printVector(int v[], String nombre)
+    private void printVector(int v[], String nombre)
     {
         System.out.println("\nVector de "+ nombre + ": ");
         for(int i = 0; i < v.length; i++)
         {
-            System.out.println(v[i] + " ");
+            System.out.println("T"+i+": "+v[i] + " ");
         }        
         System.out.println("\n");
     }
 
-    public boolean disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
+    public long disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
     {
+        actualizarExtendida();
         if(isSensibilizada(t))
         {
             /**
@@ -113,16 +117,26 @@ public class RedDePetri
             getColumna(incidencia_mas,t);
             marcado = sumar(marcado,columna); //Pone los tokens en la otra plaza
             
-            actualizarSensibilizadas();
-            //actualizarExtendida();
-            manejarCartel();
-            //printVector(marcado,"Marcado actual");
-            System.out.println("Se disparó 'T" + t + "'.");
-            return true;
+            //actualizarSensibilizadas();
+            actualizarExtendida();
+            verificarCartel();
+            //printVector(marcado,"marcado actual");
+            secuenciaDisparos.add(t);
+//            System.out.println("Se realiz� el disparo de 'T" + t + ".");
+            if(pinvariante == true) pInvariante();
+            return 0;
+        }
+        else if(transicion.get(t).estaAntes())
+        {
+            /* no se pudo disparar por no llegar al alpha, debe enviarse señal para hacer sleep */
+            return transicion.get(t).cuantoDormir();
         }
         else {
-            System.out.println("No se realizó el disparo de 'T" + t + ".");
-            return false;
+            /* 
+             * No se pudo disparar: o porque no esta sensibilizada, o porque supero el beta. 
+             * Cualquiera de los 2 sea el motivo, es indistinto. El cronometro ya se reinicio.
+             */ 
+            return -2;
         }
     }
 
@@ -130,8 +144,14 @@ public class RedDePetri
     {
         return (vs_extendido[t] != 0);
     }
-
-    private void actualizarSensibilizadas()
+    
+    
+    
+    /**
+     * El siguiente metodo simula un LEFTJOIN() de una columna de incidencia menos con el vector 
+     * marcado
+     */
+    public void actualizarSensibilizadas() //¡¡¡EL 23 DEL 7 HICE CAMBIOS ACA, REVISAR!!!!
     {
         //System.out.println("Actualizando vector de sensibilizadas.");
         
@@ -143,46 +163,50 @@ public class RedDePetri
             
             for(int j = 0; j < plazas; j++)
             {
+                /* toma cada fila distinta de cero en la columna 'i' de la incidencia menos */
                 if(incidencia_menos[j][i] != 0)
                 {
+                    /* almacena que elemento 'j' es distinto de cero en esa columna */
                     index[elemento] = j;
+                    /* se lleva un conteo de cuantos elementos son distintos de cero */
                     elemento++;
+                    
+                    /* --- PRIMER CAMBIO --- si el elemento es inhibidor, se lo identifica */ 
+                    if(inhibicion[j][i] != 0) isInhibida[i] = 1;
+                    else isInhibida[i] = 0;
                 }
                 
                 int k = 0;
-                
+                /* si los elementos tomados son tambien elementos distintos de cero en 'marcado' */
+                /* aumenta el contador */
                 while(k < elemento && marcado[index[k]] > 0) k++;
-                
+                /* si hay la misma cantidad de elementos en ambos vectores entonces esta */
+                /* sensibilizada */
                 if(k == elemento) v_sensibilizadas[i] = 1;
                 else v_sensibilizadas[i] = 0;
                 
-                if(v_sensibilizadas[i] == 1 && isTemporal[i]) temporales.get(i).setTS();
+                /* --- SEGUNDO CAMBIO --- si no esta sensibilizada y es inhibidor, SÍ está sensibilizada */
+                if(v_sensibilizadas[i] == 0 && isInhibida[i] == 1) v_sensibilizadas[i] = 1;
+                /* si es temporal se le da inicio al contador */
+                if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1) transicion.get(i).setTS();
             }
-            v_sensibilizadas = vs_extendido;
         }
-        
-        //printVector(v_sensibilizadas, "sensibilizadas");        
-        //System.out.println("Vector de sensibilizadas actualizado.");
     }
     
-//    public void actualizarExtendida()
-//    {
-//        for(int i = 0; i < transiciones; i++)
-//        {
-//            for(int j = 0; j < plazas; j++)
-//            {                
-//                vs_extendido[i] = v_sensibilizadas[i];
-//                
-////                if(vs_extendido[i] == 1 && isTemporal[i]) 
-////                {
-////                    if(!transicion.get(i).checkVentana()) vs_extendido[i] = 0;
-////                    else vs_extendido[i] = 1;
-////                }
-//            }
-//        }         
-//        //printVector(vs_extendido,"extendido");
-//        //System.out.println("Vector de sensibilizadas extendido actualizado.");
-//    }
+    public void actualizarExtendida()
+    {
+        actualizarSensibilizadas();
+        for(int i=0;i<transiciones;i++){
+            vs_extendido[i] = v_sensibilizadas[i];
+        }
+        
+        for(int i = 0; i < transiciones; i++)
+        {
+            if(vs_extendido[i] == 1 && isTemporal[i] ==1){
+                if(!transicion.get(i).checkVentana()) vs_extendido[i] = 0;
+            }
+        }
+    }
     
     /**
      *  Obtiene la columna a sumar al marcado actual. Esto es el resutlado 
@@ -244,12 +268,13 @@ public class RedDePetri
             for(int j = 0; j < 2; j++)
             {
                 intervalos[i][j] = arch.getIntervalos().get(i).get(j);
-                if(intervalos[i][0] != 0 || intervalos[i][1] != 0) isTemporal[i] = true;
-                else isTemporal[i] = false;
+                if(intervalos[i][0] != 0 || intervalos[i][1] != 0) isTemporal[i] = 1;
+                else isTemporal[i] = 0;
             }
         } 
     }
-    private void manejarCartel()
+    
+    private void verificarCartel()
     {
         cartel = marcado[19] == 0 && marcado[20] == 0;
         if(cartel) System.out.println("NO HAY LUGAR.");
@@ -258,10 +283,15 @@ public class RedDePetri
     private void reset()
     {
         marcado = marcadoInicial;
-    }    
+    }  
+    
+    public int[] getSensibilizadas(){
+        return v_sensibilizadas;
+    }
         
-    public int[] getSensibilizadas()
+    public int[] getExtendido()
     {
+        actualizarExtendida();
         return vs_extendido;
     }
     
@@ -277,16 +307,86 @@ public class RedDePetri
     
     public Tiempos getTiempo(int t)
     {
-        return temporales.get(t);
+        return transicion.get(t);
     }
     
     public boolean isTemporal(int t)
     {
-        return isTemporal[t];
+        if(isTemporal[t] == 0) return false;
+        else return true;
     }
     
-    public int[] getMarcado()
-    {
+    public int[] getMarcado(){
         return marcado;
+    }
+
+    private void armarIncidenciaCombi(Archivos arch){
+        for(int i = 0; i < plazas; i++){
+            for(int j = 0; j < transiciones; j++){
+                inhibicion[i][j] = arch.getIncidencia().get(i).get(j);
+            }
+        }
+        //printMatriz(incidencia_combi,"Incidencia combinada");
+    }
+    
+    public void pInvariante(){
+        int[][] pInv = {{0,3,3},
+                        {1,4,3},
+                        {10,7,1},
+                        {11,8,1},
+                        {12,13,3},
+                        {2,5,3},
+                        {25,26,1},
+                        {6,9,1},
+                        {14,15,16,23,2},
+                        {14,17,19,21,30},
+                        {15,18,20,22,30},
+                        {13,14,15,17,18,21,22,23,24,25,27,28,3,4,5,6,7,8,60}};
+                        
+        for(int i=0; i<pInv.length;i++){
+            int suma = 0;
+            for(int j=0;j<pInv[i].length;j++){
+                if(j<pInv[i].length-1){
+                    int indice = pInv[i][j];
+                    suma += marcado[indice];
+                }
+                else if(j==pInv[i].length-1){
+                    if(suma != pInv[i][j]) pinvariante  = false;
+                }
+            }
+        }
+        
+        pinvariante = true;
+    }
+    
+    public boolean getPInvariantes()
+    {
+    	return pinvariante;
+    }
+    
+    public void print4testings(){
+        System.out.println("#######################################################################");
+        //printMatriz(incidencia_combi,"Incidencia combinada");
+        //printMatriz(incidencia_menos,"Incidencia (menos)");
+        //printMatriz(incidencia_mas,"Incidencia (mas)");
+        printMatriz(intervalos,"Intervalos temporales");
+        printVector(marcado,"marcado actual");
+        printVector(isTemporal, "transiciones con tiempo");
+        printVector(v_sensibilizadas, "sensibilizadas");
+        printVector(vs_extendido,"extendido");
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    }
+    
+    public void printSecuenciaDisparos(){
+        for(int i=1;i<secuenciaDisparos.size()+1;i++){
+            System.out.print("T"+secuenciaDisparos.get(i-1)+"   ");
+            if((i%22)==0)System.out.print("\n");
+        }
+        System.out.println("\nDisparos: "+secuenciaDisparos.size());
+    }
+    
+    public ArrayList<Integer> getSecuenciaDisparos()
+    {
+        return secuenciaDisparos;
     }
 }

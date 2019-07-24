@@ -3,22 +3,20 @@ package monitor;
 import java.util.ArrayList;
 
 /**
- * Politicas para decidir que hilo despertar
- * 
- * @author N.P.
+ * Write a description of class Politicas here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
  */
-public class Politicas
-{
+public class Politicas {
+
     private final int politica;
-    private final int prioridades[] = new int[22];
-    //{1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 1, 1};
-    
-    public Politicas(int cual)
-    {
+
+    public Politicas(int cual) {
         politica = cual;
     }
 
-    public int decidir(int electo)
+public int decidir(int electo)
     {
         switch (politica)
         {
@@ -62,25 +60,42 @@ public class Politicas
                     }
         }
     }
-    
-    public int cual(ArrayList<Integer> transiciones)
+
+//    public int cual(ArrayList<Integer> transiciones, int[] sensibilizadas) 
+//    {
+//        for (int i = 0; i < transiciones.size(); i++) 
+//        {
+//            if (sensibilizadas[transiciones.get(i)] == 1)
+//            {
+//                return transiciones.get(i);
+//            }
+//        }
+//
+//        return transiciones.get(0);
+//    }
+
+    public int cual(ArrayList<Integer> transiciones, int[] sensibilizadas) 
     {
         int electo = transiciones.get(0);
         
-        for (int i : transiciones) 
+        for (int i = 0; i < transiciones.size(); i++) 
         {
-            if(prioridades[i] > prioridades[electo]) electo = i;
+            if (sensibilizadas[transiciones.get(i)] == 1)
+            {
+                electo = transiciones.get(i);
+                switch (electo) 
+                {
+                    case 9:
+                    case 10:
+                    case 20:
+                    case 21:
+                        return decidir(electo);
+                    default:
+                        return electo;
+                }
+            } 
         }
-        
-        switch (electo) 
-        {
-            case 9:
-            case 10:
-            case 20:
-            case 21:
-                return decidir(electo);
-            default:
-                return electo;
-        }
+
+        return electo;
     }
 }

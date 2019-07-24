@@ -27,7 +27,7 @@ public class Monitor
         for(int i = 0; i < cola.length; i++) cola[i] = new Colas(mutex);
         
         //Se elije la politica.
-        politica = new Politicas(0);
+        politica = new Politicas(1);
         //politica = new Politica(2);
         
     }
@@ -37,92 +37,84 @@ public class Monitor
         if(monitor == null) monitor = new Monitor();
         return monitor;
     }
-    
    
-    public void dispararTransicion(ArrayList<Integer> transiciones) 
+    public /*synchronized*/ void  dispararTransicion(ArrayList<Integer> transiciones) 
     {
-        //System.out.println("Hilo "+Thread.currentThread().getId()+": Pidiendo entrar al mutex");
         /* intenta obtener el acceso al monitor */
         try { mutex.acquire(); } 
         catch (InterruptedException ex) { ex.getMessage(); }
-        
-        /* consulta a la politica cual de sus transiciones disparar */
-        int t = politica.cual(transiciones);
-        
-        //System.out.println("Hilo " + Thread.currentThread().getId() + ": Accedió al mutex."+System.currentTimeMillis());
+
+        /* consulta a la politica cual de sus transiciones disparar */        
+        int t = politica.cual(transiciones, rdp.getSensibilizadas());        
         
         /* verifica si la transicion que desea disparar esta sensibilizada */
         /* de no estarla, el hilo se duerme dentro del monitor */
-        /*
-        while(!rdp.isSensibilizada(t) || UNLOCK()){
-            //rdp.disparar(t);
-            //System.out.println("Hilo "+Thread.currentThread().getId()+": Entre al mutex pero no puedo disparar nada");
-            if(UNLOCK()) {
-                condiciones[politica.cual(AND(), rdp.getSensibilizadas())].RESUME();
-                condiciones[t].DELAY();
+        while(rdp.isSensibilizada(t) || rdp.isTemporal(t) || UNLOCKEABLES())
+        {
+            if(rdp.isSensibilizada(t) || rdp.isTemporal(t)) 
+            {
+                /* 
+                 * Disparar la rdp devuelve 3 tipos diferentes de valores 
+                 * -Si devuelve 0 se disparo satisfactoriamente
+                 * -Si devuelve un numero mayor a 0, este representa el tiempo que el hilo debe dormir
+                 * para alcanzar el alpha
+                 * -Si es menor a cero, no se pudo disparar, en teoria, por haber superado el beta
+                 */               
+                long caso = rdp.disparar(t);
+                
+                if(caso == 0) disparos++;     /* se realizo el disparo satisfactoriamente */
+                
+                /* 
+                 * no se llego al alpha, el hilo debe dormir 
+                 */ 
+                if(caso > 0)
+                {                     
+                    /* cede el monitor a un despertable.. si no hay ninguno, libera el monitor */
+                    if(!UNLOCKEABLES()) mutex.release();
+                    else UNLOCK();
+                    try
+                    {
+                        Thread.currentThread().sleep(caso);
+                        mutex.acquire();
+                    }
+                    catch(Exception ex)
+                    {
+                        System.out.println("ERR Bloque sleep()");
+                        ex.getMessage();
+                    }
+                } 
+                /* 
+                 * no se realizo el disparo, se supero el beta 
+                 */
+                if(caso<0) break;
+                /*(caso < 0)  no se realizo el disparo, seguramente se supero el beta */
             }
-            else mutex.release();
-            //System.out.println("Hilo "+Thread.currentThread().getId()+": Volvi de la cola del monitor (DELAY)");
-        }*/
-        
-        while(rdp.isSensibilizada(t) || rdp.isTemporal(t) || UNLOCK()){
-            if(rdp.isSensibilizada(t)) {
-                if(rdp.isTemporal(t)) System.out.println("Soy temporal");
-                //rdp.actualizarExtendida();
-                rdp.disparar(t);
-                disparos++;
-            }
-            else{
-                cola[politica.cual(AND())].RESUME();
+            else
+            {
+                /* se elige alguien de la cola del monitor para continuar */
+                if(!UNLOCKEABLES()) mutex.release();
+                else UNLOCK();
                 cola[t].DELAY();
             }
         }
         
-        /* verifica si es temporal */
-        if(rdp.isTemporal(t))
-        {
-            System.out.println("SOY TEMPORIZADA");
-            if(rdp.getTiempo(t).checkVentana()) rdp.disparar(t);
-            else if(rdp.getTiempo(t).estaAntes()) 
-            {
-                UNLOCK();
-                try { Thread.sleep(rdp.getTiempo(t).cuantoDormir()); }
-                catch (InterruptedException ex) { ex.printStackTrace(); }
-                rdp.disparar(t);
-            } else System.out.println("El tiempo superó el beta.");
-        } 
-        
-        /* dispara la transicion de mayor prioridad */
-        else {
-            //rdp.disparar(t);
-        }
-        
-        /* despierta un hilo dormido en el monitor */
-        //if(!AND().isEmpty()){
-        //    //System.out.println("Hilo "+Thread.currentThread().getId()+": Viendo si hay bloqueados en cola de monitor");
-        //    UNLOCK();
-        //}
-        ///* el hilo del monitor no tiene a nadie para despertar. Libera el monitor */
-        //else {
-        //    //System.out.println("Hilo "+Thread.currentThread().getId()+": Abro cerrojo de mutex");
-            mutex.release();
-        //}
-        //System.out.println("Hilo "+Thread.currentThread().getId()+": Acaba de salir del mutex"); 
+        mutex.release();
     }    
     
-    private boolean UNLOCK()
+    private void UNLOCK()
     {
-        ArrayList<Integer> disponibles = AND();
-        if(!disponibles.isEmpty()){
-            //System.out.println("get(0): "+disponibles.get(0));
-            //condiciones[disponibles.get(0)].RESUME();
-            cola[politica.cual(disponibles)].RESUME();
-            return true;
-        }
-        return false;
+        ArrayList<Integer> disponibles = getDisparablesEncolados();
+        if(!disponibles.isEmpty()) cola[politica.cual(disponibles, rdp.getSensibilizadas())].RESUME();
+            
     }
     
-    private ArrayList<Integer> AND() 
+    private boolean UNLOCKEABLES()
+    {
+        ArrayList<Integer> disponibles = getDisparablesEncolados();
+        return !disponibles.isEmpty();
+    }
+    
+    private ArrayList<Integer> getDisparablesEncolados() 
     {
         ArrayList<Integer> disponibles = new ArrayList<>();
         for(int i = 0; i < rdp.getTransiciones(); i++)
