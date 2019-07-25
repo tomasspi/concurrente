@@ -30,9 +30,9 @@ public class Main
       
       System.out.println("Disparos a realizar: " + hilos[0].getDisparos() + "\n");
       
-      //for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
+      for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
       
-      Thread.sleep(5000);
+      Thread.sleep(8000);
       RedDePetri.getRdP().printSecuenciaDisparos();
       archivos.printToFile();
   }

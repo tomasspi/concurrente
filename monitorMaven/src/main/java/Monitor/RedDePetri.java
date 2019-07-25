@@ -15,7 +15,7 @@ public class RedDePetri
 {    
     private static RedDePetri RdP = null;
     private Archivos archivos;
-    private int incidencia_menos[][], incidencia_mas[][], inhibicion[][]; //¡¡¡¡AL CAMBIAR MATRIZ POR INHIBICION, HAY QUE CAMBIAR LA CARGA DE ARVHICOS!!!!!!!
+    private int incidencia_menos[][], incidencia_mas[][], inhibicion[][]; 
     private int intervalos[][], isTemporal[], vs_inhibidas[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
     private int vs_extendido[], columna[];
@@ -74,7 +74,6 @@ public class RedDePetri
         }
         marcado = marcadoInicial;
         
-        actualizarInhibidas();
         actualizarExtendida();
         System.out.println();
         System.out.println();
@@ -151,7 +150,7 @@ public class RedDePetri
      * El siguiente metodo simula un LEFTJOIN() de una columna de incidencia menos con el vector 
      * marcado
      */
-    public void actualizarSensibilizadas() //¡¡¡EL 23 DEL 7 HICE CAMBIOS ACA, REVISAR!!!!
+    public void actualizarSensibilizadas() 
     {
         //System.out.println("Actualizando vector de sensibilizadas.");
         

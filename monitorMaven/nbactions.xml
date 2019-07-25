@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>test</actionName>
+            <preAction>build-with-dependencies</preAction>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <properties>
+                <Env.JAVA_HOME>C:\Program Files\Java\jdk1.8.0_162</Env.JAVA_HOME>
+                <Env.FOO>bar</Env.FOO>
+            </properties>
+        </action>
+        <action>
+            <actionName>test.single</actionName>
+            <preAction>build-with-dependencies</preAction>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <test>${packageClassName}</test>
+                <Env.JAVA_HOME>C:\Program Files\Java\jdk1.8.0_162</Env.JAVA_HOME>
+                <Env.FOO>bar</Env.FOO>
+            </properties>
+        </action>
+    </actions>

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author sebastian
+ * @author Mr. Green
  */
 public class MainTest {
     
@@ -43,60 +43,35 @@ public class MainTest {
 
     /**
      * Test of main method, of class Main.
+     * @throws Exception
      */
     @Test
     public void testMain() throws Exception {
-        System.out.println("main");
-        String[] args = null;
-        Main.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
-    @Test
-	void test() 
-	{
-	      Monitor monitor = Monitor.getMonitor();
-	      Archivos archivos = Archivos.getArchivos();
-	      int cantidadHilos = archivos.getHilos().size();
-	      Hilo hilos[] = new Hilo[cantidadHilos];
-	      //Hilo hilos[];
-	      
-	      for(int i = 0; i < cantidadHilos; i++)
-	      {
-	          hilos[i] = new Hilo(i,archivos.getHilos().get(i));
-	          hilos[i].print();
-	          
-	      }
-	      
-	      try{
-	          //long cronometro = System.currentTimeMillis();
-	          for(int i = 0; i< cantidadHilos;i++){
-	            hilos[i].start();
-	            //hilos[i].join();
-	          }
-	          //System.out.println("Tiempo: "+(System.currentTimeMillis() - cronometro));
-	          System.out.println("Disparos: "+monitor.getCantDisparos());
-	      }
-	      catch(Exception ex){
-	        ex.getMessage();
-	      }
-	      
-	      try{
-	          Thread.currentThread().sleep(5000);
-	          System.out.println("1º####################################\n");monitor.getQueueMonitor();
-	          
-	          
-	      }
-	      catch(Exception ex){
-	        }
-	        RedDePetri.getRdP().printSecuenciaDisparos();
-	        RedDePetri.getRdP().print4testings();
-	      //hilos[0].start();
-	      //hilos[3].start();
-	      //hilos[4].start();
-	      //hilos[5].start();
-	        assertTrue(RedDePetri.getRdP().getPInvariantes());
-	}
-    
+        Monitor monitor = Monitor.getMonitor();
+        
+        Archivos archivos = Archivos.getArchivos();
+        
+        int cantidadHilos = archivos.getHilos().size();
+      
+        Hilo hilos[] = new Hilo[cantidadHilos];
+        
+        for(int i = 0; i < cantidadHilos; i++)
+        {
+            hilos[i] = new Hilo(i,archivos.getHilos().get(i));
+            hilos[i].print();
+        }
+        
+        for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
+        
+        System.out.println("Disparos: "+monitor.getCantDisparos());
+        
+        Thread.currentThread().sleep(5000);
+        System.out.println("1º####################################\n");
+        monitor.getQueueMonitor();
+        
+        RedDePetri.getRdP().printSecuenciaDisparos();
+        RedDePetri.getRdP().print4testings();
+        
+        assertTrue(RedDePetri.getRdP().getPInvariantes());                
+    }    
 }
