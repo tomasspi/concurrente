@@ -1,11 +1,9 @@
 package Archivos;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -28,7 +26,8 @@ public class Archivos
     
     private static Archivos archivos = null;
     int filas, columnas;
-    ArrayList<ArrayList<Integer>> intervalos, hilos, matriz_imas, matriz_imenos, inhibidas;
+    ArrayList<ArrayList<Integer>> intervalos, hilos, matriz_imas, matriz_imenos;
+    ArrayList<ArrayList<Integer>> inhibidas, pinvariantes, tinvariantes;
     ArrayList<Integer> marcado;
     
     /* singleton */
@@ -163,6 +162,44 @@ public class Archivos
                         
                         System.out.println("Matriz de inhibidas cargada exitosamente.");
                         break;
+                        
+                    case "pInvariantes":
+                        pinvariantes = new ArrayList<ArrayList<Integer>>();
+                        while(input.hasNextLine()) 
+                        {            
+                            Scanner fila = new Scanner(input.nextLine());
+                            ArrayList<Integer> columna = new ArrayList<>();
+
+                            while(fila.hasNextInt()) 
+                            {
+                                columna.add(fila.nextInt());
+                            }               
+                            pinvariantes.add(columna);
+                            fila.close();
+                        }
+                        input.close();
+                        
+                        System.out.println("Invariantes de plazas cargados exitosamente.");
+                        break;
+                        
+                    case "tInvariantes":
+                        tinvariantes = new ArrayList<ArrayList<Integer>>();
+                        while(input.hasNextLine()) 
+                        {            
+                            Scanner fila = new Scanner(input.nextLine());
+                            ArrayList<Integer> columna = new ArrayList<>();
+
+                            while(fila.hasNextInt()) 
+                            {
+                                columna.add(fila.nextInt());
+                            }               
+                            tinvariantes.add(columna);
+                            fila.close();
+                        }
+                        input.close();
+                        
+                        System.out.println("Invariantes de transciones cargados exitosamente.");
+                        break;
                 }                
             } catch (FileNotFoundException ex){
                 System.out.println("Error al cargar archivo.");
@@ -214,13 +251,23 @@ public class Archivos
         return hilos;
     }
     
-    public ArrayList<Integer> getMarcado()
-    {
-        return marcado;
-    }
-    
     public ArrayList<ArrayList<Integer>> getInhibidas()
     {
         return inhibidas;
+    }
+    
+    public ArrayList<ArrayList<Integer>> getPinvariantes()
+    {
+        return pinvariantes;
+    }
+    
+    public ArrayList<ArrayList<Integer>> getTinvariantes()
+    {
+        return tinvariantes;
+    }
+        
+    public ArrayList<Integer> getMarcado()
+    {
+        return marcado;
     }
 }

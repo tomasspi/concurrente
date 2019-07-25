@@ -10,13 +10,14 @@ package Archivos;
  * @author sebastian
  */
 public enum archivosEnum {
-    INCIDENCIA("Incidencia", "./src/main/java/Archivos/incidencia.txt"),
+    HILOS("Hilos","./src/main/java/Archivos/hilos.txt"),
     INCIDENCIA_MAS("IncidenciaMas", "./src/main/java/Archivos/incidencia_mas.txt"),
     INCIDENCIA_MENOS("IncidenciaMenos", "./src/main/java/Archivos/incidencia_menos.txt"),
+    INHIBIDAS("Inhibidas", "./src/main/java/Archivos/inhibidas.txt"),
     INTERVALOS("Intervalos","./src/main/java/Archivos/intervalos.txt"),
     MARCADO("Marcado","./src/main/java/Archivos/marcado.txt"),
-    HILOS("Hilos","./src/main/java/Archivos/hilos.txt"),
-    INHIBIDAS("Inhibidas", "./src/main/java/Archivos/inhibidas.txt");
+    PINVARIANTES("pInvariantes","./src/main/java/Archivos/pInvariantes.txt"),
+    TINVARIANTES("tInvariantes","./src/main/java/Archivos/tInvariantes.txt");    
     
     private String path;
     private String nombreArchivo;
@@ -33,5 +34,4 @@ public enum archivosEnum {
     public String getNombre(){
         return nombreArchivo;
     }
-            
 }

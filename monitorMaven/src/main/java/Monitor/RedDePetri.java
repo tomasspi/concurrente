@@ -16,13 +16,13 @@ public class RedDePetri
     private static RedDePetri RdP = null;
     private Archivos archivos;
     private int incidencia_menos[][], incidencia_mas[][], inhibicion[][]; //¡¡¡¡AL CAMBIAR MATRIZ POR INHIBICION, HAY QUE CAMBIAR LA CARGA DE ARVHICOS!!!!!!!
-    private int intervalos[][], isTemporal[], isInhibida[];
+    private int intervalos[][], isTemporal[], vs_inhibidas[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
-    private int vs_extendido[];
-    private int columna[];
-    private int[] vs_inhibidas;
-    boolean cartel;
+    private int vs_extendido[], columna[];
+    private int pInvariantes[][], tInvariantes[][];
+    
     ArrayList<Tiempos> transicion;
+    ArrayList<ArrayList<Integer>> pinvariantes, tinvariantes;
     ArrayList<Integer> secuenciaDisparos;
 
     private int plazas, transiciones;
@@ -55,11 +55,12 @@ public class RedDePetri
         columna = new int[plazas];
         
         isTemporal = new int[transiciones];        
-        isInhibida = new int[transiciones]; 
         v_sensibilizadas = new int[transiciones];
+        vs_inhibidas = new int[transiciones];        
         vs_extendido = new int[transiciones];
         secuenciaDisparos = new ArrayList<>();
-        vs_inhibidas = new int[transiciones];
+        pinvariantes = archivos.getPinvariantes();
+        tinvariantes = archivos.getTinvariantes();
         
         cargarMatrices(archivos);
         cargarTiempos(archivos);
@@ -72,7 +73,8 @@ public class RedDePetri
             if(isTemporal[i] == 1) transicion.set(i,new Tiempos(i,intervalos[i][0],intervalos[i][1]));
         }
         marcado = marcadoInicial;
-
+        
+        actualizarInhibidas();
         actualizarExtendida();
         System.out.println();
         System.out.println();
@@ -118,7 +120,6 @@ public class RedDePetri
             
             //actualizarSensibilizadas();
             actualizarExtendida();
-            verificarCartel();
             //printVector(marcado,"marcado actual");
             secuenciaDisparos.add(t);
 //            System.out.println("Se realiz� el disparo de 'T" + t + ".");
@@ -197,9 +198,8 @@ public class RedDePetri
             for(int j = 0; j < plazas; j++)
             {
                 /* toma cada fila distinta de cero en la columna 'i' de la incidencia menos */
-                if(incidencia_menos[j][i] != 0 && inhibicion[j][i] != 0)
+                if(inhibicion[j][i] != 0)
                 {
-                    System.out.println("Fila encontrada: "+j);
                     /* almacena que elemento 'j' es distinto de cero en esa columna */
                     index[elemento] = j;
                     /* se lleva un conteo de cuantos elementos son distintos de cero */
@@ -207,7 +207,7 @@ public class RedDePetri
                 }
                 
                 int k = 0;
-                /* si los elementos tomados son tambien elementos distintos de cero en 'marcado' */
+                /* si los elementos tomados son tambien elementos iguales a cero en 'marcado' */
                 /* aumenta el contador */
                 while(k < elemento && marcado[index[k]] == 0) k++;
                 /* si hay la misma cantidad de elementos en ambos vectores entonces esta */
@@ -301,12 +301,6 @@ public class RedDePetri
         } 
     }
     
-    private void verificarCartel()
-    {
-        cartel = marcado[19] == 0 && marcado[20] == 0;
-        if(cartel) System.out.println("NO HAY LUGAR.");
-    }
-    
     private void reset()
     {
         marcado = marcadoInicial;
@@ -346,37 +340,32 @@ public class RedDePetri
     public int[] getMarcado(){
         return marcado;
     }
-   
-    public void pInvariante(){
-        int[][] pInv = {{0,3,3},
-                        {1,4,3},
-                        {10,7,1},
-                        {11,8,1},
-                        {12,13,3},
-                        {2,5,3},
-                        {25,26,1},
-                        {6,9,1},
-                        {14,15,16,23,2},
-                        {14,17,19,21,30},
-                        {15,18,20,22,30},
-                        {13,14,15,17,18,21,22,23,24,25,27,28,3,4,5,6,7,8,60}};
-                        
-        for(int i=0; i<pInv.length;i++){
+
+    /**
+     * Verifica los invariantes de plaza.
+     */
+    public void pInvariante(){        
+        for(int i = 0; i < pinvariantes.size(); i++){
             int suma = 0;
-            for(int j=0;j<pInv[i].length;j++){
-                if(j<pInv[i].length-1){
-                    int indice = pInv[i][j];
+            for(int j = 0; j < pinvariantes.get(i).size(); j++){
+                if(j < pinvariantes.get(i).size()-1){
+                    int indice = pinvariantes.get(i).get(j);
                     suma += marcado[indice];
                 }
-                else if(j==pInv[i].length-1){
-                    if(suma != pInv[i][j]) pinvariante  = false;
+                else if(j == pinvariantes.get(i).size()-1){
+                    if(suma != pinvariantes.get(i).get(j)) pinvariante  = false;
                 }
             }
-        }
-        
+        }        
         pinvariante = true;
     }
     
+    /**
+     * Verifica los invariantes
+     */
+    public void tInvariante(){
+        
+    }
     public boolean getPInvariantes()
     {
     	return pinvariante;
