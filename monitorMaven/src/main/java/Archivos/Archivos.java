@@ -188,10 +188,12 @@ public class Archivos
                         {            
                             Scanner fila = new Scanner(input.nextLine());
                             ArrayList<Integer> columna = new ArrayList<>();
-
+                            int index = 0;
                             while(fila.hasNextInt()) 
                             {
-                                columna.add(fila.nextInt());
+                                if(fila.nextInt() == 0);
+                                else columna.add(index);
+                                index++;
                             }               
                             tinvariantes.add(columna);
                             fila.close();

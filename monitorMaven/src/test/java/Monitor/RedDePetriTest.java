@@ -39,8 +39,8 @@ public class RedDePetriTest {
     @Test
     public void testIsSensibilizada() {
         System.out.println("--- TEST SENSIBILIZADAS COMUNES ---");
-        int t = 0;
-        assertTrue(rdp.isSensibilizada(t));
+        int t = 21;
+        assertFalse(rdp.isSensibilizada(t));
     }
 
     /**
@@ -101,17 +101,16 @@ public class RedDePetriTest {
     	
     	ArrayList<ArrayList<Integer>> pInv = Archivos.getArchivos().getPinvariantes();
     	
-//    	rdp.disparar(0);
-//    	rdp.disparar(0);
-//    	rdp.disparar(0);
-//    	
-//    	rdp.disparar(1);
-//    	rdp.disparar(1);
-//    	rdp.disparar(1);
-//    	
-//    	rdp.disparar(2);
-//    	rdp.disparar(2);
-//    	rdp.disparar(2);
+
+    	rdp.disparar(0);
+    	
+    	rdp.disparar(1);
+    	rdp.disparar(1);
+    	rdp.disparar(1);
+    	
+    	rdp.disparar(2);
+    	rdp.disparar(2);
+    	rdp.disparar(2);
     	
         for(int i=0; i<pInv.size();i++)
         {

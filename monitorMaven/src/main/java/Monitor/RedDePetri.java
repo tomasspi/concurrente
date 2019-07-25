@@ -385,9 +385,10 @@ public class RedDePetri
     }
     
     public void printSecuenciaDisparos(){
-        for(int i=1;i<secuenciaDisparos.size()+1;i++){
+        for(int i=1;i<secuenciaDisparos.size()+1;i++)
+        {
             System.out.print("T"+secuenciaDisparos.get(i-1)+"   ");
-            if((i%22)==0)System.out.print("\n");
+            if((i%10)==0)System.out.print("\n");
         }
         System.out.println("\nDisparos: "+secuenciaDisparos.size());
     }

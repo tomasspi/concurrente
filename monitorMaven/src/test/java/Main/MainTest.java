@@ -65,7 +65,7 @@ public class MainTest {
         
         System.out.println("Disparos: "+monitor.getCantDisparos());
         
-        Thread.currentThread().sleep(5000);
+        for(Thread t: hilos) t.join();
         System.out.println("1º####################################\n");
         monitor.getQueueMonitor();
         

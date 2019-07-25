@@ -32,7 +32,8 @@ public class Main
       
       for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
       
-      Thread.sleep(8000);
+      for(Thread t: hilos) t.join();
+      
       RedDePetri.getRdP().printSecuenciaDisparos();
       archivos.printToFile();
   }
