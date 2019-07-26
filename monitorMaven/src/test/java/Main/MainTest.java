@@ -9,6 +9,7 @@ import Archivos.Archivos;
 import Monitor.Hilo;
 import Monitor.Monitor;
 import Monitor.RedDePetri;
+import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -77,14 +78,62 @@ public class MainTest {
         /*El hilo padre espera la finalizacion de disparos*/
         for(Thread t: hilos) t.join();
         
+        
+        
         System.out.println("Deben compararse");
         System.out.println(rdp.getSecuenciaDisparos().toString());
         System.out.println(rdp.getTInvariantes().toString());
+        System.out.println("Tamaño antes: "+rdp.getSecuenciaDisparos().size());
         
-        Iterator it = rdp.getSecuenciaDisparos().iterator();
-        while(it.hasNext()){
-            
+        
+        
+        
+        ArrayList<Integer> secAuxiliar = rdp.getSecuenciaDisparos();
+        System.out.println("Cantidad de disparos en aux: "+secAuxiliar.size());
+        
+        Iterator sec  = secAuxiliar.iterator();
+        
+        int encontrado;
+        int cantFilas = rdp.getTInvariantes().size();
+        int contador = 0;
+
+        while(true){
+            for(int i = 0; i<cantFilas; i++){
+                ArrayList<Integer> coincidencias = new ArrayList<>();
+                int cantColumnas = rdp.getTInvariantes().get(i).size();
+                for(int j = 0; j<cantColumnas; j++){
+                    int buscar = rdp.getTInvariantes().get(i).get(j);
+                    while(sec.hasNext()){
+                        Integer invariante = (Integer)sec.next();
+                        encontrado = invariante.intValue();
+                        if(encontrado == buscar){
+                            coincidencias.add(encontrado);
+                            break;
+                        }
+                    }
+                }
+                /* elimina la secuencia encontrada de los disparos */
+                //System.out.println("Encontrado: "+coincidencias.toString());
+                if(coincidencias.size() == cantColumnas){
+                    System.out.println("Todo el camino encontrado. Se removerá la secuencia");
+                    for(int k = 0;k<coincidencias.size();k++){
+                        secAuxiliar.remove(coincidencias.get(k));
+                    }
+                    contador++;
+                }
+                //else break;
+                sec = secAuxiliar.iterator();
+                System.out.println("Auxiliar actual: "+secAuxiliar.toString()+" Tamaño: "+secAuxiliar.size()+"\n\n");
+                System.out.println(contador);
+            }
         }
+        
+    
+        
+        
+        
+        
+        
         
     }
     

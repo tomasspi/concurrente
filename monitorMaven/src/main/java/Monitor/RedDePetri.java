@@ -2,6 +2,8 @@ package Monitor;
 
 import Archivos.Archivos;
 import java.util.ArrayList;
+import java.lang.Exception;
+import java.util.Arrays;
 
 /**
  * Lógica del sistema.
@@ -18,7 +20,7 @@ public class RedDePetri
     private int incidencia_menos[][], incidencia_mas[][], inhibicion[][]; 
     private int intervalos[][], isTemporal[], vs_inhibidas[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
-    private int vs_extendido[], columna[];
+    private int vs_extendido[], vs_extendidoINICIAL[], columna[];
     
     ArrayList<Tiempos> transicion;
     ArrayList<ArrayList<Integer>> pinvariantes, tinvariantes;
@@ -56,6 +58,7 @@ public class RedDePetri
         v_sensibilizadas = new int[transiciones];
         vs_inhibidas = new int[transiciones];        
         vs_extendido = new int[transiciones];
+        vs_extendidoINICIAL = new int[transiciones];
         secuenciaDisparos = new ArrayList<>();
         pinvariantes = archivos.getPinvariantes();
         tinvariantes = archivos.getTinvariantes();
@@ -73,6 +76,7 @@ public class RedDePetri
         marcado = marcadoInicial;
         
         actualizarExtendida();
+        
         System.out.println();
         System.out.println();
     }
@@ -102,6 +106,7 @@ public class RedDePetri
 
     public long disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
     {
+        
         actualizarExtendida();
         if(isSensibilizada(t))
         {
@@ -298,9 +303,9 @@ public class RedDePetri
         } 
     }
     
-    private void reset()
+    public int[] getMarcadoInicial()
     {
-        marcado = marcadoInicial;
+        return marcadoInicial;
     }  
     
     public int[] getSensibilizadas(){
@@ -365,14 +370,14 @@ public class RedDePetri
     
     public void print4testings(){
         System.out.println("#######################################################################");
-        printMatriz(incidencia_menos,"Incidencia (menos)");
-        printMatriz(incidencia_mas,"Incidencia (mas)");
-        printMatriz(inhibicion, "inhibicion");
-        printMatriz(intervalos,"Intervalos temporales");
-        printVector(marcado,"marcado actual");
-        printVector(isTemporal, "transiciones con tiempo");
-        printVector(v_sensibilizadas, "sensibilizadas");
-        printVector(vs_inhibidas, "inhibicion");
+//        printMatriz(incidencia_menos,"Incidencia (menos)");
+//        printMatriz(incidencia_mas,"Incidencia (mas)");
+//        printMatriz(inhibicion, "inhibicion");
+//        printMatriz(intervalos,"Intervalos temporales");
+          printVector(marcado,"marcado actual");
+//        printVector(isTemporal, "transiciones con tiempo");
+//        printVector(v_sensibilizadas, "sensibilizadas");
+//        printVector(vs_inhibidas, "inhibicion");
         printVector(vs_extendido,"extendido");
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     }
