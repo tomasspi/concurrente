@@ -31,7 +31,7 @@ public class Main
       
       System.out.println("Disparos a realizar: " + hilos[0].getDisparos() + "\n");
       
-      for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
+      for(int i = 0; i < cantidadHilos; i++) hilos[i].start();
       
       for(Thread t: hilos) t.join();
       
