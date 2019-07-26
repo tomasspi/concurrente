@@ -7,8 +7,12 @@ package Monitor;
 
 import Archivos.Archivos;
 import java.util.ArrayList;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -20,6 +24,22 @@ public class RedDePetriTest {
     int marcado[] = rdp.getMarcado();
     
     public RedDePetriTest() {
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
     }
     
     /**
@@ -104,14 +124,6 @@ public class RedDePetriTest {
 
     	rdp.disparar(0);
     	
-    	rdp.disparar(1);
-    	rdp.disparar(1);
-    	rdp.disparar(1);
-    	
-    	rdp.disparar(2);
-    	rdp.disparar(2);
-    	rdp.disparar(2);
-    	
         for(int i=0; i<pInv.size();i++)
         {
             int suma = 0;
@@ -127,5 +139,76 @@ public class RedDePetriTest {
                 }
             }
         }
+    }
+
+    /**
+     * Test of disparar method, of class RedDePetri.
+     */
+    @Test
+    public void testDisparar() {
+        System.out.println("--- TEST DE DISPARO ---");
+        int t = 1;
+        long expResult = 0;
+        long result = rdp.disparar(t);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of actualizarInhibidas method, of class RedDePetri.
+     */
+    @Test
+    public void testActualizarInhibidas() {
+        System.out.println("--- TEST DE ACTUALIZACIÓN DE INHIBIDAS ---");
+        int expResult[] = rdp.getExtendido();
+        rdp.disparar(1);
+        int result[] = rdp.getExtendido();
+        assertArrayEquals(expResult,result);
+    }
+
+    /**
+     * Test of getSensibilizadas method, of class RedDePetri.
+     */
+    @Test
+    public void testGetSensibilizadas() {
+        System.out.println("--- TEST DE ACTUALIZACIÓN DE SENSIBILIZADAS ---");
+        int expResult[] = rdp.getSensibilizadas();
+        rdp.disparar(1);
+        int result[] = rdp.getSensibilizadas();
+        assertArrayEquals(expResult,result);
+    }
+
+    /**
+     * Test of getExtendido method, of class RedDePetri.
+     */
+    @Test
+    public void testGetExtendido() {
+        System.out.println("--- TEST DE ACTUALIZACIÓN DE EXTENDIDO ---");
+        int expResult[] = rdp.getExtendido();
+        rdp.disparar(2);
+        int result[] = rdp.getExtendido();
+        assertArrayEquals(expResult,result);
+    }
+
+    /**
+     * Test of isTemporal method, of class RedDePetri.
+     */
+    @Test
+    public void testIsTemporal() {
+        System.out.println("--- TEST DE IS TEMPORAL ---");
+        int t = 13;
+        boolean expResult = true;
+        boolean result = rdp.isTemporal(t);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getMarcado method, of class RedDePetri.
+     */
+    @Test
+    public void testGetMarcado() {
+        System.out.println("--- TEST DE OBTENCIÓN DEL MARCADO ---");
+        int[] expResult = marcado;
+        int[] result = rdp.getMarcado();
+        assertArrayEquals(expResult, result);
     }
 }

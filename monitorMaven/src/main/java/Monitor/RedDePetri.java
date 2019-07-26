@@ -19,7 +19,6 @@ public class RedDePetri
     private int intervalos[][], isTemporal[], vs_inhibidas[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
     private int vs_extendido[], columna[];
-    private int pInvariantes[][], tInvariantes[][];
     
     ArrayList<Tiempos> transicion;
     ArrayList<ArrayList<Integer>> pinvariantes, tinvariantes;
@@ -323,11 +322,6 @@ public class RedDePetri
     public int getTransiciones()
     {
         return transiciones;
-    }
-    
-    public Tiempos getTiempo(int t)
-    {
-        return transicion.get(t);
     }
     
     public boolean isTemporal(int t)
