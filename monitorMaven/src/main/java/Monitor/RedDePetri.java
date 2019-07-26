@@ -26,8 +26,7 @@ public class RedDePetri
     ArrayList<Integer> secuenciaDisparos;
 
     private int plazas, transiciones;
-
-	private boolean pinvariante = true;
+    private boolean pinvariante = true;
     
     public static RedDePetri getRdP() //Singleton
     {
@@ -396,5 +395,13 @@ public class RedDePetri
     public ArrayList<Integer> getSecuenciaDisparos()
     {
         return secuenciaDisparos;
+    }
+    
+    public ArrayList<ArrayList<Integer>> getTInvariantes(){
+        return tinvariantes;
+    }
+    
+    public void deleteRdP(){
+        RdP = null;
     }
 }

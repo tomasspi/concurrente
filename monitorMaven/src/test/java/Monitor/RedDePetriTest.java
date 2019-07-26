@@ -31,6 +31,7 @@ public class RedDePetriTest {
         RedDePetri expResult = rdp;
         RedDePetri result = RedDePetri.getRdP();
         assertEquals(expResult, result);
+        System.out.println("--- FIN TEST SINGLETON ---\n");
     }
 
     /**
@@ -41,6 +42,7 @@ public class RedDePetriTest {
         System.out.println("--- TEST SENSIBILIZADAS COMUNES ---");
         int t = 21;
         assertFalse(rdp.isSensibilizada(t));
+        System.out.println("--- FIN TEST SENSIBILIZADAS COMUNES ---\n");
     }
 
     /**
@@ -53,6 +55,7 @@ public class RedDePetriTest {
         rdp.disparar(0);
         
         assertTrue(rdp.isSensibilizada(3));
+        System.out.println("--- FIN TEST ACTUALIZAR SENSIBILIZADAS ---\n");
     }
 
     /**
@@ -65,6 +68,8 @@ public class RedDePetriTest {
         rdp.disparar(0);
         
         assertTrue(rdp.isSensibilizada(3));
+        System.out.println("--- FIN TEST ACTUALIZAR EXTENDIDA ---\n");
+        
     }
 
     /**
@@ -78,6 +83,7 @@ public class RedDePetriTest {
         int result = rdp.getPlazas();
         
         assertEquals(expResult, result);
+        System.out.println("--- FIN TEST ACTUALIZAR EXTENDIDA ---\n");
     }
 
     /**
@@ -90,6 +96,7 @@ public class RedDePetriTest {
         int expResult = 24;
         int result = rdp.getTransiciones();
         assertEquals(expResult, result);
+        System.out.println("--- FIN TEST GET TRANSICIONES ---\n");
     }
 
     /**
@@ -127,5 +134,43 @@ public class RedDePetriTest {
                 }
             }
         }
+        
+        System.out.println("--- FIN TEST DE INVARIANTES DE PLAZA ---\n");
+    }
+    
+    /**
+     * Testea las pInvariantes luego de la ejecucion total del sistema.
+     * @throws InterruptedException 
+     */
+    @Test
+    public void testPInvarianteSistema() throws InterruptedException{
+        /*Crea el gestor de monitor*/
+        Monitor monitor = Monitor.getMonitor();      
+        Archivos archivos = Archivos.getArchivos();
+
+        int cantidadHilos = archivos.getHilos().size();
+        Hilo hilos[] = new Hilo[cantidadHilos];
+
+        for(int i = 0; i < cantidadHilos; i++) 
+        {
+            hilos[i] = new Hilo(i,archivos.getHilos().get(i));
+        }
+
+        /*Comienzan los hilos*/
+        for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
+
+        /*El hilo padre espera la finalizacion de disparos*/
+        for(Thread t: hilos) t.join();
+
+        assertEquals(true, rdp.getPInvariantes());
+    }
+    
+    /**
+     * Testea las tInvariantes, comparando los disparos generados y los tInvariantes
+     * del PIPE traducidos por el case 'tInvariantes' 
+     */
+    @Test
+    public void testTInvariantesSistema() throws InterruptedException{
+
     }
 }

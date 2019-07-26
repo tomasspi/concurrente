@@ -210,6 +210,10 @@ public class Archivos
         }
     }
   
+    /**
+     * Imprime un txt con la secuencia de disparos realizada por el proyecto
+     * y la secuencia de transiciones (traducida) que generó el PIPE
+     */
     public void printToFile()
     {
         String disparos = RedDePetri.getRdP().getSecuenciaDisparos().toString(); 
