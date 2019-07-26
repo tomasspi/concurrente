@@ -16,6 +16,7 @@ public enum archivosEnum {
     INHIBIDAS("Inhibidas", "./src/main/java/Archivos/inhibidas.txt"),
     INTERVALOS("Intervalos","./src/main/java/Archivos/intervalos.txt"),
     MARCADO("Marcado","./src/main/java/Archivos/marcado.txt"),
+    OUTPUT("output","./src/main/java/Archivos/output.txt"),
     PINVARIANTES("pInvariantes","./src/main/java/Archivos/pInvariantes.txt"),
     TINVARIANTES("tInvariantes","./src/main/java/Archivos/tInvariantes.txt");    
     

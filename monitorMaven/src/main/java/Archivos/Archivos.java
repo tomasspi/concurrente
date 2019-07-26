@@ -188,10 +188,12 @@ public class Archivos
                         {            
                             Scanner fila = new Scanner(input.nextLine());
                             ArrayList<Integer> columna = new ArrayList<>();
-
+                            int index = 0;
                             while(fila.hasNextInt()) 
                             {
-                                columna.add(fila.nextInt());
+                                if(fila.nextInt() == 0);
+                                else columna.add(index);
+                                index++;
                             }               
                             tinvariantes.add(columna);
                             fila.close();
@@ -208,17 +210,20 @@ public class Archivos
         }
     }
   
+    /**
+     * Imprime un txt con la secuencia de disparos realizada por el proyecto
+     * y la secuencia de transiciones (traducida) que generó el PIPE
+     */
     public void printToFile()
     {
         String disparos = RedDePetri.getRdP().getSecuenciaDisparos().toString(); 
         FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter("./src/main/java/Archivos/output.txt");
+        try 
+        {
+            fileWriter = new FileWriter(archivosEnum.OUTPUT.getPath());
             fileWriter.write(disparos);
             fileWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (IOException ex) { ex.getMessage(); }
     }
     
     public int getFilas()

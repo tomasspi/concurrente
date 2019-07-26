@@ -19,15 +19,13 @@ public class RedDePetri
     private int intervalos[][], isTemporal[], vs_inhibidas[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
     private int vs_extendido[], columna[];
-    private int pInvariantes[][], tInvariantes[][];
     
     ArrayList<Tiempos> transicion;
     ArrayList<ArrayList<Integer>> pinvariantes, tinvariantes;
     ArrayList<Integer> secuenciaDisparos;
 
     private int plazas, transiciones;
-
-	private boolean pinvariante = true;
+    private boolean pinvariante = true;
     
     public static RedDePetri getRdP() //Singleton
     {
@@ -325,11 +323,6 @@ public class RedDePetri
         return transiciones;
     }
     
-    public Tiempos getTiempo(int t)
-    {
-        return transicion.get(t);
-    }
-    
     public boolean isTemporal(int t)
     {
         if(isTemporal[t] == 0) return false;
@@ -385,9 +378,10 @@ public class RedDePetri
     }
     
     public void printSecuenciaDisparos(){
-        for(int i=1;i<secuenciaDisparos.size()+1;i++){
+        for(int i=1;i<secuenciaDisparos.size()+1;i++)
+        {
             System.out.print("T"+secuenciaDisparos.get(i-1)+"   ");
-            if((i%22)==0)System.out.print("\n");
+            if((i%10)==0)System.out.print("\n");
         }
         System.out.println("\nDisparos: "+secuenciaDisparos.size());
     }
@@ -395,5 +389,13 @@ public class RedDePetri
     public ArrayList<Integer> getSecuenciaDisparos()
     {
         return secuenciaDisparos;
+    }
+    
+    public ArrayList<ArrayList<Integer>> getTInvariantes(){
+        return tinvariantes;
+    }
+    
+    public void deleteRdP(){
+        RdP = null;
     }
 }

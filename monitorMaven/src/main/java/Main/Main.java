@@ -2,6 +2,7 @@ package Main;
 
 import Archivos.Archivos;
 import Monitor.*;
+import java.util.ArrayList;
 
 /**
  * Realiza todas las operaciones. Creación de hilos
@@ -15,13 +16,13 @@ public class Main
   public static void main (String args[]) throws InterruptedException
   {
       //Crea el gestor de monitor.
-      System.out.println("Creando Gestor de Monitor");
-      Monitor monitor = Monitor.getMonitor();      
+      System.out.println("Creando Gestor de Monitor...");
       Archivos archivos = Archivos.getArchivos();
-
+      
+      RedDePetri rdp = RedDePetri.getRdP();
       int cantidadHilos = archivos.getHilos().size();
       Hilo hilos[] = new Hilo[cantidadHilos];
-      RedDePetri.getRdP().print4testings();
+      rdp.print4testings();
       
       for(int i = 0; i < cantidadHilos; i++) 
       {
@@ -32,8 +33,13 @@ public class Main
       
       for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
       
-      Thread.sleep(8000);
-      RedDePetri.getRdP().printSecuenciaDisparos();
+      for(Thread t: hilos) t.join();
+      
+      rdp.printSecuenciaDisparos();
       archivos.printToFile();
+
+ 
   }
+  
+
 }
