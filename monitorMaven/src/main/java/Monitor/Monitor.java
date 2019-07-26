@@ -124,11 +124,6 @@ public class Monitor
         }
         return disponibles;
     }
-
-    public Politicas getPolitica()
-    {
-        return politica;
-    }
     
     public void getQueueMonitor(){
         System.out.println("Cola para mutex: "+mutex.getQueueLength());

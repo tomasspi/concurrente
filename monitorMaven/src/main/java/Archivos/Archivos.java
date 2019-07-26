@@ -218,13 +218,12 @@ public class Archivos
     {
         String disparos = RedDePetri.getRdP().getSecuenciaDisparos().toString(); 
         FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter("./src/main/java/Archivos/output.txt");
+        try 
+        {
+            fileWriter = new FileWriter(archivosEnum.OUTPUT.getPath());
             fileWriter.write(disparos);
             fileWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (IOException ex) { ex.getMessage(); }
     }
     
     public int getFilas()

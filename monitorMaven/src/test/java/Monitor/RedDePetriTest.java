@@ -7,8 +7,12 @@ package Monitor;
 
 import Archivos.Archivos;
 import java.util.ArrayList;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -21,6 +25,22 @@ public class RedDePetriTest {
     
     public RedDePetriTest() {
     }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
     
     /**
      * Test of getRdP method, of class RedDePetri.
@@ -31,7 +51,6 @@ public class RedDePetriTest {
         RedDePetri expResult = rdp;
         RedDePetri result = RedDePetri.getRdP();
         assertEquals(expResult, result);
-        System.out.println("--- FIN TEST SINGLETON ---\n");
     }
 
     /**
@@ -42,7 +61,6 @@ public class RedDePetriTest {
         System.out.println("--- TEST SENSIBILIZADAS COMUNES ---");
         int t = 21;
         assertFalse(rdp.isSensibilizada(t));
-        System.out.println("--- FIN TEST SENSIBILIZADAS COMUNES ---\n");
     }
 
     /**
@@ -55,7 +73,6 @@ public class RedDePetriTest {
         rdp.disparar(0);
         
         assertTrue(rdp.isSensibilizada(3));
-        System.out.println("--- FIN TEST ACTUALIZAR SENSIBILIZADAS ---\n");
     }
 
     /**
@@ -68,8 +85,6 @@ public class RedDePetriTest {
         rdp.disparar(0);
         
         assertTrue(rdp.isSensibilizada(3));
-        System.out.println("--- FIN TEST ACTUALIZAR EXTENDIDA ---\n");
-        
     }
 
     /**
@@ -83,7 +98,6 @@ public class RedDePetriTest {
         int result = rdp.getPlazas();
         
         assertEquals(expResult, result);
-        System.out.println("--- FIN TEST ACTUALIZAR EXTENDIDA ---\n");
     }
 
     /**
@@ -96,7 +110,6 @@ public class RedDePetriTest {
         int expResult = 24;
         int result = rdp.getTransiciones();
         assertEquals(expResult, result);
-        System.out.println("--- FIN TEST GET TRANSICIONES ---\n");
     }
 
     /**
@@ -110,14 +123,6 @@ public class RedDePetriTest {
     	
 
     	rdp.disparar(0);
-    	
-    	rdp.disparar(1);
-    	rdp.disparar(1);
-    	rdp.disparar(1);
-    	
-    	rdp.disparar(2);
-    	rdp.disparar(2);
-    	rdp.disparar(2);
     	
         for(int i=0; i<pInv.size();i++)
         {
@@ -134,43 +139,76 @@ public class RedDePetriTest {
                 }
             }
         }
-        
-        System.out.println("--- FIN TEST DE INVARIANTES DE PLAZA ---\n");
     }
-    
+
     /**
-     * Testea las pInvariantes luego de la ejecucion total del sistema.
-     * @throws InterruptedException 
+     * Test of disparar method, of class RedDePetri.
      */
     @Test
-    public void testPInvarianteSistema() throws InterruptedException{
-        /*Crea el gestor de monitor*/
-        Monitor monitor = Monitor.getMonitor();      
-        Archivos archivos = Archivos.getArchivos();
-
-        int cantidadHilos = archivos.getHilos().size();
-        Hilo hilos[] = new Hilo[cantidadHilos];
-
-        for(int i = 0; i < cantidadHilos; i++) 
-        {
-            hilos[i] = new Hilo(i,archivos.getHilos().get(i));
-        }
-
-        /*Comienzan los hilos*/
-        for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
-
-        /*El hilo padre espera la finalizacion de disparos*/
-        for(Thread t: hilos) t.join();
-
-        assertEquals(true, rdp.getPInvariantes());
+    public void testDisparar() {
+        System.out.println("--- TEST DE DISPARO ---");
+        int t = 1;
+        long expResult = 0;
+        long result = rdp.disparar(t);
+        assertEquals(expResult, result);
     }
-    
+
     /**
-     * Testea las tInvariantes, comparando los disparos generados y los tInvariantes
-     * del PIPE traducidos por el case 'tInvariantes' 
+     * Test of actualizarInhibidas method, of class RedDePetri.
      */
     @Test
-    public void testTInvariantesSistema() throws InterruptedException{
+    public void testActualizarInhibidas() {
+        System.out.println("--- TEST DE ACTUALIZACIÓN DE INHIBIDAS ---");
+        int expResult[] = rdp.getExtendido();
+        rdp.disparar(1);
+        int result[] = rdp.getExtendido();
+        assertArrayEquals(expResult,result);
+    }
 
+    /**
+     * Test of getSensibilizadas method, of class RedDePetri.
+     */
+    @Test
+    public void testGetSensibilizadas() {
+        System.out.println("--- TEST DE ACTUALIZACIÓN DE SENSIBILIZADAS ---");
+        int expResult[] = rdp.getSensibilizadas();
+        rdp.disparar(1);
+        int result[] = rdp.getSensibilizadas();
+        assertArrayEquals(expResult,result);
+    }
+
+    /**
+     * Test of getExtendido method, of class RedDePetri.
+     */
+    @Test
+    public void testGetExtendido() {
+        System.out.println("--- TEST DE ACTUALIZACIÓN DE EXTENDIDO ---");
+        int expResult[] = rdp.getExtendido();
+        rdp.disparar(2);
+        int result[] = rdp.getExtendido();
+        assertArrayEquals(expResult,result);
+    }
+
+    /**
+     * Test of isTemporal method, of class RedDePetri.
+     */
+    @Test
+    public void testIsTemporal() {
+        System.out.println("--- TEST DE IS TEMPORAL ---");
+        int t = 13;
+        boolean expResult = true;
+        boolean result = rdp.isTemporal(t);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getMarcado method, of class RedDePetri.
+     */
+    @Test
+    public void testGetMarcado() {
+        System.out.println("--- TEST DE OBTENCIÓN DEL MARCADO ---");
+        int[] expResult = marcado;
+        int[] result = rdp.getMarcado();
+        assertArrayEquals(expResult, result);
     }
 }
