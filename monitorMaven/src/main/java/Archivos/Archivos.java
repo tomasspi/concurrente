@@ -6,8 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import Monitor.RedDePetri;
 
 /** Esta clase es la encargada de leer toda la información
@@ -18,8 +16,6 @@ import Monitor.RedDePetri;
  * 
  * @author N.P.
  */
-
-
 
 public class Archivos
 {
@@ -67,7 +63,7 @@ public class Archivos
                         filas = matriz_imas.size();
                         columnas = matriz_imas.get(0).size();
                         
-                        System.out.println("Matriz de incidencia mas cargada exitosamente.");
+                        //System.out.println("Matriz de incidencia mas cargada exitosamente.\n");
                         System.out.println("Plazas: "+ matriz_imas.size() + "\nTransiciones: " + matriz_imas.get(0).size());
                         break;
                         
@@ -92,8 +88,8 @@ public class Archivos
                         filas = matriz_imenos.size();
                         columnas = matriz_imenos.get(0).size();
                         
-                        System.out.println("Matriz de incidencia menos cargada exitosamente.");
-                        System.out.println("Plazas: "+ matriz_imenos.size() + "\nTransiciones: " + matriz_imenos.get(0).size());
+                        //System.out.println("Matriz de incidencia menos cargada exitosamente.");
+                        //System.out.println("Plazas: "+ matriz_imenos.size() + "\nTransiciones: " + matriz_imenos.get(0).size());
                         break;
                         
                     case "Intervalos":
@@ -160,7 +156,7 @@ public class Archivos
                         }
                         input.close();
                         
-                        System.out.println("Matriz de inhibidas cargada exitosamente.");
+                        //System.out.println("Matriz de inhibidas cargada exitosamente.");
                         break;
                         
                     case "pInvariantes":
@@ -179,7 +175,7 @@ public class Archivos
                         }
                         input.close();
                         
-                        System.out.println("Invariantes de plazas cargados exitosamente.");
+                        //System.out.println("Invariantes de plazas cargados exitosamente.");
                         break;
                         
                     case "tInvariantes":
@@ -200,7 +196,7 @@ public class Archivos
                         }
                         input.close();
                         
-                        System.out.println("Invariantes de transciones cargados exitosamente.");
+                        //System.out.println("Invariantes de transciones cargados exitosamente.");
                         break;
                 }                
             } catch (FileNotFoundException ex){

@@ -60,10 +60,10 @@ public class MainTest {
      */
     @Test
     public void testMain() throws Exception {
-                /*Crea el gestor de monitor*/
+        
+        /*Crea el gestor de monitor*/
         monitor = Monitor.getMonitor();      
         
-
         int cantidadHilos = archivos.getHilos().size();
         hilos = new Hilo[cantidadHilos];
 
@@ -75,12 +75,13 @@ public class MainTest {
         /*Comienzan los hilos*/
         for(int i = 0; i< cantidadHilos;i++) hilos[i].start();
 
+        System.out.println("Disparando...\n");
+        
         /*El hilo padre espera la finalizacion de disparos*/
-        for(Thread t: hilos) t.join();
+        for(Thread t: hilos) t.join();        
         
         
-        
-        System.out.println("Deben compararse");
+        System.out.println("\nDeben compararse");
         System.out.println(rdp.getSecuenciaDisparos().toString());
         System.out.println(rdp.getTInvariantes().toString());
         System.out.println("Tamaño antes: "+rdp.getSecuenciaDisparos().size());
@@ -96,16 +97,23 @@ public class MainTest {
         int encontrado;
         int cantFilas = rdp.getTInvariantes().size();
         int contador = 0;
-
-        while(true){
+        int antes = 1,despues = 0;
+        while(antes != despues){
+            antes = secAuxiliar.size();
             for(int i = 0; i<cantFilas; i++){
                 ArrayList<Integer> coincidencias = new ArrayList<>();
+                
                 int cantColumnas = rdp.getTInvariantes().get(i).size();
+                
                 for(int j = 0; j<cantColumnas; j++){
+                    
                     int buscar = rdp.getTInvariantes().get(i).get(j);
+                    
                     while(sec.hasNext()){
+                        
                         Integer invariante = (Integer)sec.next();
                         encontrado = invariante.intValue();
+                        
                         if(encontrado == buscar){
                             coincidencias.add(encontrado);
                             break;
@@ -113,9 +121,9 @@ public class MainTest {
                     }
                 }
                 /* elimina la secuencia encontrada de los disparos */
-                //System.out.println("Encontrado: "+coincidencias.toString());
                 if(coincidencias.size() == cantColumnas){
-                    System.out.println("Todo el camino encontrado. Se removerá la secuencia");
+                    System.out.println("Todo el camino encontrado. Se removerá la secuencia: ");
+                    System.out.println(coincidencias.toString()+"\n");
                     for(int k = 0;k<coincidencias.size();k++){
                         secAuxiliar.remove(coincidencias.get(k));
                     }
@@ -123,9 +131,11 @@ public class MainTest {
                 }
                 //else break;
                 sec = secAuxiliar.iterator();
-                System.out.println("Auxiliar actual: "+secAuxiliar.toString()+" Tamaño: "+secAuxiliar.size()+"\n\n");
-                System.out.println(contador);
+                despues = secAuxiliar.size();
             }
+            System.out.println("Auxiliar actual: "+secAuxiliar.toString());
+            System.out.println("Encontré " + contador + " t-invariantes.");
+            System.out.println("Tamaño: " + secAuxiliar.size());
         }
         
     

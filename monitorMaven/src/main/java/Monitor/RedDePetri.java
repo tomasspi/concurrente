@@ -39,7 +39,6 @@ public class RedDePetri
     /* public es private */
     private RedDePetri() // Constructor
     {
-        System.out.println("Cargando archivos...");
         archivos = Archivos.getArchivos();
         
         plazas = archivos.getFilas();
