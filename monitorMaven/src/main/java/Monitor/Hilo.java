@@ -3,9 +3,9 @@ package Monitor;
 import java.util.ArrayList;
 
 /** 
- *  A cada hilo se le asigana las transiciones a disparar.
+ *  A cada hilo se le asigna las transiciones a disparar.
  * 
- * @author Mr. Green
+ * @author NP
  */
 
 public class Hilo extends Thread 
@@ -19,6 +19,11 @@ public class Hilo extends Thread
         return transiciones;
     }
     
+    /**
+     * Constructor de hilos para concurrencia y manejo de red
+     * @param id
+     * @param transiciones 
+     */
     public Hilo(int id,ArrayList<Integer> transiciones) 
     {
         this.id = id;
@@ -38,7 +43,7 @@ public class Hilo extends Thread
         {
             m.dispararTransicion(transiciones);
         }
-        
+
         System.out.println(Thread.currentThread().getName()+": FINALIZACION DE DISPAROS.");
     }
     

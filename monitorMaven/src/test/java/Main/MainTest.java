@@ -6,11 +6,15 @@
 package Main;
 
 import Archivos.Archivos;
+import Monitor.Executioner;
 import Monitor.Hilo;
 import Monitor.Monitor;
 import Monitor.RedDePetri;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,7 +63,7 @@ public class MainTest {
      * @throws java.lang.Exception
      */
     @Test
-    public void testMain() throws Exception {
+    public void testMain() {
         
         /*Crea el gestor de monitor*/
         monitor = Monitor.getMonitor();      
@@ -78,7 +82,11 @@ public class MainTest {
         System.out.println("Disparando...\n");
         
         /*El hilo padre espera la finalizacion de disparos*/
-        for(Thread t: hilos) t.join();        
+        for(Thread t: hilos) try {
+            t.join();
+        } catch (InterruptedException ex) {
+            ex.getMessage();
+        }        
         
         
         System.out.println("\nDeben compararse");
@@ -86,65 +94,25 @@ public class MainTest {
         System.out.println(rdp.getTInvariantes().toString());
         System.out.println("Tamaño antes: "+rdp.getSecuenciaDisparos().size());
         
-        
-        
-        
-        ArrayList<Integer> secAuxiliar = rdp.getSecuenciaDisparos();
-        System.out.println("Cantidad de disparos en aux: "+secAuxiliar.size());
-        
-        Iterator sec  = secAuxiliar.iterator();
-        
-        int encontrado;
-        int cantFilas = rdp.getTInvariantes().size();
-        int contador = 0;
-        int antes = 1,despues = 0;
-        while(antes != despues){
-            antes = secAuxiliar.size();
-            for(int i = 0; i<cantFilas; i++){
-                ArrayList<Integer> coincidencias = new ArrayList<>();
-                
-                int cantColumnas = rdp.getTInvariantes().get(i).size();
-                
-                for(int j = 0; j<cantColumnas; j++){
-                    
-                    int buscar = rdp.getTInvariantes().get(i).get(j);
-                    
-                    while(sec.hasNext()){
-                        
-                        Integer invariante = (Integer)sec.next();
-                        encontrado = invariante.intValue();
-                        
-                        if(encontrado == buscar){
-                            coincidencias.add(encontrado);
-                            break;
-                        }
-                    }
-                }
-                /* elimina la secuencia encontrada de los disparos */
-                if(coincidencias.size() == cantColumnas){
-                    System.out.println("Todo el camino encontrado. Se removerá la secuencia: ");
-                    System.out.println(coincidencias.toString()+"\n");
-                    for(int k = 0;k<coincidencias.size();k++){
-                        secAuxiliar.remove(coincidencias.get(k));
-                    }
-                    contador++;
-                }
-                //else break;
-                sec = secAuxiliar.iterator();
-                despues = secAuxiliar.size();
-            }
-            System.out.println("Auxiliar actual: "+secAuxiliar.toString());
-            System.out.println("Encontré " + contador + " t-invariantes.");
-            System.out.println("Tamaño: " + secAuxiliar.size());
+        /**
+        * Se cargan todas las transiciones de la red al ArrayList 'todasTransiciones'
+        */
+        ArrayList<Integer> todasTransiciones = new ArrayList<>();
+        for(int i = 0;i<cantidadHilos;i++){
+            todasTransiciones.addAll(hilos[i].getTransiciones());
         }
+        System.out.println(todasTransiciones.toString());        
         
-    
+        System.out.println("Cantidad de disparos en aux: "+rdp.getSecuenciaAuxiliar().size());
         
+        rdp.tInvariantes();
         
-        
-        
-        
-        
+        Executioner executor = new Executioner();
+        executor.start();
+        try {
+            executor.join();
+        } catch (InterruptedException ex) {
+            ex.getMessage();
+        }
     }
-    
 }

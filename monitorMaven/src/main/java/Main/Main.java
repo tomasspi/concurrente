@@ -37,12 +37,9 @@ public class Main
       
       System.out.println("Por disparar remanentes");
       Monitor m = Monitor.getMonitor();
-      ArrayList<Integer> todasTransiciones = new ArrayList<>();
       
-      for(int i = 0;i<cantidadHilos;i++){
-          todasTransiciones.addAll(hilos[i].getTransiciones());
-      }
-      System.out.println(todasTransiciones.toString());
+      
+      
       
 //      while(rdp.getMarcado() != rdp.getMarcadoInicial()){
 //        m.dispararTransicion(todasTransiciones);

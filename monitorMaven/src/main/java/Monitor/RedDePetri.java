@@ -4,6 +4,7 @@ import Archivos.Archivos;
 import java.util.ArrayList;
 import java.lang.Exception;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Lógica del sistema.
@@ -24,7 +25,7 @@ public class RedDePetri
     
     ArrayList<Tiempos> transicion;
     ArrayList<ArrayList<Integer>> pinvariantes, tinvariantes;
-    ArrayList<Integer> secuenciaDisparos;
+    ArrayList<Integer> secuenciaDisparos, secuenciaAuxiliar;
 
     private int plazas, transiciones;
     private boolean pinvariante = true;
@@ -59,6 +60,7 @@ public class RedDePetri
         vs_extendido = new int[transiciones];
         vs_extendidoINICIAL = new int[transiciones];
         secuenciaDisparos = new ArrayList<>();
+        secuenciaAuxiliar = new ArrayList<>();
         pinvariantes = archivos.getPinvariantes();
         tinvariantes = archivos.getTinvariantes();
         
@@ -123,6 +125,7 @@ public class RedDePetri
             actualizarExtendida();
             //printVector(marcado,"marcado actual");
             secuenciaDisparos.add(t);
+            secuenciaAuxiliar.add(t);
 //            System.out.println("Se realiz� el disparo de 'T" + t + ".");
             if(pinvariante == true) pInvariante();
             return 0;
@@ -141,6 +144,22 @@ public class RedDePetri
         }
     }
 
+    
+    
+
+    /**
+     * Getter de secuencia de disparo auxiliar para hilo de id: -1
+     * @return 
+     */
+    public ArrayList<Integer> getSecuenciaAuxiliar() {
+        return secuenciaAuxiliar;
+    }
+    
+    /**
+     * 
+     * @param t
+     * @return 
+     */
     public boolean isSensibilizada(int t) // Pregunta si la transicion esta sensibilizada
     {
         return (vs_extendido[t] != 0);
@@ -359,14 +378,66 @@ public class RedDePetri
     /**
      * Verifica los invariantes
      */
-    public void tInvariante(){
+    public void tInvariantes(){
+        Iterator sec  = secuenciaAuxiliar.iterator();
         
+        int encontrado;
+        int cantFilas = tinvariantes.size();
+        int contador = 0;
+        int antes = 1,despues = 0;
+        while(antes != despues){
+        //while(!secuenciaAuxiliar.isEmpty()){
+            antes = secuenciaAuxiliar.size();
+            for(int i = 0; i<cantFilas; i++){
+                ArrayList<Integer> coincidencias = new ArrayList<>();
+                
+                int cantColumnas = tinvariantes.get(i).size();
+                
+                for(int j = 0; j<cantColumnas; j++){
+                    
+                    int buscar = tinvariantes.get(i).get(j);
+                    
+                    while(sec.hasNext()){
+                        
+                        Integer invariante = (Integer)sec.next();
+                        encontrado = invariante.intValue();
+                        
+                        if(encontrado == buscar){
+                            coincidencias.add(encontrado);
+                            break;
+                        }
+                    }
+                }
+                /* elimina la secuencia encontrada de los disparos */
+                if(coincidencias.size() == cantColumnas){
+                    System.out.println("Todo el camino encontrado. Se removerá la secuencia: ");
+                    System.out.println(coincidencias.toString()+"\n");
+                    for(int k = 0;k<coincidencias.size();k++){
+                        secuenciaAuxiliar.remove(coincidencias.get(k));
+                    }
+                    contador++;
+                }
+                sec = secuenciaAuxiliar.iterator();
+                despues = secuenciaAuxiliar.size();
+            }
+            System.out.println("Auxiliar actual: "+secuenciaAuxiliar.toString());
+            System.out.println("Encontré " + contador + " t-invariantes.");
+            System.out.println("Tamaño: " + secuenciaAuxiliar.size());
+        }
     }
+    
+    /**
+     * 
+     * @return 
+     */
     public boolean getPInvariantes()
     {
     	return pinvariante;
     }
     
+    /**
+     * 
+     */
     public void print4testings(){
         System.out.println("#######################################################################");
 //        printMatriz(incidencia_menos,"Incidencia (menos)");
@@ -381,6 +452,9 @@ public class RedDePetri
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     }
     
+    /**
+     * 
+     */
     public void printSecuenciaDisparos(){
         for(int i=1;i<secuenciaDisparos.size()+1;i++)
         {
@@ -390,15 +464,26 @@ public class RedDePetri
         System.out.println("\nDisparos: "+secuenciaDisparos.size());
     }
     
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<Integer> getSecuenciaDisparos()
     {
         return secuenciaDisparos;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<ArrayList<Integer>> getTInvariantes(){
         return tinvariantes;
     }
     
+    /**
+     * 
+     */
     public void deleteRdP(){
         RdP = null;
     }

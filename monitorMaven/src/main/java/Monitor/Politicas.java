@@ -83,15 +83,19 @@ public int decidir(int electo)
             if (sensibilizadas[transiciones.get(i)] == 1)
             {
                 electo = transiciones.get(i);
-                switch (electo) 
-                {
-                    case 9:
-                    case 10:
-                    case 20:
-                    case 21:
-                        return decidir(electo);
-                    default:
-                        return electo;
+                
+                if(Thread.currentThread().getId() == -1);
+                else{
+                    switch (electo) 
+                    {
+                        case 9:
+                        case 10:
+                        case 20:
+                        case 21:
+                            return decidir(electo);
+                        default:
+                            return electo;
+                    }
                 }
             } 
         }
