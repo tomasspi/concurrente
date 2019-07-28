@@ -11,16 +11,11 @@ import Monitor.Hilo;
 import Monitor.Monitor;
 import Monitor.RedDePetri;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -107,12 +102,53 @@ public class MainTest {
         
         rdp.tInvariantes();
         
-        Executioner executor = new Executioner();
-        executor.start();
-        try {
-            executor.join();
-        } catch (InterruptedException ex) {
-            ex.getMessage();
+        //Iterator sec  = rdp.getSecuenciaAuxiliar().iterator();
+        
+        int encontrado;
+        int cantFilas = rdp.getTInvariantes().size();
+        
+        //while(!secuenciaAuxiliar.isEmpty()){
+        ArrayList<Integer> restantes = new ArrayList<>();
+        for(int i = 0; i<cantFilas; i++){
+            ArrayList<Integer> coincidencias = new ArrayList<>();
+            
+            int cantColumnas = rdp.getTInvariantes().get(i).size();
+
+            for(int j = 0; j<cantColumnas; j++){
+
+                int buscar = rdp.getTInvariantes().get(i).get(j);
+
+                for(int l = 0; l < rdp.getSecuenciaAuxiliar().size(); l++)
+                {
+                    encontrado = rdp.getSecuenciaAuxiliar().get(l);
+                    if(encontrado == buscar){
+                        coincidencias.add(encontrado);
+                        break;
+                    }
+                }
+            }
+            /* elimina la secuencia encontrada de los disparos */
+            if(coincidencias.size() < cantColumnas){
+            System.out.println("Camino parcial encontrado: ");
+            System.out.println(coincidencias.toString()+"\n");
+            for(int k = 0;k<coincidencias.size();k++){
+                rdp.getTInvariantes().get(i).remove(coincidencias.get(k));
+            }
+            }
         }
+        
+        for(int i = 0; i<rdp.getTInvariantes().size(); i++){
+            for(int j = 0; j<rdp.getTInvariantes().get(i).size(); j++){
+                restantes.add(rdp.getTInvariantes().get(i).get(j));
+            }
+        }
+        
+//        Executioner executor = new Executioner(restantes);
+//        executor.start();
+//        try {
+//            executor.join();
+//        } catch (InterruptedException ex) {
+//            ex.getMessage();
+//        }
     }
 }

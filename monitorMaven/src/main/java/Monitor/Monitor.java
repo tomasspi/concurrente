@@ -101,6 +101,29 @@ public class Monitor
         mutex.release();
     }    
     
+    public void dispararRestantes(int t)
+    {
+        long caso = rdp.disparar(t);
+        
+        /* 
+         * no se llego al alpha, el hilo debe dormir 
+         */ 
+        if(caso > 0)
+        {                     
+            /* cede el monitor a un despertable.. si no hay ninguno, libera el monitor */
+            try
+            {
+                Thread.currentThread().sleep(caso);
+                rdp.disparar(t);
+            }
+            catch(Exception ex)
+            {
+                System.out.println("ERR Bloque sleep()");
+                ex.getMessage();
+            }
+        } 
+    }
+    
     private void UNLOCK()
     {
         ArrayList<Integer> disponibles = getDisparablesEncolados();
