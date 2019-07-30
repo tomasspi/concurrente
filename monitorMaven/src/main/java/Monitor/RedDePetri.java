@@ -22,7 +22,7 @@ public class RedDePetri
     private int incidencia_menos[][], incidencia_mas[][], inhibicion[][]; 
     private int intervalos[][], isTemporal[], vs_inhibidas[];
     private int v_sensibilizadas[], marcadoInicial[], marcado[]; 
-    private int vs_extendido[], vs_extendidoINICIAL[], columna[];
+    private int vs_extendido[], columna[];
     
     ArrayList<Tiempos> transicion;
     ArrayList<ArrayList<Integer>> pinvariantes, tinvariantes;
@@ -59,7 +59,6 @@ public class RedDePetri
         v_sensibilizadas = new int[transiciones];
         vs_inhibidas = new int[transiciones];        
         vs_extendido = new int[transiciones];
-        vs_extendidoINICIAL = new int[transiciones];
         secuenciaDisparos = new ArrayList<>();
         secuenciaAuxiliar = new ArrayList<>();
         pinvariantes = archivos.getPinvariantes();
@@ -108,7 +107,6 @@ public class RedDePetri
 
     public long disparar(int t) // Proximo estado = Estado Actual + I * (sigma and Ex)
     {
-        
         actualizarExtendida();
         if(isSensibilizada(t))
         {
@@ -143,10 +141,7 @@ public class RedDePetri
              */ 
             return -2;
         }
-    }
-
-    
-    
+    }    
 
     /**
      * Getter de secuencia de disparo auxiliar para hilo de id: -1
@@ -164,9 +159,7 @@ public class RedDePetri
     public boolean isSensibilizada(int t) // Pregunta si la transicion esta sensibilizada
     {
         return (vs_extendido[t] != 0);
-    }
-    
-    
+    }    
     
     /**
      * El siguiente metodo simula un LEFTJOIN() de una columna de incidencia menos con el vector 
@@ -207,6 +200,17 @@ public class RedDePetri
                     transicion.get(i).setTS();
                 }
             }
+            int k = 0;
+            /* si los elementos tomados son tambien elementos distintos de cero en 'marcado' */
+            /* aumenta el contador */
+            while(k < elemento && marcado[index[k]] > 0) k++;
+            /* si hay la misma cantidad de elementos en ambos vectores entonces esta */
+            /* sensibilizada */
+            if(k == elemento) v_sensibilizadas[i] = 1;
+            else v_sensibilizadas[i] = 0;
+
+            /* si es temporal se le da inicio al contador */
+            if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1) transicion.get(i).setTS();
         }
     }
     
@@ -227,17 +231,17 @@ public class RedDePetri
                     index[elemento] = j;
                     /* se lleva un conteo de cuantos elementos son distintos de cero */
                     elemento++;
-                }
-                
-                int k = 0;
-                /* si los elementos tomados son tambien elementos iguales a cero en 'marcado' */
-                /* aumenta el contador */
-                while(k < elemento && marcado[index[k]] == 0) k++;
-                /* si hay la misma cantidad de elementos en ambos vectores entonces esta */
-                /* sensibilizada */
-                if(k == elemento) vs_inhibidas[i] = 1;
-                else vs_inhibidas[i] = 0;
+                }                
             }
+            
+            int k = 0;
+            /* si los elementos tomados son tambien elementos iguales a cero en 'marcado' */
+            /* aumenta el contador */
+            while(k < elemento && marcado[index[k]] == 0) k++;
+            /* si hay la misma cantidad de elementos en ambos vectores entonces esta */
+            /* sensibilizada */
+            if(k == elemento) vs_inhibidas[i] = 1;
+            else vs_inhibidas[i] = 0;
         }
     }
     
@@ -318,7 +322,7 @@ public class RedDePetri
             for(int j = 0; j < 2; j++)
             {
                 intervalos[i][j] = arch.getIntervalos().get(i).get(j);
-                if(/*intervalos[i][0] != 0 ||*/ intervalos[i][1] != 0) isTemporal[i] = 1;
+                if(intervalos[i][1] != 0) isTemporal[i] = 1;
                 else isTemporal[i] = 0;
             }
         } 

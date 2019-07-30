@@ -223,8 +223,4 @@ public class RedDePetriTest {
         int[] result = rdp.getMarcado();
         assertArrayEquals(expResult, result);
     }
-    
-    
-    
-    
 }

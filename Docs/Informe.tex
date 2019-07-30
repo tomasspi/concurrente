@@ -165,6 +165,17 @@ Debe realizar:
 \section{Desarrollo}
 \label{desarrollo}
 
+\subsection{Requerimientos funcionales del sistema}
+\begin{itemize}[leftmargin=1.5cm]
+    \item El sistema no debe disparar transiciones no sensibilizadas.
+    \item El sistema debe disparar transiciones sensibilizadas.
+    \item El sistema debe conocer las transiciones sensibilizadas.
+    \item El sistema debe tener la capacidad para disparar una transición sensibilizada por tiempo.
+    \item El sistema no debe disparar una transición no sensibilizada por tiempo.
+    \item El sistema debe tener prioridades/políticas de disparo entre transiciones.
+    \item El sistema no debe permitir el acceso al monitor a más de un hilo.
+\end{itemize}
+
 \subsection{Tabla de estados}
 \begin{table}[H]
 \centering
@@ -276,17 +287,38 @@ Se asigna un hilo a la dupla de transiciones T20 y T21 para resolver el último 
 Se encarga del manejo del cartel de la playa.
 
 \subsubsection*{Discusiones}
-Aca hay que poner todo el tema de la discusion de los hilos, escribir que asignamos de una forma primero, y que antes de nada se utlizo una politica fifo, donde se producia el "cuelgue", despues que se cambiaron a otra forma los hilos y se mejoro la concurrencia, pero con bloqueaos igual, luego de varias pruebas, se descubrio que el problema no era la modularizacion y asignacion de hilos, sino la politica fifo que no permitia la ejecucion correcta de la red.
+Al comienzo se había implementado una política \emph{FIFO} para el orden de disparo de cada hilo con el fin de verificar que el monitor implementado funcionara correctamente. Esto causó que si el hilo que ingresó al monitor no podía disparar el primero de los disparos listado en el archivo de texto asignado, se encolaba allí dentro esperando poder disparar dicha transición. Este diseño trajo serios problemas de interbloqueo, ya que la política le indicaba al hilo que dispare la primer transición asignada, independientemente si estaba sensibilizada o no, por lo que si la transición no estaba sensibilizada no permitía la evolución de la red.
+
+Esto fue solucionado implementando dentro de la clase Políticas, un método de consulta, donde el hilo le consulta cuáles de sus transiciones puede dispararse en ese momento, proporcionándole la información mas óptima para la fluidez de la red. De este diseño se habla con mayor detalle en la \textit{sección 2.5}.  
+
+Una vez solucionado el problema de las políticas, se probó la distribución de los hilos de 3 formas diferentes, añadiendo variantes en el conjunto de transiciones T6 -- T7 -- T8 -- T9 -- T10, que es la sección de la red que traslada los autos de la entrada a sus respectivos estacionamientos.
+
+Finalmente resultó irrelevante el modo en que estas se distribuían, ya que ninguna afectaba el rendimiento ni ofrecía alguna mejora, pero se optó por la distribución descripta al comienzo de la sección, para conservar la linealidad de los hilos con respecto a sus tareas en la red.
+
+\subsection{Parámetros del Sistema}
+El proyecto esta diseñado para parametrizarse a través de archivos de texto plano. 
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item hilos.txt -- se carga un hilo por fila. Cada valor de la fila corresponde a la \emph{ID} de la transición.
+    \item incidencia\_mas.txt -- contiene la matriz de incidencia positiva generada por PIPE.
+    \item incidencia\_menos.txt -- contiene la matriz de incidencia negativa generada por PIPE, pero modificada para que contenga un valor negativo en vez de positivo.
+    \item inhibidas.txt -- es la matriz de inhibición generada por el PIPE.
+    \item intervalos.txt -- incluye la matriz de intervalos temporales de las transiciones de la red.
+    \item marcado.txt -- incluye el marcado inicial de la red.
+    \item pInvariantes.txt -- conserva el formato generado por PIPE, pero se eliminan todos los dígitos no numéricos, de modo que el ultimo valor de cada fila es el resultado de la suma de cada una de las plazas anteriores. Cada salto de linea es un P-Invariante diferente.
+    \item tInvariantes.txt -- al igual que con las P-Invariantes, se eliminan todos los identificadores de las transiciones mientras se conserva el mismo formato original generado por PIPE.
+\end{itemize}
+
+Una vez realizados los disparos, el sistema genera el archivo `output.txt' en el cual se encuentra la secuencia de disparos realizada.
 
 \subsection{Red de Petri}
 Al tratarse de una red que está acotada, se tiene una secuencia de disparos infinita, por lo tanto la red es monótona.
 
-Para las transiciones temporizadas se utiliza una clase dedicada a ``cronometrarlas": ‘Tiempos’. Una transición con tiempo se cronometra desde el inicio de su sensibilización, y en el momento en el que se la quiere disparar, se debe verificar que el tiempo dicho esté dentro de su intervalo de tiempo $[a_i , b_i]$. Si el disparo se quiere realizar antes del límite inferior $(a_i)$, el hilo debe dormir $a_i-x$ segundos, donde $x$ es el tiempo transcurrido desde que se sensibilizó la transición.
-
 \textbf{Semántica utilizada para las transiciones temporizadas}
 
 Se tomo la primera de las semánticas especificadas en \textit{“Redes de Petri Temporales 2017.pdf” -- Hoja 11}, por lo tanto el disparo se realiza en dos etapas:
-\begin{itemize}
+
+\begin{itemize}[leftmargin=1.5cm]
     \item Transcurre un determinado tiempo desde que una transición se sensibiliza.
     \item Se retiran y colocan las marcas de forma atómica.
 \end{itemize}
@@ -294,6 +326,23 @@ Se tomo la primera de las semánticas especificadas en \textit{“Redes de Petri
 Cabe mencionar que esto se usa para ambos tipos de transiciones: inmediatas y temporales, ya que en el caso de la inmediata, el paso 1 implica un intervalo de tiempo nulo.
 
 Al tener un arco lector, no se utiliza la matriz de incidencia combinada para realizar el cálculo del estado siguiente de la red, ya que este tipo de arco puede definirse como un arco común que entra y sale de una misma transición, por lo que se verá reflejado como un 0 en la matriz de incidencia combinada. Debido a esto se realiza el cálculo del estado siguiente en dos etapas: primero se realiza la toma de tokens utilizando la matriz de incidencia negativa y luego se realiza la inserción de tokens utilizando la matriz de incidencia positiva.
+
+\subsubsection{Tiempos}
+Para las transiciones temporizadas se utiliza una clase dedicada a ``cronometrarlas”: ‘Tiempos’. Una transición con tiempo se ``cronometra” desde el inicio de su sensibilización, y en el momento en el que se la quiere disparar, se debe verificar que el tiempo dicho esté dentro de su intervalo de tiempo $[a_i , b_i]$. Si el disparo se quiere realizar antes del límite inferior $(a_i)$, el hilo debe dormir $a_i-x$ segundos, donde $x$ es el tiempo transcurrido desde que se sensibilizó la transición.
+
+Los tiempos se asignan a cada transición desde el archivo \textit{`intervalos.txt'}. Éste cuenta con 2 columnas por transición, donde la primera indica el \textit{$a_i$} (alfa) y la segunda el \textit{$b_i$} (beta). 
+
+Una transición no temporizada o inmediata se parametriza con $a_i = 0 $ y $b_i = 0$. En el caso de esta red en particular \textit{T13, T14} y \textit{T18} representan a los tiempos del estacionamiento y cajero respectivamente, a los cuales se les asignó los siguientes valores, expresados en el orden de los \textit{milisegundos}.
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item T13 -- [200, 1500]
+    \item T14 -- [150, 1800]
+    \item T18 -- [10, 300]
+\end{itemize}
+
+Resulta importante la asignación de estos tiempos. Un alfa muy próximo a 0 es rápidamente sensibilizada, pero si es acompañada de un beta cercano, la ventana de disparo de la transición será excedido con mucha certeza, y en consecuencia pocas veces o incluso nunca será disparada, acarreando problemas de fluidez y un eventual interbloqueo.
+
+Debido al orden de magnitud de tiempo, es importante ajustar estos valores acorde al poder de procesamiento de cada computador. El lapso de tiempo entre la lectura de una linea y otra pasa a ser relevante cuando se manejan dichas magnitudes.
 
 \begin{figure}[H]
     \centering
@@ -303,13 +352,13 @@ Al tener un arco lector, no se utiliza la matriz de incidencia combinada para re
 \end{figure}
 
 \subsection{Políticas}
-Aquel conjunto de transiciones pertenecientes a un hilo en particular, que no requieran el tratado de políticas específicas, se dispararan preferentemente en el orden dispuesto en el archivo de texto 'hilos.txt', siendo este un posible orden de prioridades, para garantizar el orden y la fluidez de la red. Ejemplificando, suponga un hilo que haya conseguido acceso al monitor y que lleva parametrizadas \textit{[T0    T3    T6]}; la transición \textit{T0} será la primera en ser evaluada en función de su estado de sensibilizada, de poder dispararse, se procede, caso contrario, se intentará con T3. Si finalmente, ninguna de las 3 transiciones del hilo puede ser disparada en ese instante, éste se encolará dentro del monitor con el primer parámetro de la lista, en este caso \textit{T0}.
+Aquel conjunto de transiciones pertenecientes a un hilo en particular, que no requieran el tratado de políticas específicas, se dispararan preferentemente en el orden dispuesto en el archivo de texto `hilos.txt', siendo este un posible orden de prioridades, para garantizar el orden y la fluidez de la red. Ejemplificando, suponga un hilo que haya conseguido acceso al monitor y que lleva parametrizadas \textit{[T0    T3    T6]}; la transición \textit{T0} será la primera en ser evaluada en función de su estado de sensibilizada, de poder dispararse, se procede, caso contrario, se intentará con T3. Si finalmente, ninguna de las 3 transiciones del hilo puede ser disparada en ese instante, éste se encolará dentro del monitor con el primer parámetro de la lista, en este caso \textit{T0}.
 
-Por otro lado, las transiciones que requieren tratado de políticas especificas, son administradas por la clase ‘Politicas’ del proyecto y obedecen al enunciado.
+Por otro lado, las transiciones que requieren tratado de políticas especificas, son administradas por la clase `Politicas' del proyecto y obedecen al enunciado.
 
-Cabe mencionar que se interpretó por ‘prioridad' a un piso o una salida como la opción más probable que puede llegar a suceder, por lo que para la primer política, el 70\% de los autos irá a planta baja, mientras que el 30\% restante irá a planta alta. Estos mismos porcentajes se utilizan en la segunda política para la elección de la calle de salida (70\% para la salida 2 y 30\% para la salida 1).
+Cabe mencionar que se interpretó por `prioridad' a un piso o una salida como la opción más probable que puede llegar a suceder, por lo que para la primer política, el 70\% de los autos irá a planta baja, mientras que el 30\% restante irá a planta alta. Estos mismos porcentajes se utilizan en la segunda política para la elección de la calle de salida (70\% para la salida 2 y 30\% para la salida 1).
 
-La elección de esta política se realiza por medio del constructor de la clase ‘Politicas’, donde se pasa como parámetro el número de política que se desea utilizar: 1 para la primer política ó 2 para la segunda.
+La elección de esta política se realiza por medio del constructor de la clase `Politicas', donde se pasa como parámetro el número de política que se desea utilizar: 1 para la primer política ó 2 para la segunda.
 
 \subsection{Análisis de Invariantes}
 El análisis de invariantes es utilizado para la realización del \emph{testing} del código. Para que éste sea exitoso ambos invariantes (de plaza y transiciones) deben cumplirse, ya que el hecho de que no se cumpla alguno implica que el sistema está funcionando de manera incorrecta. Si no se cumplen los invariantes de plaza significa que no se está respetando la cantidad de recursos existentes en la red, mientras que si no se cumplen los invariantes de transiciones se verifica que los bucles posibles que posee la red no se están realizando, por lo que los disparos están ocurriendo en manera incorrecta. 
@@ -319,7 +368,7 @@ Un invariante P indica que el número de tokens en todas las marcas alcanzables 
 Un invariante algebraico es una cierta combinación de las componentes de una matriz cuyo valor numérico no queda alterado al hacer un cambio de base.
 Las invariantes la red generadas por PIPE son las siguientes:
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=1.5cm]
 \item Limitador de autos en la primer entrada.
 
         \verb|M(P0) + M(P3) = 3|
@@ -328,6 +377,7 @@ Las invariantes la red generadas por PIPE son las siguientes:
 
         \verb|M(P1) + M(P4) = 3 |
 
+\newpage
 \item Limitador de autos en la tercer entrada.
 
         \verb|M(P2) + M(P5) = 3 |
@@ -387,7 +437,7 @@ Una bandera booleana inicializada en \textit{true} permanece en ese estado siemp
 \subsubsection{T-Invariantes}
 Estas indican posibles bucles (\emph{loops}) en la red. Es decir, una secuencia de disparos que tenga asociado un invariante de transición, vuelve al mismo marcado desde el que partió.
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=1.5cm]
     \item Entra por la primer calle, estaciona en planta alta, y sale por calle 1.
     
     \verb|[T0, T3, T6, T9, T11, T13, T15, T17, T18, T19, T20]|
@@ -720,33 +770,62 @@ Véase que en cada evolución del autómata, se añade el valor de la variable a
 
 Cada método \textit{`siguienteEstado(int variable)'} devuelve el \textit{Enum} próximo si corresponde, o el mismo \textit{Enum} para permanecer en ese estado.
 
+\newpage
 \subsection{Diagrama de clases}
-INSERTAR DIAGRAMA DE CLASES ACA.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15.5cm]{DClases.png}
+    \label{fig:dclases}
+    \caption{Diagrama de clases del sistema.}
+\end{figure}
 
 \subsection{Diagramas de secuencia}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.35]{DSmonitor.png}
+    \includegraphics[width=15.5cm]{DSmonitor.png}
     \label{fig:dsmonitor}
     \caption{Diagrama del método `dispararTransicion' de la clase `Monitor'.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.35]{DSdisparo.png}
+    \includegraphics[width=15.5cm]{DSdisparo.png}
     \label{fig:dsdisparo}
     \caption{Diagrama del método `disparar' de la clase `RedDePetri'.}
 \end{figure}
 
-\section{Conclusiones}
-Una vez realizados los \emph{testings}, se pudo verificar que ambos invariantes se cumplen.
-
-En cuanto a los hilos, la política influía en estos, por lo que los hilos se bloqueaban por culpa de ella.
-
-En cuanto a los T-invariantes, se cumplen correctamente, quedando secuencias parciales de ellos una vez finalizada la ejecución.
-
+\section{Conclusiones y Resultados}
 Se agregaron dos invariantes de transiciones más que el PIPE no las establecía, siendo éstos los invariantes correspondientes a la tercer entrada. Se cree que tiene una limitación en su cantidad de muestras, con esto mejoró significativamente la verificación de los disparos realizados.
 
-ALGUNA OTRA CONCLUSION MAS, DESARROLLAR MEJOR ESTO.
+Una vez realizados los \emph{testings}, se pudo verificar que ambos invariantes se cumplen, sin importar la cantidad de disparos realizados.
+
+La cantidad  de ciclos completados tiene una relación de proporción directa con la magnitud de los disparos, por ejemplo, al realizar 5000 disparos, se completan 495 ciclos de T-Invariantes y con 10.000 disparos se completan 1022. Pero esto mismo no ocurre con los ciclos parciales, que por detenerse la ejecución, no alcanzaron a completarse.
+Se observa que en ejecuciones que superan los 500 disparos aproximadamente, se comienza a establecer una constante de 60 ciclos sin completar, sin importar a cuanto se incremente la cantidad de disparos.
+
+Como este valor de 60 coincide con la cota de la red, se podría sospechar que existe una interrelación entre ellos, de modo que una variación de dicha cota, también debería variar la cantidad de ciclos parciales. Se comprobó que esta hipótesis es válida, y variando la cota de la red influye directamente en la cantidad de ciclos sin completar, por lo que al reemplazar los 60 tokens que limitan la red, a 100 tokens, se obtuvieron exactamente 100 ciclos sin completar.
+
+Como se mencionó en la \emph{sección 2.3}, el problema de interbloqueo de hilos que se produjo fue resultado de la mala implementación de la política y no de la distribución de hilos. Se probaron distintas distribuciones de hilos y todas resultaron en una ejecución exitosa.
+
+El uso de una política u otra se aprecia claramente en los resultados. Al ejecutar 3000 disparos resultan las siguientes estadísticas:
+
+\textbf{Política 1} -- Prioridad a T10 (planta baja) y salida indistinta.
+\begin{itemize}[leftmargin=1.5cm]
+    \item Disparos de T9: 101
+    \item Disparos de T10: 197
+    \item Disparos de T20: 119
+    \item Disparos de T21: 120
+\end{itemize}
+
+\textbf{Política 2} -- Proridad a T21 (salida calle 2) y llenado indistinto.
+\begin{itemize}[leftmargin=1.5cm]
+    \item Disparos de T9: 104
+    \item Disparos de T10: 191
+    \item Disparos de T20: 71
+    \item Disparos de T21: 165
+\end{itemize}
+
+La tendencia superior en T10 en la política 2 se debe a imprecisión del numero aleatorio generado por \textit{Math.random()} y a la consustancialidad de la red con ese numero de disparos.
+
+\textbf{En síntesis, se puede concluir que se cumplieron todos los requerimientos funcionales del sistema propuestos, que la red evoluciona satisfactoriamente y que se respetan los principios teóricos de un monitor.}
 
 \end{document}
