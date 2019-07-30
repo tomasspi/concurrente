@@ -10,13 +10,14 @@ public class Tiempos
     private int ID;
     private int alpha, beta;
     private long timeStamp;
-    private boolean cronometrando = false;
+    private boolean cronometrando;
     
     public Tiempos(int ID, int alpha, int beta)
     {
         this.ID = ID;
         this.alpha = alpha;
         this.beta = beta;
+        cronometrando = false;
     }
     
     public boolean checkVentana()

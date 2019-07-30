@@ -73,7 +73,7 @@ public class RedDePetri
         for(int i = 0; i < transiciones; i++)
         {
             transicion.add(i,null);
-            if(isTemporal[i] == 1) transicion.set(i,new Tiempos(i,intervalos[i][0],intervalos[i][1]));
+            transicion.set(i,new Tiempos(i,intervalos[i][0],intervalos[i][1]));
         }
         marcado = marcadoInicial;
         
@@ -203,7 +203,9 @@ public class RedDePetri
                 else v_sensibilizadas[i] = 0;
                 
                 /* si es temporal se le da inicio al contador */
-                if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1) transicion.get(i).setTS();
+                if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1){
+                    transicion.get(i).setTS();
+                }
             }
         }
     }
@@ -316,7 +318,7 @@ public class RedDePetri
             for(int j = 0; j < 2; j++)
             {
                 intervalos[i][j] = arch.getIntervalos().get(i).get(j);
-                if(intervalos[i][0] != 0 || intervalos[i][1] != 0) isTemporal[i] = 1;
+                if(/*intervalos[i][0] != 0 ||*/ intervalos[i][1] != 0) isTemporal[i] = 1;
                 else isTemporal[i] = 0;
             }
         } 

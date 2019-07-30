@@ -146,10 +146,22 @@ public class RedDePetriTest {
      * Test of disparar method, of class RedDePetri.
      */
     @Test
-    public void testDisparar() {
-        System.out.println("--- TEST DE DISPARO ---");
+    public void testDispararSensibilizada() {
+        System.out.println("--- TEST DE DISPARO SENSIBILIZADO ---");
         int t = 1;
         long expResult = 0;
+        long result = rdp.disparar(t);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of disparar method, of class RedDePetri.
+     */
+    @Test
+    public void testDispararNoSensibilizada() {
+        System.out.println("--- TEST DE DISPARO NO SENSIBILIZADO ---");
+        int t = 22;
+        long expResult = -2;
         long result = rdp.disparar(t);
         assertEquals(expResult, result);
     }
@@ -212,4 +224,8 @@ public class RedDePetriTest {
         int[] result = rdp.getMarcado();
         assertArrayEquals(expResult, result);
     }
+    
+    
+    
+    
 }

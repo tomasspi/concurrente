@@ -27,8 +27,8 @@ public class Monitor
         for(int i = 0; i < cola.length; i++) cola[i] = new Colas(mutex);
         
         //Se elije la politica.
-        politica = new Politicas(1);
-        //politica = new Politica(2);
+        //politica = new Politicas(1);
+        politica = new Politicas(2);
         
     }
     
