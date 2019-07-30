@@ -469,7 +469,7 @@ public class RedDePetri
             System.out.print("T"+secuenciaDisparos.get(i-1)+"   ");
             if((i%10)==0)System.out.print("\n");
         }
-        System.out.println("\nDisparos: "+secuenciaDisparos.size());
+        //System.out.println("\nDisparos: "+secuenciaDisparos.size());
     }
     
     /**

@@ -22,7 +22,7 @@ public class Main
       RedDePetri rdp = RedDePetri.getRdP();
       int cantidadHilos = archivos.getHilos().size();
       Hilo hilos[] = new Hilo[cantidadHilos];
-      rdp.print4testings();
+      //rdp.print4testings();
       
       for(int i = 0; i < cantidadHilos; i++) 
       {
@@ -34,18 +34,10 @@ public class Main
       for(int i = 0; i < cantidadHilos; i++) hilos[i].start();
       
       for(Thread t: hilos) t.join();
+
+      //rdp.printSecuenciaDisparos();
       
-      System.out.println("Por disparar remanentes");
-      Monitor m = Monitor.getMonitor();
-      
-      
-      
-      
-//      while(rdp.getMarcado() != rdp.getMarcadoInicial()){
-//        m.dispararTransicion(todasTransiciones);
-//      }
-      
-      rdp.printSecuenciaDisparos();
+      System.out.println("\nSe generó el archivo con los disparos realizados.");
       archivos.printToFile();
       //rdp.print4testings();
 

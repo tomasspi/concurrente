@@ -203,7 +203,7 @@ public class MainTest {
         MaqEstado estadoFinal = MaqEstado.EFinal;
         //MaqEstado estado = estadoInicial;
         ArrayList<ArrayList<Integer>> secuenciaParcial = new ArrayList<>();
-        ArrayList<Integer> columna = null;
+        ArrayList<Integer> columna;
         int secuenciaCompleta = 0;
         
         /* hasta que el arrayList de secuencia auxilar quede vacio */
@@ -211,28 +211,29 @@ public class MainTest {
             /* inicializa la maquina en el estado E0 */
             MaqEstado estado = MaqEstado.E0;
             /* barre secuencia de disparos usando la maquina de estados */
-            System.out.println("\n\nInicia maquina de estados ");
+            System.out.println("---------------------------------------------");
+            System.out.println("Inicia maquina de estados ");
             for(Integer variable : rdp.getSecuenciaAuxiliar()){
                 variable = variable.intValue();
                 estado = estado.siguienteEstado(variable);
             }
-            System.out.println("Finalizo maquina de estados, registro: ");
+            System.out.println("\nFinalizo maquina de estados, registro: ");
             System.out.println(MaqEstado.getRegistro());
 
             /* si la maquina de estados llego al estado final, borra la secuencia */
             if(estado == estadoFinal){
                 secuenciaCompleta++;
-                System.out.println("Llego a un estado final");
+                System.out.println("\nLlegó a un estado final\n");
                 System.out.println("Tamaño de secAuxiliar antes: "+rdp.getSecuenciaAuxiliar().size());
                 for(Integer delete : MaqEstado.getRegistro()){
                     rdp.getSecuenciaAuxiliar().remove(delete);
                 }
                 System.out.println("Tamaño de secAuxiliar despues: "+rdp.getSecuenciaAuxiliar().size());
-
+                System.out.println("---------------------------------------------");
             }
             /* si la maquina de quedó clavada, se almacena la secuencia parcial */
             else {
-                System.out.println("No llego a un estado final");
+                System.out.println("\nNo llegó a un estado final\n");
                 System.out.println("Tamaño de secAuxiliar antes: "+rdp.getSecuenciaAuxiliar().size());
                 columna = new ArrayList<>();
                 for(Integer delete : MaqEstado.getRegistro()){
@@ -245,16 +246,17 @@ public class MainTest {
                 System.out.println("Tamaño de secAuxiliar despues: "+rdp.getSecuenciaAuxiliar().size());
                 System.out.println("ArrayList de secuenciaParcial: ");
                 System.out.println(secuenciaParcial);
+                System.out.println("---------------------------------------------");
             }
             /* reinicia el registro de la maquina de estados */
             MaqEstado.reiniciarRegistro();
         }
         /* imprime resultados de analisis */
-        System.out.println("FINALMENTE: ");
+        System.out.println("\nFINALMENTE: ");
         System.out.println(secuenciaParcial);
         System.out.println("Cantidad de secuencias completas: "+secuenciaCompleta);
         System.out.println("Cantidad de secuencias parciales: "+secuenciaParcial.size());
-        
+        System.out.println();
         
         rdp.deleteRdP();
         monitor = null;
