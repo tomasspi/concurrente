@@ -1,6 +1,7 @@
 package Monitor;
 
 import Archivos.Archivos;
+import MaquinaDeEstado.MaqEstado;
 import java.util.ArrayList;
 import java.lang.Exception;
 import java.util.Arrays;
@@ -379,6 +380,7 @@ public class RedDePetri
      * Verifica los invariantes
      */
     public void tInvariantes(){
+        
         Iterator sec  = secuenciaAuxiliar.iterator();
         
         int encontrado;
@@ -386,6 +388,7 @@ public class RedDePetri
         int contador = 0;
         int antes = 1,despues = 0;
         while(antes != despues){
+            System.out.println("\nComienza ciclo de busqueda");
         //while(!secuenciaAuxiliar.isEmpty()){
             antes = secuenciaAuxiliar.size();
             for(int i = 0; i<cantFilas; i++){
@@ -404,14 +407,16 @@ public class RedDePetri
                         
                         if(encontrado == buscar){
                             coincidencias.add(encontrado);
+                            System.out.print("Se encontró el disparo: ");
+                            System.out.print(encontrado+", ");
                             break;
                         }
                     }
                 }
                 /* elimina la secuencia encontrada de los disparos */
                 if(coincidencias.size() == cantColumnas){
-                    System.out.println("Todo el camino encontrado. Se removerá la secuencia: ");
-                    System.out.println(coincidencias.toString()+"\n");
+                    System.out.println("Toda la secuencia encontrada. Se removerá de Auxiliar: ");
+                    System.out.println("A remover: "+coincidencias.toString()+"\n");
                     for(int k = 0;k<coincidencias.size();k++){
                         secuenciaAuxiliar.remove(coincidencias.get(k));
                     }
@@ -421,8 +426,11 @@ public class RedDePetri
                 despues = secuenciaAuxiliar.size();
             }
             System.out.println("Auxiliar actual: "+secuenciaAuxiliar.toString());
-            System.out.println("Encontré " + contador + " t-invariantes.");
-            System.out.println("Tamaño: " + secuenciaAuxiliar.size());
+            //System.out.println("Encontré " + contador + " t-invariantes.");
+            System.out.println("De tamaño: " + secuenciaAuxiliar.size());
+            System.out.println("Comienza otro ciclo de busqueda");
+            System.out.println("------------------------------------------------------");
+            System.out.println("------------------------------------------------------");
         }
     }
     
@@ -478,6 +486,7 @@ public class RedDePetri
      * @return 
      */
     public ArrayList<ArrayList<Integer>> getTInvariantes(){
+        
         return tinvariantes;
     }
     

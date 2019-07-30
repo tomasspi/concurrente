@@ -6,6 +6,7 @@
 package Monitor;
 
 import Archivos.Archivos;
+import MaquinaDeEstado.MaqEstado;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
