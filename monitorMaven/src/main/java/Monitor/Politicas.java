@@ -25,11 +25,11 @@ public int decidir(int electo)
                     
                     if (electo == 9 || electo == 10)
                     {
-                        if(Math.random() > 0.7) return 9;
+                        if(Math.random() > 0.70) return 9;
                         else return 10;
                     } else
                     {
-                        if(Math.random() > 0.5) return 20;
+                        if(Math.random() > 0.50) return 20;
                         else return 21;
                     }
                 
@@ -38,11 +38,11 @@ public int decidir(int electo)
                     
                     if (electo == 20 || electo == 21)
                     {
-                        if(Math.random() > 0.7) return 20;
+                        if(Math.random() > 0.70) return 20;
                         else return 21;
                     } else
                     {
-                        if(Math.random() > 0.5) return 9;
+                        if(Math.random() > 0.50) return 9;
                         else return 10;
                     }
                     
@@ -51,11 +51,11 @@ public int decidir(int electo)
                     
                     if (electo == 9 || electo == 10)
                     {
-                        if(Math.random() > 0.5) return 9;
+                        if(Math.random() > 0.50) return 9;
                         else return 10;
                     } else
                     {
-                        if(Math.random() > 0.5) return 20;
+                        if(Math.random() > 0.50) return 20;
                         else return 21;
                     }
         }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Hilo extends Thread 
 {
-    static final int DISPAROS = 2000;
+    static final int DISPAROS = 3000;
     Monitor m = Monitor.getMonitor();
     int id;
     ArrayList<Integer> transiciones;

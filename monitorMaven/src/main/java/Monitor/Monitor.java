@@ -28,7 +28,7 @@ public class Monitor
         
         //Se elije la politica.
         //politica = new Politicas(1);
-        politica = new Politicas(2);
+        politica = new Politicas(0);
         
     }
     

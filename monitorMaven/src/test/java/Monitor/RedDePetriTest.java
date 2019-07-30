@@ -6,7 +6,6 @@
 package Monitor;
 
 import Archivos.Archivos;
-import MaquinaDeEstado.MaqEstado;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -165,7 +164,7 @@ public class RedDePetriTest {
         long result = rdp.disparar(t);
         assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of actualizarInhibidas method, of class RedDePetri.
      */
