@@ -252,15 +252,15 @@ Debe realizar:
  Los hilos son aquellos que realizan un conjunto de acciones, por lo que para determinar la cantidad de hilos necesarios, se realizó una modularización de la red en actividades, por lo tanto, la cantidad de hilos utilizados son 9:
 
 \begin{enumerate}[leftmargin=1.5cm]
-\item Entrada calle 1: T0 - T3.
-\item Entrada calle 2: T1 - T4.
-\item Entrada calle 3: T2 - T5.
-\item Acceder a la playa: T6 - T7 - T8.
-\item Planta Alta: T9 - T11 - T13 - T15.
-\item Planta Baja: T10 - T12 - T14 - T16.
-\item Cobrar tickets: T17 - T18 - T19.
-\item Salida: T20 - T21.
-\item Cartel: T22 - T23.
+\item Entrada calle 1: T0 -- T3.
+\item Entrada calle 2: T1 -- T4.
+\item Entrada calle 3: T2 -- T5.
+\item Acceder a la playa: T6 -- T7 -- T8.
+\item Planta Alta: T9 -- T11 -- T13 -- T15.
+\item Planta Baja: T10 -- T12 -- T14 -- T16.
+\item Cobrar tickets: T17 -- T18 -- T19.
+\item Salida: T20 -- T21.
+\item Cartel: T22 -- T23.
 \end{enumerate}
 
 \subsubsection*{Hilos 1, 2 y 3}
@@ -281,7 +281,7 @@ Aca hay que poner todo el tema de la discusion de los hilos, escribir que asigna
 \subsection{Red de Petri}
 Al tratarse de una red que está acotada, se tiene una secuencia de disparos infinita, por lo tanto la red es monótona.
 
-Para las transiciones temporizadas se utiliza una clase dedicada a cronometrarlas: ‘Tiempos’. Una transición con tiempo se cronometra desde el inicio de su sensibilización, y en el momento en el que se la quiere disparar, se debe verificar que el tiempo dicho esté dentro de su intervalo de tiempo $[a_i , b_i]$. Si el disparo se quiere realizar antes del límite inferior $(a_i)$, el hilo debe dormir $a_i-x$ segundos, donde $x$ es el tiempo transcurrido desde que se sensibilizó la transición.
+Para las transiciones temporizadas se utiliza una clase dedicada a ``cronometrarlas": ‘Tiempos’. Una transición con tiempo se cronometra desde el inicio de su sensibilización, y en el momento en el que se la quiere disparar, se debe verificar que el tiempo dicho esté dentro de su intervalo de tiempo $[a_i , b_i]$. Si el disparo se quiere realizar antes del límite inferior $(a_i)$, el hilo debe dormir $a_i-x$ segundos, donde $x$ es el tiempo transcurrido desde que se sensibilizó la transición.
 
 \textbf{Semántica utilizada para las transiciones temporizadas}
 
@@ -297,7 +297,7 @@ Al tener un arco lector, no se utiliza la matriz de incidencia combinada para re
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.35]{estacionamiento_2019}
+    \includegraphics[scale=0.4]{estacionamiento_2019}
     \label{fig:rdp}
     \caption{Red de Petri que modela el sistema.}
 \end{figure}
@@ -696,6 +696,10 @@ Para no entorpecer el documento, se incluye una porción simplificada de código
     public abstract MaqEstado siguienteEstado(int variable);
     static ArrayList<Integer> registro = new ArrayList<>();
     
+    
+    
+    
+    
     /**
      * reinicia el registro de transiciones disparadas.
      */
@@ -730,7 +734,7 @@ INSERTAR DIAGRAMA DE CLASES ACA.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.35]{DSdisparo.png}
-    \label{fig:dsmonitor}
+    \label{fig:dsdisparo}
     \caption{Diagrama del método `disparar' de la clase `RedDePetri'.}
 \end{figure}
 
