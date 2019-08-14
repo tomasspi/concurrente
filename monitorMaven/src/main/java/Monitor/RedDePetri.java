@@ -185,6 +185,20 @@ public class RedDePetri
                     /* se lleva un conteo de cuantos elementos son distintos de cero */
                     elemento++;
                 }
+                
+                int k = 0;
+                /* si los elementos tomados son tambien elementos distintos de cero en 'marcado' */
+                /* aumenta el contador */
+                while(k < elemento && marcado[index[k]] > 0) k++;
+                /* si hay la misma cantidad de elementos en ambos vectores entonces esta */
+                /* sensibilizada */
+                if(k == elemento) v_sensibilizadas[i] = 1;
+                else v_sensibilizadas[i] = 0;
+                
+                /* si es temporal se le da inicio al contador */
+                if(v_sensibilizadas[i] == 1 && isTemporal[i] == 1){
+                    transicion.get(i).setTS();
+                }
             }
             int k = 0;
             /* si los elementos tomados son tambien elementos distintos de cero en 'marcado' */

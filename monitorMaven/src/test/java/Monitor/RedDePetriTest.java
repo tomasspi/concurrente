@@ -154,7 +154,7 @@ public class RedDePetriTest {
     }
     
     /**
-     * Test of actualizarInhibidas method, of class RedDePetri.
+     * Test of disparar method, of class RedDePetri.
      */
     @Test
     public void testDispararNoSensibilizada() {

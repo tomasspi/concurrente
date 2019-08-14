@@ -54,7 +54,15 @@ public class MainTest {
     @org.junit.After
     public void tearDown() {
     }
+<<<<<<< HEAD
     
+=======
+
+    /**
+     * Test of main method, of class Main.
+     * @throws java.lang.Exception
+     */
+>>>>>>> df2ac2fa28e7f6d11b92ca96964d2a445b8e2f9e
     @org.junit.Test
     public void MaqEstadoTest(){
         rdp = RedDePetri.getRdP();
